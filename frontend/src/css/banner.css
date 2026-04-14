@@ -99,8 +99,7 @@
 .health-banner-content {
   position: absolute;
   left: 24px;
-  right: 24px;
-  bottom: 24px;
+  top: 24px;
   z-index: 2;
 }
 
@@ -111,6 +110,13 @@
   line-height: 1.1;
   font-weight: 700;
   margin-bottom: 22px;
+}
+
+.Health-card-banner-text {
+  bottom: 24px;
+  z-index: 3;
+  position: absolute;
+  left: 24px;
 }
 
 .health-banner-btn {

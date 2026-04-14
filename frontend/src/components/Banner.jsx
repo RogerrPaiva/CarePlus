@@ -67,17 +67,19 @@ function Banner() {
                 alt="Banner saúde"
                 className="health-banner-image"
               />
+            
+            <div className="Health-card-banner-text">
+                <a href="#" className="health-banner-btn">
+                  Saiba mais
+                </a>
+            </div>
 
-              <div className="health-banner-overlay"></div>
+            <div className="health-banner-overlay"></div>
 
               <div className="health-banner-content">
                 <h2 className="health-banner-card-title">
                   Atendimento médico adulto e pediátrico imediato
                 </h2>
-
-                <a href="#" className="health-banner-btn">
-                  Saiba mais
-                </a>
               </div>
 
               <div className="health-banner-arrows">
