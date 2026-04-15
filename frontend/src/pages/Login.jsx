@@ -27,17 +27,28 @@ const valueCards = [
   {
     icon: Flame,
     title: "Streak de cuidado",
-    description: "Volte todos os dias para manter sua sequência com hábitos leves e consistentes.",
+    description: "Volte no seu ritmo para manter sua consistência sem pressão.",
   },
   {
     icon: Target,
     title: "Missões com propósito",
-    description: "Receba desafios simples que ajudam a transformar intenção em rotina.",
+    description: "Receba próximos passos simples para transformar intenção em rotina.",
   },
   {
     icon: TrendingUp,
     title: "Evolução que aparece",
-    description: "Veja seu progresso diário e semanal sem excesso de informação.",
+    description: "Acompanhe o que avançou e o que merece atenção, sem excesso de informação.",
+  },
+];
+
+const mobileHighlights = [
+  {
+    title: "Missões leves",
+    description: "Retome o ritmo com passos simples e bem guiados.",
+  },
+  {
+    title: "Progresso claro",
+    description: "Veja o que avançou sem sobrecarga visual.",
   },
 ];
 
@@ -134,7 +145,7 @@ function Login() {
     setErrors(nextErrors);
 
     if (Object.keys(nextErrors).length > 0) {
-      setHelperMessage("Revise os campos destacados para continuar sua jornada.");
+      setHelperMessage("Revise os campos destacados para entrar.");
       return;
     }
 
@@ -155,12 +166,21 @@ function Login() {
         <div className="container-fluid custom-container">
           <div className="login-grid">
             <div className="login-hero">
-              <span className="section-eyebrow">Nova entrada do Care Plus</span>
-              <h1>Entre para continuar sua jornada de cuidado.</h1>
+              <span className="section-eyebrow">Por que voltar ao Care Plus</span>
+              <h1>Seu cuidado continua de onde você parou.</h1>
               <p>
-                Missões diárias, progresso visível e recompensas por hábitos saudáveis em uma experiência
-                mais moderna, acolhedora e pronta para evoluir com você.
+                Retome hábitos leves com missões discretas, sequência de cuidado e evolução fácil
+                de acompanhar no seu ritmo.
               </p>
+
+              <div className="login-hero__summary" aria-label="Resumo do Care Plus">
+                {mobileHighlights.map((item) => (
+                  <article className="login-hero__summary-item" key={item.title}>
+                    <strong>{item.title}</strong>
+                    <span>{item.description}</span>
+                  </article>
+                ))}
+              </div>
 
               <div className="login-hero__cards">
                 {valueCards.map((card) => {
@@ -189,8 +209,8 @@ function Login() {
             <div className="login-card">
               <div className="login-card__header">
                 <span className="login-card__eyebrow">Entrar no Care Plus</span>
-                <h2>Entre para continuar sua jornada de cuidado</h2>
-                <p>Missões diárias, progresso visível e recompensas por hábitos saudáveis.</p>
+                <h2>Acesse seu espaço no Care Plus</h2>
+                <p>Entre com sua conta para revisar missões, sequência de cuidado e preferências de privacidade.</p>
               </div>
 
               <div className="login-socials">
@@ -306,10 +326,10 @@ function Login() {
                   type="button"
                   className="login-text-button"
                   onClick={() =>
-                    showTemporaryMessage("O cadastro guiado será conectado em seguida. Neste momento, use um e-mail e uma senha válidos para testar o fluxo.")
+                    showTemporaryMessage("A criação de conta guiada será conectada em seguida. Neste momento, use um e-mail e uma senha válidos para testar o fluxo.")
                   }
                 >
-                  Primeiro acesso
+                  Criar conta
                 </button>
               </div>
 
@@ -318,13 +338,13 @@ function Login() {
                   <Award size={18} aria-hidden="true" />
                 </div>
                 <div>
-                  <strong>Privacidade e transparência desde o início.</strong>
-                  <p>Seus dados de saúde só serão conectados com seu consentimento, respeitando contexto e clareza.</p>
+                  <strong>Privacidade e consentimento com clareza.</strong>
+                  <p>Você revisa permissões antes de conectar qualquer dado de saúde ao Care Plus.</p>
                 </div>
               </div>
 
               <p className="login-card__footer">
-                Ao entrar, você acessa uma base preparada para evoluir com consentimento detalhado, integrações de saúde e missões com pontos.
+                Depois do login, você encontra sua base inicial com consentimentos, próximas missões e evolução organizada em um só lugar.
               </p>
 
               <Link className="login-back-link" to="/">
