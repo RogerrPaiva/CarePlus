@@ -42,17 +42,6 @@ const valueCards = [
   },
 ];
 
-const mobileHighlights = [
-  {
-    title: "Missões leves",
-    description: "Retome o ritmo com passos simples e bem guiados.",
-  },
-  {
-    title: "Progresso claro",
-    description: "Veja o que avançou sem sobrecarga visual.",
-  },
-];
-
 function validateField(name, value) {
   if (name === "email") {
     if (!value.trim()) {
@@ -169,7 +158,7 @@ function Login() {
   }
 
   return (
-    <ProductLayout contextLabel="Entrada do app">
+    <ProductLayout contextLabel="Entrada do app" compactMobileHeader>
       <section className="login-page">
         <div className="container-fluid custom-container">
           <div className="login-grid">
@@ -180,15 +169,6 @@ function Login() {
                 Retome hábitos leves com missões discretas, sequência de cuidado e evolução fácil
                 de acompanhar no seu ritmo.
               </p>
-
-              <div className="login-hero__summary" aria-label="Resumo do Care Plus">
-                {mobileHighlights.map((item) => (
-                  <article className="login-hero__summary-item" key={item.title}>
-                    <strong>{item.title}</strong>
-                    <span>{item.description}</span>
-                  </article>
-                ))}
-              </div>
 
               <div className="login-hero__cards">
                 {valueCards.map((card) => {
@@ -217,7 +197,10 @@ function Login() {
             <div className="login-card">
               <div className="login-card__header">
                 <span className="login-card__eyebrow">Entrar no Care Plus</span>
-                <h2>Acesse seu espaço no Care Plus</h2>
+                <h2>
+                  <span className="login-card__title-desktop">Acesse seu espaço no Care Plus</span>
+                  <span className="login-card__title-mobile">Entre no Care Plus</span>
+                </h2>
                 <p>Entre com sua conta para revisar missões, sequência de cuidado e preferências de privacidade.</p>
               </div>
 
@@ -356,8 +339,12 @@ function Login() {
                   <ShieldCheck size={18} aria-hidden="true" />
                 </div>
                 <div>
-                  <strong>Conexões de saúde só entram com sua escolha.</strong>
-                  <p>Nada é conectado automaticamente. Você revisa cada permissão antes de ativar dados de saúde e pode voltar a esse controle depois.</p>
+                  <strong className="login-trust-block__desktop-copy">Conexões de saúde só entram com sua escolha.</strong>
+                  <strong className="login-trust-block__mobile-copy">Você decide suas conexões.</strong>
+                  <p className="login-trust-block__desktop-copy">
+                    Nada é conectado automaticamente. Você revisa cada permissão antes de ativar dados de saúde e pode voltar a esse controle depois.
+                  </p>
+                  <p className="login-trust-block__mobile-copy">Nada conecta sem sua revisão e consentimento.</p>
                 </div>
               </div>
 

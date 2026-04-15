@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import CarePlus from "../assets/CarePlus.svg";
 import "../styles/product-header.css";
 
-function ProductHeader({ contextLabel }) {
+function ProductHeader({ contextLabel, compactMobileHeader = false }) {
   return (
-    <header className="product-header">
+    <header className={`product-header ${compactMobileHeader ? "product-header--compact-mobile" : ""}`}>
       <div className="container-fluid custom-container">
         <div className="product-header__inner">
           <Link className="product-header__brand" to="/" aria-label="Voltar para a home do Care Plus">
@@ -28,6 +28,15 @@ function ProductHeader({ contextLabel }) {
             </Link>
           </div>
         </div>
+
+        {compactMobileHeader ? (
+          <div className="product-header__mobile">
+            <Link to="/" className="product-header__mobile-link">
+              <ArrowLeft size={16} aria-hidden="true" />
+              Voltar para a home
+            </Link>
+          </div>
+        ) : null}
       </div>
     </header>
   );
