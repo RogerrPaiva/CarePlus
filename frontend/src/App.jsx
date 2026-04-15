@@ -1,15 +1,7 @@
-import Header from "./components/Header";
-import Banner from "./components/Banner";
-import Footer from "./components/Footer";
+import AppRoutes from "./routes/AppRoutes";
 
 function App() {
-  return (
-    <>
-      <Header />
-      <Banner />
-      <Footer />
-    </>
-  );
+  return <AppRoutes />;
 }
 
 export default App;

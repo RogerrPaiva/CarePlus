@@ -1,0 +1,36 @@
+import { ArrowLeft, ShieldCheck } from "lucide-react";
+import { Link } from "react-router-dom";
+import CarePlus from "../assets/CarePlus.svg";
+import "../styles/product-header.css";
+
+function ProductHeader({ contextLabel }) {
+  return (
+    <header className="product-header">
+      <div className="container-fluid custom-container">
+        <div className="product-header__inner">
+          <Link className="product-header__brand" to="/" aria-label="Voltar para a home do Care Plus">
+            <img src={CarePlus} alt="Care Plus" className="product-header__logo" />
+            <div>
+              <span className="product-header__eyebrow">Care Plus digital</span>
+              <strong className="product-header__title">{contextLabel}</strong>
+            </div>
+          </Link>
+
+          <div className="product-header__actions">
+            <div className="product-header__trust">
+              <ShieldCheck size={16} aria-hidden="true" />
+              <span>Consentimento e transparência desde o início</span>
+            </div>
+
+            <Link to="/" className="product-header__link">
+              <ArrowLeft size={16} aria-hidden="true" />
+              Voltar para a home
+            </Link>
+          </div>
+        </div>
+      </div>
+    </header>
+  );
+}
+
+export default ProductHeader;

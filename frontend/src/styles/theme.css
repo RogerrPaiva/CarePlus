@@ -1,0 +1,152 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@400;600;700;800&display=swap");
+
+:root {
+  --cp-green: #1c9770;
+  --cp-green-strong: #0d5f47;
+  --cp-lime: #9bd36a;
+  --cp-mint: #dff5ee;
+  --cp-surface: #ffffff;
+  --cp-surface-alt: #f2faf6;
+  --cp-border: #cfe8df;
+  --cp-text: #14362c;
+  --cp-text-muted: #5b746b;
+  --cp-shadow-soft: 0 18px 42px rgba(13, 95, 71, 0.08);
+  --cp-shadow-strong: 0 26px 56px rgba(9, 48, 36, 0.12);
+  --cp-radius-xl: 32px;
+  --cp-radius-lg: 24px;
+  --cp-radius-md: 18px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  font-family: "Manrope", sans-serif;
+  color: var(--cp-text);
+  background:
+    radial-gradient(circle at top left, rgba(223, 245, 238, 0.95), transparent 35%),
+    radial-gradient(circle at top right, rgba(155, 211, 106, 0.18), transparent 28%),
+    #f8fcfa;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a,
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-family: "Sora", sans-serif;
+  letter-spacing: -0.04em;
+}
+
+p {
+  margin: 0;
+}
+
+.custom-container {
+  max-width: 1280px;
+}
+
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -64px;
+  z-index: 999;
+  padding: 12px 18px;
+  border-radius: 999px;
+  background: var(--cp-green-strong);
+  color: #fff;
+  text-decoration: none;
+  box-shadow: var(--cp-shadow-soft);
+}
+
+.skip-link:focus {
+  top: 16px;
+}
+
+.section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  margin-bottom: 14px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: rgba(28, 151, 112, 0.09);
+  color: var(--cp-green-strong);
+  font-size: 0.84rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.section-title {
+  max-width: 720px;
+  font-size: clamp(2rem, 3.4vw, 3.1rem);
+  line-height: 1.08;
+}
+
+.section-copy {
+  max-width: 700px;
+  color: var(--cp-text-muted);
+  font-size: 1.02rem;
+  line-height: 1.8;
+}
+
+.product-page {
+  min-height: calc(100vh - 88px);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid rgba(28, 151, 112, 0.28);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
