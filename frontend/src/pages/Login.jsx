@@ -16,7 +16,7 @@ import {
 import { FaApple } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import ProductLayout from "../components/ProductLayout";
-import "../styles/login.css";
+import "./Login.css";
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const initialValues = {
