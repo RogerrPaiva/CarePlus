@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
+  AlertCircle,
   ArrowRight,
-  Award,
   Eye,
   EyeOff,
   Flame,
+  Info,
   Lock,
   Mail,
   ShieldCheck,
@@ -96,7 +97,7 @@ function Login() {
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
   const [showPassword, setShowPassword] = useState(false);
-  const [helperMessage, setHelperMessage] = useState("");
+  const [helperMessage, setHelperMessage] = useState(null);
 
   useEffect(() => {
     document.title = "Care Plus | Login";
@@ -145,7 +146,11 @@ function Login() {
     setErrors(nextErrors);
 
     if (Object.keys(nextErrors).length > 0) {
-      setHelperMessage("Revise os campos destacados para entrar.");
+      setHelperMessage({
+        tone: "error",
+        title: "Revise os campos para continuar.",
+        text: "Preencha ou corrija os campos destacados para entrar com segurança no Care Plus.",
+      });
       return;
     }
 
@@ -157,7 +162,10 @@ function Login() {
   }
 
   function showTemporaryMessage(message) {
-    setHelperMessage(message);
+    setHelperMessage({
+      tone: "info",
+      text: message,
+    });
   }
 
   return (
@@ -202,7 +210,7 @@ function Login() {
 
               <div className="login-hero__trust">
                 <ShieldCheck size={18} aria-hidden="true" />
-                <span>Seus dados de saúde só serão conectados com seu consentimento.</span>
+                <span>Dados de saúde continuam opcionais até você revisar e autorizar cada conexão.</span>
               </div>
             </div>
 
@@ -238,9 +246,19 @@ function Login() {
               </div>
 
               {helperMessage ? (
-                <p className="login-helper-message" aria-live="polite">
-                  {helperMessage}
-                </p>
+                <div
+                  className={`login-helper-message is-${helperMessage.tone}`}
+                  aria-live={helperMessage.tone === "error" ? "assertive" : "polite"}
+                  role={helperMessage.tone === "error" ? "alert" : undefined}
+                >
+                  <span className="login-helper-message__icon" aria-hidden="true">
+                    {helperMessage.tone === "error" ? <AlertCircle size={18} /> : <Info size={18} />}
+                  </span>
+                  <div>
+                    {helperMessage.title ? <strong>{helperMessage.title}</strong> : null}
+                    <p>{helperMessage.text}</p>
+                  </div>
+                </div>
               ) : null}
 
               <div className="login-divider">
@@ -335,16 +353,16 @@ function Login() {
 
               <div className="login-trust-block">
                 <div className="login-trust-block__icon">
-                  <Award size={18} aria-hidden="true" />
+                  <ShieldCheck size={18} aria-hidden="true" />
                 </div>
                 <div>
-                  <strong>Privacidade e consentimento com clareza.</strong>
-                  <p>Você revisa permissões antes de conectar qualquer dado de saúde ao Care Plus.</p>
+                  <strong>Conexões de saúde só entram com sua escolha.</strong>
+                  <p>Nada é conectado automaticamente. Você revisa cada permissão antes de ativar dados de saúde e pode voltar a esse controle depois.</p>
                 </div>
               </div>
 
               <p className="login-card__footer">
-                Depois do login, você encontra sua base inicial com consentimentos, próximas missões e evolução organizada em um só lugar.
+                Depois do login, você entra primeiro na sua base inicial. Consentimentos aparecem com contexto, conexões seguem opcionais e suas próximas missões ficam organizadas no mesmo fluxo.
               </p>
 
               <Link className="login-back-link" to="/">

@@ -141,12 +141,57 @@
 }
 
 .login-helper-message {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px;
+  align-items: flex-start;
   margin-top: 14px;
-  padding: 12px 14px;
-  border-radius: 16px;
-  background: rgba(28, 151, 112, 0.08);
-  color: var(--cp-text);
+  padding: 14px 16px;
+  border-radius: 18px;
+  border: 1px solid transparent;
   line-height: 1.6;
+}
+
+.login-helper-message strong {
+  display: block;
+  margin-bottom: 2px;
+  font-size: 0.95rem;
+}
+
+.login-helper-message p {
+  margin: 0;
+}
+
+.login-helper-message__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+}
+
+.login-helper-message.is-info {
+  background: rgba(28, 151, 112, 0.08);
+  border-color: rgba(28, 151, 112, 0.12);
+  color: var(--cp-text);
+}
+
+.login-helper-message.is-info .login-helper-message__icon {
+  background: rgba(28, 151, 112, 0.12);
+  color: var(--cp-green-strong);
+}
+
+.login-helper-message.is-error {
+  background: rgba(194, 66, 46, 0.08);
+  border-color: rgba(194, 66, 46, 0.22);
+  color: #7d3022;
+  box-shadow: 0 10px 24px rgba(194, 66, 46, 0.08);
+}
+
+.login-helper-message.is-error .login-helper-message__icon {
+  background: rgba(194, 66, 46, 0.12);
+  color: #b34a34;
 }
 
 .login-divider {
@@ -271,7 +316,8 @@
   gap: 14px;
   padding: 18px;
   border-radius: 24px;
-  background: rgba(28, 151, 112, 0.08);
+  background: linear-gradient(180deg, rgba(28, 151, 112, 0.08), rgba(255, 255, 255, 0.72));
+  border: 1px solid rgba(28, 151, 112, 0.12);
 }
 
 .login-trust-block__icon {
@@ -297,6 +343,7 @@
 
 .login-card__footer {
   margin-top: 20px;
+  max-width: 48ch;
 }
 
 .login-back-link {
@@ -361,6 +408,10 @@
     align-items: flex-start;
     gap: 10px;
     margin: 16px 0 20px;
+  }
+
+  .login-helper-message {
+    padding: 14px;
   }
 
   .login-hero h1 {
