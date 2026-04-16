@@ -8,13 +8,13 @@ function ProductHeader({ contextLabel, compactMobileHeader = false }) {
     <header className={`product-header ${compactMobileHeader ? "product-header--compact-mobile" : ""}`}>
       <div className="container-fluid custom-container">
         <div className="product-header__inner">
-          <Link className="product-header__brand" to="/" aria-label="Voltar para a home do Care Plus">
-            <img src={CarePlus} alt="Care Plus" className="product-header__logo" />
-            <div>
-              <span className="product-header__eyebrow">Care Plus digital</span>
-              <strong className="product-header__title">{contextLabel}</strong>
-            </div>
-          </Link>
+          <div className="product-header__rail">
+            <Link className="product-header__brand" to="/" aria-label="Voltar para a home do Care Plus">
+              <img src={CarePlus} alt="Care Plus" className="product-header__logo" />
+            </Link>
+
+            <span className="product-header__context">{contextLabel}</span>
+          </div>
 
           <div className="product-header__actions">
             <div className="product-header__trust">

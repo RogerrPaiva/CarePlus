@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AlertCircle, ArrowRight, Eye, EyeOff, Info, Lock, Mail, ShieldCheck } from "lucide-react";
 import { FaApple } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
@@ -136,12 +136,11 @@ function Login() {
             <div className="login-hero">
               <div className="login-hero__frame">
                 <div className="login-hero__brand">
-                  <img src={CarePlus} alt="Care Plus" className="login-hero__logo" />
+                  <div className="login-hero__brand-mark">
+                    <img src={CarePlus} alt="Care Plus" className="login-hero__logo" />
+                  </div>
                 </div>
 
-                <div className="login-hero__content">
-                  <h1>Cuidado contínuo, do seu jeito.</h1>
-                </div>
               </div>
             </div>
 
@@ -149,10 +148,17 @@ function Login() {
               <div className="login-card__header">
                 <span className="login-card__eyebrow">Entrar no Care Plus</span>
                 <h2>
-                  <span className="login-card__title-desktop">Acesse seu espaço no Care Plus</span>
+                  <span className="login-card__title-desktop">Entre no Care Plus</span>
                   <span className="login-card__title-mobile">Entre no Care Plus</span>
                 </h2>
-                <p>Entre com sua conta para revisar missões, sequência de cuidado e preferências de privacidade.</p>
+                <p>
+                  <span className="login-card__copy-desktop">
+                    Entre com sua conta para revisar hábitos e preferências de cuidado.
+                  </span>
+                  <span className="login-card__copy-mobile">
+                    Entre com sua conta para revisar missões, sequência de cuidado e preferências de privacidade.
+                  </span>
+                </p>
               </div>
 
               <div className="login-socials">
@@ -290,22 +296,18 @@ function Login() {
                   <ShieldCheck size={18} aria-hidden="true" />
                 </div>
                 <div>
-                  <strong className="login-trust-block__desktop-copy">Conexões de saúde só entram com sua escolha.</strong>
+                  <strong className="login-trust-block__desktop-copy">Permissões de saúde seguem sob sua escolha.</strong>
                   <strong className="login-trust-block__mobile-copy">Você revisa permissões antes de conectar.</strong>
                   <p className="login-trust-block__desktop-copy">
-                    Nada é conectado automaticamente. Você revisa cada permissão antes de ativar dados de saúde e pode voltar a esse controle depois.
+                    Nada é conectado automaticamente. Você revisa consentimentos antes de ativar qualquer dado.
                   </p>
                   <p className="login-trust-block__mobile-copy">Dados de saúde seguem opcionais e você ajusta isso quando quiser.</p>
                 </div>
               </div>
 
               <p className="login-card__footer">
-                Depois do login, você entra primeiro na sua base inicial. Consentimentos aparecem com contexto, conexões seguem opcionais e suas próximas missões ficam organizadas no mesmo fluxo.
+                Depois do login, sua base inicial organiza consentimentos e próximos passos.
               </p>
-
-              <Link className="login-back-link" to="/">
-                Voltar para a home institucional-produto
-              </Link>
             </div>
           </div>
         </div>
