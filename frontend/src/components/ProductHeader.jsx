@@ -31,9 +31,13 @@ function ProductHeader({ contextLabel, compactMobileHeader = false }) {
 
         {compactMobileHeader ? (
           <div className="product-header__mobile">
-            <Link to="/" className="product-header__mobile-link">
+            <Link
+              to="/"
+              className="product-header__mobile-link"
+              aria-label="Voltar para a home do Care Plus"
+              title="Voltar para a home"
+            >
               <ArrowLeft size={16} aria-hidden="true" />
-              Voltar para a home
             </Link>
           </div>
         ) : null}

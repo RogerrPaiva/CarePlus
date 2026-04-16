@@ -1,20 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {
-  AlertCircle,
-  ArrowRight,
-  Eye,
-  EyeOff,
-  Flame,
-  Info,
-  Lock,
-  Mail,
-  ShieldCheck,
-  Target,
-  TrendingUp,
-} from "lucide-react";
+import { AlertCircle, ArrowRight, Eye, EyeOff, Info, Lock, Mail, ShieldCheck } from "lucide-react";
 import { FaApple } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
+import CarePlus from "../assets/CarePlus.svg";
 import ProductLayout from "../components/ProductLayout";
 import "./Login.css";
 
@@ -23,24 +12,6 @@ const initialValues = {
   email: "",
   password: "",
 };
-
-const valueCards = [
-  {
-    icon: Flame,
-    title: "Streak de cuidado",
-    description: "Volte no seu ritmo para manter sua consistência sem pressão.",
-  },
-  {
-    icon: Target,
-    title: "Missões com propósito",
-    description: "Receba próximos passos simples para transformar intenção em rotina.",
-  },
-  {
-    icon: TrendingUp,
-    title: "Evolução que aparece",
-    description: "Acompanhe o que avançou e o que merece atenção, sem excesso de informação.",
-  },
-];
 
 function validateField(name, value) {
   if (name === "email") {
@@ -163,34 +134,14 @@ function Login() {
         <div className="container-fluid custom-container">
           <div className="login-grid">
             <div className="login-hero">
-              <span className="section-eyebrow">Por que voltar ao Care Plus</span>
-              <h1>Seu cuidado continua de onde você parou.</h1>
-              <p>
-                Retome hábitos leves com missões discretas, sequência de cuidado e evolução fácil
-                de acompanhar no seu ritmo.
-              </p>
+              <div className="login-hero__frame">
+                <div className="login-hero__brand">
+                  <img src={CarePlus} alt="Care Plus" className="login-hero__logo" />
+                </div>
 
-              <div className="login-hero__cards">
-                {valueCards.map((card) => {
-                  const IconComponent = card.icon;
-
-                  return (
-                    <article className="login-hero__card" key={card.title}>
-                      <span className="login-hero__icon">
-                        <IconComponent size={18} aria-hidden="true" />
-                      </span>
-                      <div>
-                        <strong>{card.title}</strong>
-                        <p>{card.description}</p>
-                      </div>
-                    </article>
-                  );
-                })}
-              </div>
-
-              <div className="login-hero__trust">
-                <ShieldCheck size={18} aria-hidden="true" />
-                <span>Dados de saúde continuam opcionais até você revisar e autorizar cada conexão.</span>
+                <div className="login-hero__content">
+                  <h1>Cuidado contínuo, do seu jeito.</h1>
+                </div>
               </div>
             </div>
 
@@ -340,11 +291,11 @@ function Login() {
                 </div>
                 <div>
                   <strong className="login-trust-block__desktop-copy">Conexões de saúde só entram com sua escolha.</strong>
-                  <strong className="login-trust-block__mobile-copy">Você decide suas conexões.</strong>
+                  <strong className="login-trust-block__mobile-copy">Você revisa permissões antes de conectar.</strong>
                   <p className="login-trust-block__desktop-copy">
                     Nada é conectado automaticamente. Você revisa cada permissão antes de ativar dados de saúde e pode voltar a esse controle depois.
                   </p>
-                  <p className="login-trust-block__mobile-copy">Nada conecta sem sua revisão e consentimento.</p>
+                  <p className="login-trust-block__mobile-copy">Dados de saúde seguem opcionais e você ajusta isso quando quiser.</p>
                 </div>
               </div>
 
