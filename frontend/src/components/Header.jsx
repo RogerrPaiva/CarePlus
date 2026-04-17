@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Search, User, HeadsetIcon } from "lucide-react";
 import { FaChevronDown } from "react-icons/fa";
 import CarePlus from "../assets/CarePlus.svg";
@@ -34,9 +35,9 @@ function Header() {
       <div className="main-navbar border-bottom-green">
         <div className="container-fluid custom-container">
           <nav className="navbar navbar-expand-lg bg-white p-0">
-            <a className="navbar-brand me-4" href="#">
+            <Link to="/home" className="navbar-brand me-4" href="#">
               <img src={CarePlus} alt="CarePlus" className="logo-img" />
-            </a>
+            </Link>
 
             <button
               className="navbar-toggler"
@@ -149,10 +150,10 @@ function Header() {
                   <Search size={20} />
                 </button>
 
-                <button className="btn btn-plus d-flex align-items-center gap-2">
+                <Link to="/login" className="btn btn-plus d-flex align-items-center gap-2">
                   Seja Plus
                   <User size={18} />
-                </button>
+                </Link>
               </div>
             </div>
           </nav>
