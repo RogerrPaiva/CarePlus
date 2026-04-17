@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { AlertCircle, ArrowLeft, ArrowRight, Eye, EyeOff, Info, Lock, Mail, ShieldCheck } from "lucide-react";
+import { ArrowLeft, ArrowRight, Eye, EyeOff, Info, Lock, Mail, ShieldCheck } from "lucide-react";
 import { FaApple } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import CarePlus from "../assets/CarePlus.svg";
@@ -97,8 +97,6 @@ function Login() {
     event.preventDefault();
 
     const nextErrors = validateForm(values);
-    const showCompactErrorFeedback =
-      typeof window !== "undefined" && window.matchMedia("(max-width: 991.98px)").matches;
 
     setTouched({
       email: true,
@@ -107,15 +105,7 @@ function Login() {
     setErrors(nextErrors);
 
     if (Object.keys(nextErrors).length > 0) {
-      if (showCompactErrorFeedback) {
-        setHelperMessage({
-          tone: "error",
-          title: "Revise os campos para continuar.",
-          text: "Preencha ou corrija os campos destacados para entrar com segurança no Care Plus.",
-        });
-      } else {
-        setHelperMessage(null);
-      }
+      setHelperMessage(null);
       return;
     }
 
@@ -128,7 +118,6 @@ function Login() {
 
   function showTemporaryMessage(message) {
     setHelperMessage({
-      tone: "info",
       text: message,
     });
   }
@@ -210,16 +199,11 @@ function Login() {
                 </div>
 
                 {helperMessage ? (
-                  <div
-                    className={`login-helper-message is-${helperMessage.tone}`}
-                    aria-live={helperMessage.tone === "error" ? "assertive" : "polite"}
-                    role={helperMessage.tone === "error" ? "alert" : undefined}
-                  >
+                  <div className="login-helper-message is-info" aria-live="polite">
                     <span className="login-helper-message__icon" aria-hidden="true">
-                      {helperMessage.tone === "error" ? <AlertCircle size={18} /> : <Info size={18} />}
+                      <Info size={18} />
                     </span>
                     <div>
-                      {helperMessage.title ? <strong>{helperMessage.title}</strong> : null}
                       <p>{helperMessage.text}</p>
                     </div>
                   </div>
