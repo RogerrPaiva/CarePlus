@@ -288,17 +288,9 @@ function Login() {
                     Esqueci minha senha
                   </button>
 
-                  <button
-                    type="button"
-                    className="login-text-button"
-                    onClick={() =>
-                      showTemporaryMessage(
-                        "A criação de conta guiada será conectada em seguida. Neste momento, use um e-mail e uma senha válidos para testar o fluxo.",
-                      )
-                    }
-                  >
+                  <Link to="/cadastro" className="login-text-button">
                     Criar conta
-                  </button>
+                  </Link>
                 </div>
 
                 <div className="login-trust-block">
