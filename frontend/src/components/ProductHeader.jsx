@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 import CarePlus from "../assets/CarePlus.svg";
 import "../styles/product-header.css";
 
-function ProductHeader({ contextLabel, compactMobileHeader = false }) {
+function ProductHeader({ contextLabel, compactMobileHeader = false, minimalDesktopHeader = false }) {
   return (
-    <header className={`product-header ${compactMobileHeader ? "product-header--compact-mobile" : ""}`}>
+    <header
+      className={`product-header ${compactMobileHeader ? "product-header--compact-mobile" : ""} ${minimalDesktopHeader ? "product-header--minimal-desktop" : ""}`}
+    >
       <div className="container-fluid custom-container">
         <div className="product-header__inner">
           <div className="product-header__rail">
@@ -13,14 +15,14 @@ function ProductHeader({ contextLabel, compactMobileHeader = false }) {
               <img src={CarePlus} alt="Care Plus" className="product-header__logo" />
             </Link>
 
-            <span className="product-header__context">{contextLabel}</span>
+            {!minimalDesktopHeader ? <span className="product-header__context">{contextLabel}</span> : null}
           </div>
 
           <div className="product-header__actions">
-            <div className="product-header__trust">
+            {!minimalDesktopHeader ? <div className="product-header__trust">
               <ShieldCheck size={16} aria-hidden="true" />
               <span>Consentimento e transparência desde o início</span>
-            </div>
+            </div> : null}
 
             <Link to="/" className="product-header__link">
               <ArrowLeft size={16} aria-hidden="true" />

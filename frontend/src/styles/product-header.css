@@ -138,6 +138,36 @@
     0 12px 22px rgba(20, 54, 44, 0.08);
 }
 
+.product-header--minimal-desktop {
+  backdrop-filter: blur(10px);
+  background: linear-gradient(180deg, rgba(248, 252, 250, 0.76), rgba(248, 252, 250, 0.24) 72%, rgba(248, 252, 250, 0));
+}
+
+.product-header--minimal-desktop::before {
+  background:
+    radial-gradient(circle at 12% 0%, rgba(122, 209, 195, 0.1), transparent 24%),
+    radial-gradient(circle at 88% 12%, rgba(147, 203, 82, 0.08), transparent 18%);
+}
+
+.product-header--minimal-desktop .product-header__inner {
+  min-height: 64px;
+}
+
+.product-header--minimal-desktop .product-header__link {
+  min-height: 36px;
+  padding: 0 14px;
+  border-color: rgba(20, 54, 44, 0.08);
+  background: rgba(255, 255, 255, 0.54);
+  box-shadow: none;
+  color: rgba(20, 54, 44, 0.88);
+}
+
+.product-header--minimal-desktop .product-header__link:hover {
+  border-color: rgba(20, 54, 44, 0.14);
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: none;
+}
+
 @media (max-width: 991.98px) {
   .product-header__inner {
     grid-template-columns: 1fr;
