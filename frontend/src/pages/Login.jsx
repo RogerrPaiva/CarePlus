@@ -295,13 +295,13 @@ function Login() {
                 <div className="login-trust-block__icon">
                   <ShieldCheck size={18} aria-hidden="true" />
                 </div>
-                <div>
+                <div className="login-trust-block__content">
                   <strong className="login-trust-block__desktop-copy">Permissões de saúde seguem sob sua escolha.</strong>
                   <strong className="login-trust-block__mobile-copy">Você revisa permissões antes de conectar.</strong>
                   <p className="login-trust-block__desktop-copy">
                     Nada é conectado automaticamente. Você revisa consentimentos antes de ativar qualquer dado.
                   </p>
-                  <p className="login-trust-block__mobile-copy">Dados de saúde seguem opcionais e você ajusta isso quando quiser.</p>
+                  <p className="login-trust-block__mobile-copy">Dados de saúde seguem opcionais. Você ajusta isso quando quiser.</p>
                 </div>
               </div>
 

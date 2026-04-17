@@ -416,25 +416,33 @@
 
 .login-secondary-actions {
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-between;
-  gap: 12px;
-  margin: 14px 0 14px;
+  align-items: center;
+  gap: 16px;
+  margin: 16px 0 12px;
 }
 
 .login-text-button {
+  display: inline-flex;
+  flex: 1 1 0;
+  align-items: center;
+  min-height: 42px;
+  padding: 8px 0;
+  border: none;
+  background: transparent;
   color: rgba(7, 109, 79, 0.98);
   text-decoration: none;
   font-weight: 700;
+  line-height: 1.4;
   transition:
     color 0.22s ease,
-    opacity 0.22s ease;
+    opacity 0.22s ease,
+    text-decoration-color 0.22s ease;
 }
 
-.login-text-button {
-  padding: 0;
-  border: none;
-  background: transparent;
+.login-text-button:last-child {
+  justify-content: flex-end;
+  text-align: right;
 }
 
 .login-trust-block__mobile-copy {
@@ -443,44 +451,54 @@
 
 .login-text-button:hover {
   color: rgba(5, 87, 63, 1);
+  text-decoration: underline;
+  text-decoration-color: rgba(28, 151, 112, 0.3);
 }
 
 .login-text-button:focus-visible {
   outline: none;
   color: rgba(5, 87, 63, 1);
+  border-radius: 10px;
+  box-shadow: 0 0 0 3px rgba(28, 151, 112, 0.1);
 }
 
 .login-trust-block {
   display: grid;
   grid-template-columns: auto 1fr;
-  gap: 11px;
-  padding: 14px;
-  border-radius: 21px;
-  background: linear-gradient(180deg, rgba(122, 209, 195, 0.12), rgba(255, 255, 255, 0.78));
-  border: 1px solid rgba(122, 209, 195, 0.18);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
+  align-items: start;
+  gap: 10px;
+  margin-top: 2px;
+  padding: 12px 0 0;
+  background: linear-gradient(180deg, rgba(122, 209, 195, 0.06), rgba(255, 255, 255, 0));
+  border-top: 1px solid rgba(122, 209, 195, 0.3);
 }
 
 .login-trust-block__icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 38px;
-  height: 38px;
-  border-radius: 13px;
-  background: rgba(255, 255, 255, 0.94);
+  width: 34px;
+  height: 34px;
+  border-radius: 11px;
+  border: 1px solid rgba(122, 209, 195, 0.28);
+  background: rgba(122, 209, 195, 0.12);
   color: var(--cp-green-strong);
-  box-shadow: 0 10px 22px rgba(20, 54, 44, 0.05);
+}
+
+.login-trust-block__content {
+  min-width: 0;
 }
 
 .login-trust-block strong {
   display: block;
-  margin-bottom: 4px;
+  margin-bottom: 2px;
+  color: rgba(18, 48, 39, 0.96);
+  line-height: 1.42;
 }
 
 .login-trust-block p {
-  color: rgba(58, 90, 81, 0.95);
-  line-height: 1.52;
+  color: rgba(72, 102, 94, 0.94);
+  line-height: 1.46;
 }
 
 .login-card__footer {
@@ -671,12 +689,26 @@
 
 @media (max-width: 767.98px) {
   .login-page {
-    padding: 0 0 22px;
+    padding: 4px 0 28px;
+  }
+
+  .login-page::before {
+    inset: 0;
+    background:
+      radial-gradient(circle at 12% 8%, rgba(122, 209, 195, 0.2), transparent 24%),
+      radial-gradient(circle at 88% 2%, rgba(147, 203, 82, 0.14), transparent 18%),
+      radial-gradient(circle at 50% 92%, rgba(122, 209, 195, 0.1), transparent 34%),
+      linear-gradient(180deg, rgba(248, 252, 250, 0.12), rgba(223, 245, 238, 0.22));
+  }
+
+  .login-page .custom-container {
+    padding-right: clamp(18px, 5vw, 26px);
+    padding-left: clamp(18px, 5vw, 26px);
   }
 
   .login-grid {
     gap: 0;
-    max-width: 620px;
+    max-width: 430px;
     margin: 0 auto;
   }
 
@@ -685,13 +717,15 @@
   }
 
   .login-card {
-    padding: 18px;
-    border-radius: 24px;
-    box-shadow: 0 16px 34px rgba(20, 54, 44, 0.1);
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
   }
 
   .login-card__header {
-    margin-bottom: 12px;
+    margin-bottom: 16px;
   }
 
   .login-card__eyebrow {
@@ -715,18 +749,19 @@
   }
 
   .login-card__header h2 {
-    margin-bottom: 4px;
-    font-size: clamp(1.4rem, 6.3vw, 1.8rem);
+    margin-bottom: 6px;
+    font-size: clamp(1.48rem, 6vw, 1.92rem);
+    line-height: 1.02;
   }
 
   .login-card__header p {
-    max-width: 28ch;
-    font-size: 0.88rem;
-    line-height: 1.42;
+    max-width: 31ch;
+    font-size: 0.9rem;
+    line-height: 1.48;
   }
 
   .login-socials {
-    gap: 8px;
+    gap: 10px;
   }
 
   .login-socials__button,
@@ -735,25 +770,47 @@
     min-height: 54px;
   }
 
+  .login-socials__button {
+    border-radius: 16px;
+    border-color: rgba(122, 209, 195, 0.28);
+    background: rgba(255, 255, 255, 0.74);
+    box-shadow: none;
+  }
+
+  .login-input {
+    padding: 0 16px;
+    border-radius: 16px;
+    border-color: rgba(20, 54, 44, 0.12);
+    background: rgba(255, 255, 255, 0.82);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.78);
+  }
+
+  .login-input:focus-within {
+    box-shadow:
+      0 0 0 4px rgba(28, 151, 112, 0.08),
+      0 10px 18px rgba(20, 54, 44, 0.05);
+  }
+
   .login-divider {
     gap: 10px;
-    margin: 12px 0;
-    font-size: 0.8rem;
+    margin: 16px 0 14px;
+    font-size: 0.79rem;
   }
 
   .login-form {
-    gap: 11px;
+    gap: 12px;
   }
 
   .login-field label {
-    margin-bottom: 5px;
+    margin-bottom: 6px;
     font-size: 0.9rem;
   }
 
   .login-helper-message {
-    margin-top: 10px;
+    margin-top: 12px;
     padding: 12px 13px;
     gap: 10px;
+    border-radius: 16px;
   }
 
   .login-field__error {
@@ -764,38 +821,42 @@
 
   .login-submit {
     margin-top: 0;
+    min-height: 56px;
+    border-radius: 17px;
+    box-shadow:
+      0 18px 34px rgba(28, 151, 112, 0.22),
+      inset 0 1px 0 rgba(255, 255, 255, 0.18);
   }
 
   .login-secondary-actions {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 8px;
-    margin: 8px 0 10px;
+    gap: 10px;
+    margin: 12px 0 10px;
   }
 
   .login-text-button {
-    min-height: 40px;
-    padding: 0 10px;
-    border-radius: 999px;
-    border: 1px solid rgba(20, 54, 44, 0.08);
-    background: rgba(248, 251, 249, 0.96);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
+    min-height: 44px;
+    padding: 10px 0;
     font-size: 0.82rem;
     font-weight: 700;
-    line-height: 1.2;
-    text-align: center;
+    line-height: 1.28;
   }
 
   .login-trust-block {
-    gap: 9px;
-    padding: 10px 11px;
-    border-radius: 17px;
+    grid-template-columns: 24px 1fr;
+    gap: 8px;
+    margin-top: 0;
+    padding-top: 12px;
+    border-top-color: rgba(20, 54, 44, 0.1);
+    background: linear-gradient(180deg, rgba(122, 209, 195, 0.05), rgba(255, 255, 255, 0));
   }
 
   .login-trust-block__icon {
-    width: 30px;
-    height: 30px;
-    border-radius: 9px;
+    width: 24px;
+    height: 24px;
+    margin-top: 1px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(180deg, rgba(122, 209, 195, 0.2), rgba(122, 209, 195, 0.08));
   }
 
   .login-trust-block .login-trust-block__desktop-copy {
@@ -807,14 +868,13 @@
   }
 
   .login-trust-block strong {
-    margin-bottom: 2px;
     font-size: 0.84rem;
     line-height: 1.34;
   }
 
   .login-trust-block p {
     font-size: 0.77rem;
-    line-height: 1.36;
+    line-height: 1.38;
   }
 
   .login-card__footer,
@@ -828,23 +888,22 @@
     padding-top: 0;
   }
 
-  .login-card,
-  .login-hero {
-    padding: 16px;
-    border-radius: 21px;
+  .login-page .custom-container {
+    padding-right: 16px;
+    padding-left: 16px;
   }
 
   .login-card__header {
-    margin-bottom: 12px;
+    margin-bottom: 15px;
   }
 
   .login-card__header h2 {
-    margin-bottom: 4px;
-    font-size: clamp(1.34rem, 7.2vw, 1.7rem);
+    margin-bottom: 6px;
+    font-size: clamp(1.4rem, 7vw, 1.8rem);
   }
 
   .login-socials {
-    gap: 8px;
+    gap: 9px;
   }
 
   .login-socials__button,
@@ -853,8 +912,13 @@
     min-height: 52px;
   }
 
+  .login-socials__button,
+  .login-input {
+    border-radius: 15px;
+  }
+
   .login-divider {
-    margin: 11px 0;
+    margin: 15px 0 13px;
   }
 
   .login-form {
@@ -863,7 +927,7 @@
 
   .login-secondary-actions {
     gap: 8px;
-    margin: 8px 0 10px;
+    margin: 11px 0 9px;
   }
 
   .login-helper-message {
@@ -871,13 +935,14 @@
   }
 
   .login-text-button {
-    min-height: 38px;
+    min-height: 44px;
     font-size: 0.78rem;
-    padding: 0 8px;
+    padding: 9px 0;
   }
 
   .login-trust-block {
-    padding: 10px;
+    gap: 7px;
+    padding-top: 10px;
   }
 
   .login-trust-block p {
