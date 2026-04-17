@@ -15,8 +15,8 @@ import {
 } from "lucide-react";
 import { FaApple } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-import ProductLayout from "../components/ProductLayout";
-import "../css/login.css"
+import ProductLayout from "../layouts/product/ProductLayout";
+import "./login-page.css"
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const initialValues = {

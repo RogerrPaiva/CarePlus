@@ -8,9 +8,9 @@ import {
   FaGooglePlay,
   FaApple,
 } from "react-icons/fa";
-import ANS from "../assets/ANS.svg";
-import GODADDY from "../assets/GODADDY.png";
-import "../css/footer.css";
+import ANS from "../../../assets/badges/ANS.svg";
+import GODADDY from "../../../assets/partners/GODADDY.png";
+import "../styles/footer.css";
 
 function Footer() {
   return (

@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { Search, User, HeadsetIcon } from "lucide-react";
 import { FaChevronDown } from "react-icons/fa";
-import CarePlus from "../assets/CarePlus.svg";
-import "../css/header.css";
+import CarePlus from "../../../assets/branding/CarePlus.svg";
+import "../styles/header.css";
 
 function Header() {
   return (
