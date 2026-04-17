@@ -935,10 +935,10 @@
 
   .login-mobile-back .login-back-link {
     justify-content: center;
-    width: 64px;
-    height: 64px;
+    width: 52px;
+    height: 52px;
     padding: 0;
-    border-radius: 28px;
+    border-radius: 22px;
     background: rgba(255, 255, 255, 0.7);
     box-shadow: 0 10px 24px rgba(20, 54, 44, 0.05);
   }
@@ -1135,9 +1135,9 @@
   }
 
   .login-mobile-back .login-back-link {
-    width: 60px;
-    height: 60px;
-    border-radius: 26px;
+    width: 48px;
+    height: 48px;
+    border-radius: 20px;
   }
 
   .login-card__header {
