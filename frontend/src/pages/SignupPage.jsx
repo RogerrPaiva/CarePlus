@@ -1,6 +1,19 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowLeft, ArrowRight, CalendarDays, CreditCard, Eye, EyeOff, Lock, Mail, ShieldCheck, Smartphone, User } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  CalendarDays,
+  CheckCircle2,
+  CreditCard,
+  Eye,
+  EyeOff,
+  Lock,
+  Mail,
+  ShieldCheck,
+  Smartphone,
+  User,
+} from "lucide-react";
 import CarePlus from "../assets/CarePlus.svg";
 import "./Signup.css";
 
@@ -152,6 +165,20 @@ function normalizeValue(name, value) {
   return value;
 }
 
+function hasFieldValue(name, values) {
+  const value = values[name];
+
+  if (name === "phone" || name === "cpf" || name === "birthDate") {
+    return getDigits(value).length > 0;
+  }
+
+  if (name === "acceptTerms" || name === "acceptPrivacy") {
+    return value;
+  }
+
+  return value.trim().length > 0;
+}
+
 function validateField(name, values) {
   const value = values[name];
 
@@ -273,12 +300,33 @@ function SignupPage() {
   const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
+  const [hasSubmitted, setHasSubmitted] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   useEffect(() => {
     document.title = "Care Plus | Cadastro";
   }, []);
+
+  function hasFieldError(name) {
+    return Boolean(errors[name] && touched[name]);
+  }
+
+  function isFieldValid(name) {
+    return Boolean(touched[name] && !errors[name] && hasFieldValue(name, values));
+  }
+
+  function getFieldStateClass(name) {
+    if (hasFieldError(name)) {
+      return "is-error";
+    }
+
+    if (isFieldValid(name)) {
+      return "is-valid";
+    }
+
+    return "";
+  }
 
   function handleChange(event) {
     const { name, value, type, checked } = event.target;
@@ -291,16 +339,21 @@ function SignupPage() {
     setValues(nextValues);
 
     if (touched[name]) {
+      const nextError = hasSubmitted || hasFieldValue(name, nextValues) ? validateField(name, nextValues) : "";
+
       setErrors((currentErrors) => ({
         ...currentErrors,
-        [name]: validateField(name, nextValues),
+        [name]: nextError,
       }));
     }
 
     if (name === "password" && touched.confirmPassword) {
+      const confirmPasswordError =
+        hasSubmitted || hasFieldValue("confirmPassword", nextValues) ? validateField("confirmPassword", nextValues) : "";
+
       setErrors((currentErrors) => ({
         ...currentErrors,
-        confirmPassword: validateField("confirmPassword", nextValues),
+        confirmPassword: confirmPasswordError,
       }));
     }
   }
@@ -313,9 +366,11 @@ function SignupPage() {
       [name]: true,
     }));
 
+    const nextError = hasSubmitted || hasFieldValue(name, values) ? validateField(name, values) : "";
+
     setErrors((currentErrors) => ({
       ...currentErrors,
-      [name]: validateField(name, values),
+      [name]: nextError,
     }));
   }
 
@@ -324,6 +379,7 @@ function SignupPage() {
 
     const nextErrors = validateForm(values);
 
+    setHasSubmitted(true);
     setTouched({
       fullName: true,
       email: true,
@@ -355,6 +411,20 @@ function SignupPage() {
     });
   }
 
+  function renderFieldStatus(name, label) {
+    return (
+      <label htmlFor={name}>
+        <span>{label}</span>
+        {isFieldValid(name) ? (
+          <span className="signup-field__status" aria-hidden="true">
+            <CheckCircle2 size={14} />
+            <span>Conferido</span>
+          </span>
+        ) : null}
+      </label>
+    );
+  }
+
   return (
     <>
       <a className="skip-link" href="#main-content">
@@ -381,23 +451,16 @@ function SignupPage() {
                   <div className="signup-hero__content">
                     <span className="signup-hero__eyebrow">Abertura de conta</span>
                     <h1>Sua conta nasce leve. O cuidado evolui na proxima etapa.</h1>
-                    <p>
-                      Abra sua conta para seguir com consentimentos, preferencias e sua jornada de cuidado com revisao clara
-                      de permissoes.
-                    </p>
+                    <p>Abra sua conta com seguranca agora. O restante do cuidado continua com revisao guiada.</p>
 
-                    <div className="signup-hero__highlights" aria-label="Pilares do cadastro">
-                      <article className="signup-hero__highlight">
+                    <div className="signup-hero__signals" aria-label="Pilares do cadastro">
+                      <article className="signup-hero__signal">
                         <strong>Essencial agora</strong>
-                        <span>Nome, contato, CPF e acesso seguro para comecar com clareza.</span>
+                        <span>Conta, contato e acesso seguro.</span>
                       </article>
-                      <article className="signup-hero__highlight">
+                      <article className="signup-hero__signal">
                         <strong>Consentimentos depois</strong>
-                        <span>LGPD, permissoes e dados mais sensiveis entram no onboarding guiado.</span>
-                      </article>
-                      <article className="signup-hero__highlight">
-                        <strong>Jornada mais transparente</strong>
-                        <span>Voce revisa tudo antes de conectar recursos e preferencias de saude.</span>
+                        <span>Saude e permissoes entram no onboarding.</span>
                       </article>
                     </div>
                   </div>
@@ -415,7 +478,7 @@ function SignupPage() {
                 <div className="signup-panel__header">
                   <span className="signup-panel__eyebrow">Conta segura</span>
                   <h2 id="signup-title">Crie sua conta no Care Plus</h2>
-                  <p>Abra sua conta para seguir com consentimentos, preferencias e sua jornada de cuidado.</p>
+                  <p>Comece com seus dados essenciais. Consentimentos ficam para a proxima etapa.</p>
                 </div>
 
                 <form className="signup-form" noValidate onSubmit={handleSubmit}>
@@ -426,8 +489,8 @@ function SignupPage() {
                     </div>
 
                     <div className="signup-form-grid">
-                      <div className={`signup-field signup-field--full ${errors.fullName && touched.fullName ? "is-error" : ""}`}>
-                        <label htmlFor="fullName">Nome completo</label>
+                      <div className={`signup-field signup-field--full ${getFieldStateClass("fullName")}`}>
+                        {renderFieldStatus("fullName", "Nome completo")}
                         <div className="signup-input">
                           <User size={18} aria-hidden="true" />
                           <input
@@ -439,19 +502,19 @@ function SignupPage() {
                             value={values.fullName}
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            aria-invalid={errors.fullName && touched.fullName ? "true" : "false"}
-                            aria-describedby={errors.fullName && touched.fullName ? "fullName-error" : undefined}
+                            aria-invalid={hasFieldError("fullName") ? "true" : "false"}
+                            aria-describedby={hasFieldError("fullName") ? "fullName-error" : undefined}
                           />
                         </div>
-                        {errors.fullName && touched.fullName ? (
+                        {hasFieldError("fullName") ? (
                           <p className="signup-field__error" id="fullName-error" role="alert">
                             {errors.fullName}
                           </p>
                         ) : null}
                       </div>
 
-                      <div className={`signup-field ${errors.email && touched.email ? "is-error" : ""}`}>
-                        <label htmlFor="email">E-mail</label>
+                      <div className={`signup-field ${getFieldStateClass("email")}`}>
+                        {renderFieldStatus("email", "E-mail")}
                         <div className="signup-input">
                           <Mail size={18} aria-hidden="true" />
                           <input
@@ -463,19 +526,19 @@ function SignupPage() {
                             value={values.email}
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            aria-invalid={errors.email && touched.email ? "true" : "false"}
-                            aria-describedby={errors.email && touched.email ? "email-error" : undefined}
+                            aria-invalid={hasFieldError("email") ? "true" : "false"}
+                            aria-describedby={hasFieldError("email") ? "email-error" : undefined}
                           />
                         </div>
-                        {errors.email && touched.email ? (
+                        {hasFieldError("email") ? (
                           <p className="signup-field__error" id="email-error" role="alert">
                             {errors.email}
                           </p>
                         ) : null}
                       </div>
 
-                      <div className={`signup-field ${errors.phone && touched.phone ? "is-error" : ""}`}>
-                        <label htmlFor="phone">Celular</label>
+                      <div className={`signup-field ${getFieldStateClass("phone")}`}>
+                        {renderFieldStatus("phone", "Celular")}
                         <div className="signup-input">
                           <Smartphone size={18} aria-hidden="true" />
                           <input
@@ -485,22 +548,23 @@ function SignupPage() {
                             placeholder="(11) 91234-5678"
                             autoComplete="tel"
                             inputMode="numeric"
+                            maxLength={15}
                             value={values.phone}
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            aria-invalid={errors.phone && touched.phone ? "true" : "false"}
-                            aria-describedby={errors.phone && touched.phone ? "phone-error" : undefined}
+                            aria-invalid={hasFieldError("phone") ? "true" : "false"}
+                            aria-describedby={hasFieldError("phone") ? "phone-error" : undefined}
                           />
                         </div>
-                        {errors.phone && touched.phone ? (
+                        {hasFieldError("phone") ? (
                           <p className="signup-field__error" id="phone-error" role="alert">
                             {errors.phone}
                           </p>
                         ) : null}
                       </div>
 
-                      <div className={`signup-field ${errors.cpf && touched.cpf ? "is-error" : ""}`}>
-                        <label htmlFor="cpf">CPF</label>
+                      <div className={`signup-field ${getFieldStateClass("cpf")}`}>
+                        {renderFieldStatus("cpf", "CPF")}
                         <div className="signup-input">
                           <CreditCard size={18} aria-hidden="true" />
                           <input
@@ -510,22 +574,23 @@ function SignupPage() {
                             placeholder="000.000.000-00"
                             autoComplete="off"
                             inputMode="numeric"
+                            maxLength={14}
                             value={values.cpf}
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            aria-invalid={errors.cpf && touched.cpf ? "true" : "false"}
-                            aria-describedby={errors.cpf && touched.cpf ? "cpf-error" : undefined}
+                            aria-invalid={hasFieldError("cpf") ? "true" : "false"}
+                            aria-describedby={hasFieldError("cpf") ? "cpf-error" : undefined}
                           />
                         </div>
-                        {errors.cpf && touched.cpf ? (
+                        {hasFieldError("cpf") ? (
                           <p className="signup-field__error" id="cpf-error" role="alert">
                             {errors.cpf}
                           </p>
                         ) : null}
                       </div>
 
-                      <div className={`signup-field ${errors.birthDate && touched.birthDate ? "is-error" : ""}`}>
-                        <label htmlFor="birthDate">Data de nascimento</label>
+                      <div className={`signup-field ${getFieldStateClass("birthDate")}`}>
+                        {renderFieldStatus("birthDate", "Data de nascimento")}
                         <div className="signup-input">
                           <CalendarDays size={18} aria-hidden="true" />
                           <input
@@ -535,14 +600,15 @@ function SignupPage() {
                             placeholder="DD/MM/AAAA"
                             autoComplete="bday"
                             inputMode="numeric"
+                            maxLength={10}
                             value={values.birthDate}
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            aria-invalid={errors.birthDate && touched.birthDate ? "true" : "false"}
-                            aria-describedby={errors.birthDate && touched.birthDate ? "birthDate-error" : undefined}
+                            aria-invalid={hasFieldError("birthDate") ? "true" : "false"}
+                            aria-describedby={hasFieldError("birthDate") ? "birthDate-error" : undefined}
                           />
                         </div>
-                        {errors.birthDate && touched.birthDate ? (
+                        {hasFieldError("birthDate") ? (
                           <p className="signup-field__error" id="birthDate-error" role="alert">
                             {errors.birthDate}
                           </p>
@@ -558,8 +624,8 @@ function SignupPage() {
                     </div>
 
                     <div className="signup-form-grid">
-                      <div className={`signup-field signup-field--full ${errors.password && touched.password ? "is-error" : ""}`}>
-                        <label htmlFor="password">Senha</label>
+                      <div className={`signup-field signup-field--full ${getFieldStateClass("password")}`}>
+                        {renderFieldStatus("password", "Senha")}
                         <div className="signup-input">
                           <Lock size={18} aria-hidden="true" />
                           <input
@@ -571,8 +637,8 @@ function SignupPage() {
                             value={values.password}
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            aria-invalid={errors.password && touched.password ? "true" : "false"}
-                            aria-describedby={errors.password && touched.password ? "password-error" : undefined}
+                            aria-invalid={hasFieldError("password") ? "true" : "false"}
+                            aria-describedby={hasFieldError("password") ? "password-error" : undefined}
                           />
                           <button
                             type="button"
@@ -583,15 +649,15 @@ function SignupPage() {
                             {showPassword ? <EyeOff size={18} aria-hidden="true" /> : <Eye size={18} aria-hidden="true" />}
                           </button>
                         </div>
-                        {errors.password && touched.password ? (
+                        {hasFieldError("password") ? (
                           <p className="signup-field__error" id="password-error" role="alert">
                             {errors.password}
                           </p>
                         ) : null}
                       </div>
 
-                      <div className={`signup-field signup-field--full ${errors.confirmPassword && touched.confirmPassword ? "is-error" : ""}`}>
-                        <label htmlFor="confirmPassword">Confirmar senha</label>
+                      <div className={`signup-field signup-field--full ${getFieldStateClass("confirmPassword")}`}>
+                        {renderFieldStatus("confirmPassword", "Confirmar senha")}
                         <div className="signup-input">
                           <Lock size={18} aria-hidden="true" />
                           <input
@@ -603,10 +669,8 @@ function SignupPage() {
                             value={values.confirmPassword}
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            aria-invalid={errors.confirmPassword && touched.confirmPassword ? "true" : "false"}
-                            aria-describedby={
-                              errors.confirmPassword && touched.confirmPassword ? "confirmPassword-error" : undefined
-                            }
+                            aria-invalid={hasFieldError("confirmPassword") ? "true" : "false"}
+                            aria-describedby={hasFieldError("confirmPassword") ? "confirmPassword-error" : undefined}
                           />
                           <button
                             type="button"
@@ -617,7 +681,7 @@ function SignupPage() {
                             {showConfirmPassword ? <EyeOff size={18} aria-hidden="true" /> : <Eye size={18} aria-hidden="true" />}
                           </button>
                         </div>
-                        {errors.confirmPassword && touched.confirmPassword ? (
+                        {hasFieldError("confirmPassword") ? (
                           <p className="signup-field__error" id="confirmPassword-error" role="alert">
                             {errors.confirmPassword}
                           </p>
@@ -629,12 +693,12 @@ function SignupPage() {
                   <section className="signup-section signup-section--compact" aria-labelledby="signup-section-aceites">
                     <div className="signup-section__header">
                       <h3 id="signup-section-aceites">Aceites iniciais</h3>
-                      <p>Os consentimentos e permissoes de saude ficam para a proxima etapa.</p>
+                      <p>Consentimentos de saude ficam para a proxima etapa.</p>
                     </div>
 
                     <div className="signup-consent-list">
-                      <div className={`signup-checkbox ${errors.acceptTerms && touched.acceptTerms ? "is-error" : ""}`}>
-                        <label>
+                      <div className={`signup-checkbox ${getFieldStateClass("acceptTerms")}`}>
+                        <label htmlFor="acceptTerms">
                           <input
                             id="acceptTerms"
                             name="acceptTerms"
@@ -642,20 +706,26 @@ function SignupPage() {
                             checked={values.acceptTerms}
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            aria-invalid={errors.acceptTerms && touched.acceptTerms ? "true" : "false"}
-                            aria-describedby={errors.acceptTerms && touched.acceptTerms ? "acceptTerms-error" : undefined}
+                            aria-invalid={hasFieldError("acceptTerms") ? "true" : "false"}
+                            aria-describedby={hasFieldError("acceptTerms") ? "acceptTerms-error" : undefined}
                           />
-                          <span>Aceito os Termos de Uso.</span>
+                          <span className="signup-checkbox__copy">Aceito os Termos de Uso.</span>
+                          {isFieldValid("acceptTerms") ? (
+                            <span className="signup-checkbox__status" aria-hidden="true">
+                              <CheckCircle2 size={14} />
+                              <span>Ok</span>
+                            </span>
+                          ) : null}
                         </label>
-                        {errors.acceptTerms && touched.acceptTerms ? (
+                        {hasFieldError("acceptTerms") ? (
                           <p className="signup-field__error" id="acceptTerms-error" role="alert">
                             {errors.acceptTerms}
                           </p>
                         ) : null}
                       </div>
 
-                      <div className={`signup-checkbox ${errors.acceptPrivacy && touched.acceptPrivacy ? "is-error" : ""}`}>
-                        <label>
+                      <div className={`signup-checkbox ${getFieldStateClass("acceptPrivacy")}`}>
+                        <label htmlFor="acceptPrivacy">
                           <input
                             id="acceptPrivacy"
                             name="acceptPrivacy"
@@ -663,14 +733,18 @@ function SignupPage() {
                             checked={values.acceptPrivacy}
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            aria-invalid={errors.acceptPrivacy && touched.acceptPrivacy ? "true" : "false"}
-                            aria-describedby={
-                              errors.acceptPrivacy && touched.acceptPrivacy ? "acceptPrivacy-error" : undefined
-                            }
+                            aria-invalid={hasFieldError("acceptPrivacy") ? "true" : "false"}
+                            aria-describedby={hasFieldError("acceptPrivacy") ? "acceptPrivacy-error" : undefined}
                           />
-                          <span>Aceito a Politica de Privacidade.</span>
+                          <span className="signup-checkbox__copy">Aceito a Politica de Privacidade.</span>
+                          {isFieldValid("acceptPrivacy") ? (
+                            <span className="signup-checkbox__status" aria-hidden="true">
+                              <CheckCircle2 size={14} />
+                              <span>Ok</span>
+                            </span>
+                          ) : null}
                         </label>
-                        {errors.acceptPrivacy && touched.acceptPrivacy ? (
+                        {hasFieldError("acceptPrivacy") ? (
                           <p className="signup-field__error" id="acceptPrivacy-error" role="alert">
                             {errors.acceptPrivacy}
                           </p>

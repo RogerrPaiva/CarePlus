@@ -199,40 +199,53 @@
 }
 
 .signup-hero p {
-  max-width: 34ch;
-  margin-top: 18px;
+  max-width: 30ch;
+  margin-top: 15px;
   color: rgba(244, 250, 247, 0.92);
-  font-size: 1rem;
-  line-height: 1.6;
+  font-size: 0.95rem;
+  line-height: 1.46;
 }
 
-.signup-hero__highlights {
+.signup-hero__signals {
   display: grid;
-  gap: 14px;
-  margin-top: 28px;
+  gap: 10px;
+  max-width: 31ch;
+  margin-top: 22px;
 }
 
-.signup-hero__highlight {
-  display: grid;
-  gap: 6px;
-  padding: 18px 20px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 22px;
-  background: rgba(10, 70, 54, 0.2);
-  backdrop-filter: blur(10px);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+.signup-hero__signal {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px 8px;
+  padding-left: 18px;
 }
 
-.signup-hero__highlight strong {
-  color: #fff;
-  font-size: 1rem;
-  line-height: 1.2;
+.signup-hero__signal::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.08);
 }
 
-.signup-hero__highlight span {
+.signup-hero__signal strong {
+  color: rgba(252, 254, 253, 0.98);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  line-height: 1.24;
+  text-transform: uppercase;
+}
+
+.signup-hero__signal span {
   color: rgba(241, 249, 245, 0.88);
-  font-size: 0.94rem;
-  line-height: 1.5;
+  font-size: 0.86rem;
+  line-height: 1.4;
 }
 
 .signup-panel {
@@ -268,7 +281,7 @@
 }
 
 .signup-panel__header {
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .signup-panel__eyebrow {
@@ -294,10 +307,10 @@
 }
 
 .signup-panel__header p {
-  max-width: 34ch;
+  max-width: 24ch;
   color: rgba(73, 103, 95, 0.96);
-  font-size: 0.96rem;
-  line-height: 1.5;
+  font-size: 0.88rem;
+  line-height: 1.32;
 }
 
 .signup-form {
@@ -346,14 +359,33 @@
 }
 
 .signup-field label {
-  display: block;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 12px;
   margin-bottom: 6px;
   color: rgba(18, 48, 39, 0.98);
   font-size: 0.92rem;
   font-weight: 700;
 }
 
+.signup-field__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: rgba(12, 110, 80, 0.98);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.signup-field__status svg {
+  flex-shrink: 0;
+}
+
 .signup-input {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -440,6 +472,19 @@
     0 10px 20px rgba(194, 66, 46, 0.05);
 }
 
+.signup-field.is-valid .signup-input {
+  border-color: rgba(28, 151, 112, 0.34);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(240, 250, 245, 0.98));
+  box-shadow:
+    0 0 0 4px rgba(28, 151, 112, 0.06),
+    0 10px 18px rgba(28, 151, 112, 0.04);
+}
+
+.signup-field.is-valid .signup-input svg,
+.signup-field.is-valid .signup-input__toggle {
+  color: var(--cp-green-strong);
+}
+
 .signup-field__error {
   margin-top: 6px;
   color: #b34a34;
@@ -450,45 +495,91 @@
 
 .signup-consent-list {
   display: grid;
-  gap: 12px;
+  gap: 8px;
 }
 
 .signup-checkbox {
-  padding: 14px 16px;
-  border: 1px solid rgba(205, 224, 217, 0.92);
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.78);
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(205, 224, 217, 0.92);
+  background: transparent;
   transition:
     border-color 0.22s ease,
-    box-shadow 0.22s ease,
-    transform 0.22s ease;
+    background-color 0.22s ease;
+}
+
+.signup-checkbox:first-child {
+  padding-top: 0;
+}
+
+.signup-checkbox:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
 }
 
 .signup-checkbox:hover {
   border-color: rgba(20, 54, 44, 0.16);
 }
 
+.signup-checkbox:focus-within {
+  background: linear-gradient(90deg, rgba(122, 209, 195, 0.08), rgba(255, 255, 255, 0));
+}
+
 .signup-checkbox label {
   display: flex;
   gap: 12px;
   align-items: flex-start;
+  justify-content: space-between;
   margin: 0;
   color: rgba(18, 48, 39, 0.98);
-  font-size: 0.92rem;
-  font-weight: 700;
+  font-size: 0.9rem;
+  font-weight: 600;
   line-height: 1.44;
+  padding: 3px 0;
 }
 
 .signup-checkbox input {
-  width: 18px;
-  height: 18px;
-  margin-top: 1px;
+  width: 17px;
+  height: 17px;
+  margin-top: 2px;
   accent-color: var(--cp-green);
+}
+
+.signup-checkbox__copy {
+  flex: 1;
+  min-width: 0;
+}
+
+.signup-checkbox__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+  padding-top: 1px;
+  color: rgba(12, 110, 80, 0.98);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
 }
 
 .signup-checkbox.is-error {
   border-color: rgba(194, 66, 46, 0.34);
-  box-shadow: 0 0 0 4px rgba(194, 66, 46, 0.06);
+}
+
+.signup-checkbox.is-error label {
+  color: rgba(128, 44, 31, 0.98);
+}
+
+.signup-checkbox.is-valid {
+  border-color: rgba(28, 151, 112, 0.28);
+}
+
+.signup-checkbox.is-valid label {
+  color: rgba(12, 85, 63, 0.98);
+}
+
+.signup-checkbox .signup-field__error {
+  margin-left: 29px;
+  max-width: 36ch;
 }
 
 .signup-trust-note {
@@ -496,8 +587,8 @@
   grid-template-columns: 18px 1fr;
   gap: 10px;
   align-items: start;
-  margin-top: 14px;
-  padding-top: 14px;
+  margin-top: 10px;
+  padding-top: 12px;
   border-top: 1px solid rgba(20, 54, 44, 0.1);
 }
 
@@ -637,6 +728,12 @@
     font-size: clamp(3rem, 4.2vw, 4.6rem);
   }
 
+  .signup-hero p {
+    max-width: 30ch;
+    font-size: 0.88rem;
+    line-height: 1.38;
+  }
+
   .signup-panel {
     min-height: 100vh;
     min-height: 100dvh;
@@ -685,7 +782,7 @@
   }
 
   .signup-panel__header {
-    margin-bottom: 18px;
+    margin-bottom: 14px;
   }
 
   .signup-panel__header h2 {
@@ -693,22 +790,25 @@
   }
 
   .signup-panel__header p {
-    font-size: 0.88rem;
-    line-height: 1.36;
+    max-width: 24ch;
+    font-size: 0.8rem;
+    line-height: 1.26;
   }
 
   .signup-form {
-    gap: 14px;
+    gap: 0;
   }
 
   .signup-section {
-    padding: 16px;
-    border-radius: 22px;
-    background: rgba(255, 255, 255, 0.48);
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
   }
 
   .signup-section__header {
-    margin-bottom: 12px;
+    margin-bottom: 10px;
   }
 
   .signup-section__header h3 {
@@ -724,8 +824,22 @@
     gap: 12px 10px;
   }
 
+  .signup-section + .signup-section {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(20, 54, 44, 0.08);
+  }
+
+  .signup-section--compact {
+    background: transparent;
+  }
+
   .signup-field label {
     font-size: 0.88rem;
+  }
+
+  .signup-field__status {
+    font-size: 0.68rem;
   }
 
   .signup-input {
@@ -747,13 +861,16 @@
   }
 
   .signup-checkbox {
-    padding: 12px 14px;
-    border-radius: 16px;
-    background: rgba(255, 255, 255, 0.42);
+    padding: 9px 0;
+    background: transparent;
   }
 
   .signup-checkbox label {
-    font-size: 0.88rem;
+    font-size: 0.84rem;
+  }
+
+  .signup-checkbox__status {
+    font-size: 0.68rem;
   }
 
   .signup-field__error {
@@ -763,6 +880,7 @@
   }
 
   .signup-trust-note {
+    margin-top: 8px;
     padding-top: 12px;
   }
 
@@ -886,7 +1004,7 @@
   }
 
   .signup-panel__header {
-    margin-bottom: 16px;
+    margin-bottom: 14px;
   }
 
   .signup-panel__eyebrow {
@@ -903,9 +1021,9 @@
   }
 
   .signup-panel__header p {
-    max-width: 32ch;
-    font-size: 0.9rem;
-    line-height: 1.5;
+    max-width: 23ch;
+    font-size: 0.86rem;
+    line-height: 1.34;
   }
 
   .signup-form {
@@ -961,13 +1079,16 @@
   }
 
   .signup-checkbox {
-    padding: 14px;
-    border-radius: 18px;
-    background: rgba(255, 255, 255, 0.84);
+    padding: 11px 0;
+    background: transparent;
   }
 
   .signup-checkbox label {
-    font-size: 0.9rem;
+    font-size: 0.88rem;
+  }
+
+  .signup-checkbox__status {
+    font-size: 0.72rem;
   }
 
   .signup-trust-note {
@@ -1027,6 +1148,11 @@
     font-size: clamp(1.4rem, 7vw, 1.8rem);
   }
 
+  .signup-field__status,
+  .signup-checkbox__status {
+    gap: 4px;
+  }
+
   .signup-input,
   .signup-submit {
     min-height: 52px;
@@ -1038,6 +1164,6 @@
   }
 
   .signup-checkbox {
-    padding: 13px;
+    padding: 11px 0;
   }
 }
