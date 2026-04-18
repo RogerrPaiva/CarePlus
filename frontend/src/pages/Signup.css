@@ -35,6 +35,8 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
+  position: relative;
+  z-index: 2;
   min-height: 40px;
   padding: 0 16px;
   border-radius: 999px;
@@ -206,44 +208,10 @@
   line-height: 1.46;
 }
 
-.signup-hero__signals {
-  display: grid;
-  gap: 10px;
-  max-width: 31ch;
-  margin-top: 22px;
-}
-
-.signup-hero__signal {
-  position: relative;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px 8px;
-  padding-left: 18px;
-}
-
-.signup-hero__signal::before {
-  content: "";
-  position: absolute;
-  top: 8px;
-  left: 0;
-  width: 7px;
-  height: 7px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.78);
-  box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.08);
-}
-
-.signup-hero__signal strong {
-  color: rgba(252, 254, 253, 0.98);
-  font-size: 0.82rem;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-  line-height: 1.24;
-  text-transform: uppercase;
-}
-
-.signup-hero__signal span {
-  color: rgba(241, 249, 245, 0.88);
+.signup-hero__support {
+  max-width: 24ch;
+  margin-top: 18px;
+  color: rgba(241, 249, 245, 0.9);
   font-size: 0.86rem;
   line-height: 1.4;
 }
@@ -278,6 +246,7 @@
   display: flex;
   justify-content: flex-end;
   margin-bottom: 16px;
+  z-index: 3;
 }
 
 .signup-panel__header {
@@ -734,6 +703,13 @@
     line-height: 1.38;
   }
 
+  .signup-hero__support {
+    max-width: 22ch;
+    margin-top: 16px;
+    font-size: 0.8rem;
+    line-height: 1.32;
+  }
+
   .signup-panel {
     min-height: 100vh;
     min-height: 100dvh;
@@ -828,6 +804,16 @@
     margin-top: 14px;
     padding-top: 14px;
     border-top: 1px solid rgba(20, 54, 44, 0.08);
+  }
+
+  .signup-section--stream .signup-section__header {
+    display: none;
+  }
+
+  .signup-section--stream + .signup-section--stream {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top-color: rgba(20, 54, 44, 0.06);
   }
 
   .signup-section--compact {

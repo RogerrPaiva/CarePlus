@@ -451,18 +451,7 @@ function SignupPage() {
                   <div className="signup-hero__content">
                     <span className="signup-hero__eyebrow">Abertura de conta</span>
                     <h1>Sua conta nasce leve. O cuidado evolui na proxima etapa.</h1>
-                    <p>Abra sua conta com seguranca agora. O restante do cuidado continua com revisao guiada.</p>
-
-                    <div className="signup-hero__signals" aria-label="Pilares do cadastro">
-                      <article className="signup-hero__signal">
-                        <strong>Essencial agora</strong>
-                        <span>Conta, contato e acesso seguro.</span>
-                      </article>
-                      <article className="signup-hero__signal">
-                        <strong>Consentimentos depois</strong>
-                        <span>Saude e permissoes entram no onboarding.</span>
-                      </article>
-                    </div>
+                    <p className="signup-hero__support">Conta segura agora. Saude, permissoes e consentimentos ficam para depois.</p>
                   </div>
                 </div>
               </div>
@@ -476,13 +465,11 @@ function SignupPage() {
                 </div>
 
                 <div className="signup-panel__header">
-                  <span className="signup-panel__eyebrow">Conta segura</span>
                   <h2 id="signup-title">Crie sua conta no Care Plus</h2>
-                  <p>Comece com seus dados essenciais. Consentimentos ficam para a proxima etapa.</p>
                 </div>
 
                 <form className="signup-form" noValidate onSubmit={handleSubmit}>
-                  <section className="signup-section" aria-labelledby="signup-section-dados">
+                  <section className="signup-section signup-section--stream" aria-labelledby="signup-section-dados">
                     <div className="signup-section__header">
                       <h3 id="signup-section-dados">Seus dados</h3>
                       <p>Somente o necessario para abrir sua conta com seguranca.</p>
@@ -617,7 +604,7 @@ function SignupPage() {
                     </div>
                   </section>
 
-                  <section className="signup-section" aria-labelledby="signup-section-seguranca">
+                  <section className="signup-section signup-section--stream" aria-labelledby="signup-section-seguranca">
                     <div className="signup-section__header">
                       <h3 id="signup-section-seguranca">Seguranca de acesso</h3>
                       <p>Crie uma senha forte para acessar sua conta com privacidade.</p>
