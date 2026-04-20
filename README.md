@@ -4,8 +4,8 @@ Aplicação web de saúde com gamificação.
 
 Stack:
 - React
-- FastAPI
-- SQLite
+- Python
+- JSON
 
 # Objetivos
 CarePlus é um aplicativo de saúde que utiliza gamificação para incentivar hábitos saudáveis. Os usuários realizam missões diárias, como caminhar ou cumprir metas de atividade física, mantendo um streak (sequência de dias consecutivos), semelhante ao sistema usado no Duolingo. Ao completar essas missões, o usuário ganha moedas virtuais como recompensa.

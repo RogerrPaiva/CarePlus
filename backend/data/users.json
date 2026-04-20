@@ -1,0 +1,13 @@
+[
+  {
+    "id": "73f38fa5-8b24-4335-a779-47fd2c6cc4b5",
+    "full_name": "Pedro Henrique",
+    "email": "pedrot.ytb@gmail.com",
+    "phone": "11998869027",
+    "cpf": "48693741888",
+    "birth_date": "16/04/2006",
+    "password_hash": "c29b0d2ab857086ce8e424ce25376eb98d09337ed9dfc0c6a13615f4be05a7a2",
+    "created_at": "2026-04-20T03:25:47.903655+00:00",
+    "updated_at": "2026-04-20T03:25:47.903655+00:00"
+  }
+]

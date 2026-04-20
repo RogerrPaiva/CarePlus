@@ -6,11 +6,33 @@ import re
 from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path
+from typing import Protocol
 from uuid import uuid4
 
-from .schemas import LoginRequest, SignupRequest, UpdateUserRequest
-
 EMAIL_PATTERN = re.compile(r"^[^\s@]+@[^\s@]+\.[^\s@]+$")
+
+
+class SignupPayload(Protocol):
+  full_name: str
+  email: str
+  phone: str
+  cpf: str
+  birth_date: str
+  password: str
+
+
+class LoginPayload(Protocol):
+  email: str
+  password: str
+
+
+class UpdatePayload(Protocol):
+  full_name: str | None
+  email: str | None
+  phone: str | None
+  cpf: str | None
+  birth_date: str | None
+  password: str | None
 
 
 class StorageError(Exception):
@@ -47,9 +69,20 @@ def hash_password(password: str) -> str:
   return hashlib.sha256(password.encode("utf-8")).hexdigest()
 
 
+def normalize_birth_date(value: str) -> str:
+  digits = get_digits(value)
+
+  if len(digits) == 8:
+    return f"{digits[:2]}/{digits[2:4]}/{digits[4:]}"
+
+  return value.strip()
+
+
 def parse_birth_date(value: str) -> datetime | None:
+  normalized_value = normalize_birth_date(value)
+
   try:
-    parsed = datetime.strptime(value, "%d/%m/%Y")
+    parsed = datetime.strptime(normalized_value, "%d/%m/%Y")
   except ValueError:
     return None
 
@@ -120,11 +153,12 @@ def validate_birth_date(value: str) -> str:
   if not value.strip():
     raise ValueError("Informe sua data de nascimento.")
 
-  parsed = parse_birth_date(value)
+  normalized = normalize_birth_date(value)
+  parsed = parse_birth_date(normalized)
   if parsed is None:
     raise ValueError("Digite uma data valida.")
 
-  return value
+  return normalized
 
 
 def validate_password(value: str) -> str:
@@ -144,7 +178,7 @@ def validate_login_password(value: str) -> str:
   return value
 
 
-def validate_signup_payload(payload: SignupRequest) -> dict[str, str]:
+def validate_signup_payload(payload: SignupPayload) -> dict[str, str]:
   normalized_cpf = get_digits(payload.cpf)
 
   if not normalized_cpf:
@@ -163,7 +197,7 @@ def validate_signup_payload(payload: SignupRequest) -> dict[str, str]:
   }
 
 
-def validate_update_payload(payload: UpdateUserRequest) -> dict[str, str]:
+def validate_update_payload(payload: UpdatePayload) -> dict[str, str]:
   updates: dict[str, str] = {}
 
   if payload.full_name is not None:
@@ -225,7 +259,11 @@ class AuthService:
     data_file = Path(__file__).resolve().parent / "data" / "users.json"
     self.storage = storage or UserStorage(data_file)
 
-  def register_user(self, payload: SignupRequest) -> dict:
+  def list_users(self) -> list[dict]:
+    users = self.storage.load_users()
+    return [self._public_user(user) for user in users]
+
+  def register_user(self, payload: SignupPayload) -> dict:
     normalized = validate_signup_payload(payload)
     users = self.storage.load_users()
 
@@ -247,7 +285,7 @@ class AuthService:
     self.storage.save_users(users)
     return self._public_user(user)
 
-  def authenticate_user(self, payload: LoginRequest) -> dict:
+  def authenticate_user(self, payload: LoginPayload) -> dict:
     email = validate_email(payload.email)
     password_hash = hash_password(validate_login_password(payload.password))
 
@@ -261,7 +299,7 @@ class AuthService:
     user = self._find_user(user_id)
     return self._public_user(user)
 
-  def update_user(self, user_id: str, payload: UpdateUserRequest) -> dict:
+  def update_user(self, user_id: str, payload: UpdatePayload) -> dict:
     users = self.storage.load_users()
     user = next((item for item in users if item["id"] == user_id), None)
 
