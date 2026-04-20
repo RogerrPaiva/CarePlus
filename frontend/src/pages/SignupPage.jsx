@@ -18,7 +18,6 @@ import CarePlus from "../assets/branding/CarePlus.svg";
 import "./Signup.css";
 
 const NEXT_STEP_ROUTE = "/onboarding";
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "http://127.0.0.1:8000";
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const initialValues = {
@@ -296,39 +295,6 @@ function validateForm(values) {
   return nextErrors;
 }
 
-function getApiFieldError(detail) {
-  const normalizedDetail = String(detail || "")
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "");
-
-  if (normalizedDetail.includes("nome")) {
-    return { field: "fullName", message: detail };
-  }
-
-  if (normalizedDetail.includes("e-mail") || normalizedDetail.includes("email")) {
-    return { field: "email", message: detail };
-  }
-
-  if (normalizedDetail.includes("celular")) {
-    return { field: "phone", message: detail };
-  }
-
-  if (normalizedDetail.includes("cpf")) {
-    return { field: "cpf", message: detail };
-  }
-
-  if (normalizedDetail.includes("data")) {
-    return { field: "birthDate", message: detail };
-  }
-
-  if (normalizedDetail.includes("senha")) {
-    return { field: "password", message: detail };
-  }
-
-  return null;
-}
-
 function SignupPage() {
   const navigate = useNavigate();
   const [values, setValues] = useState(initialValues);
@@ -337,8 +303,6 @@ function SignupPage() {
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitError, setSubmitError] = useState("");
 
   useEffect(() => {
     document.title = "Care Plus | Cadastro";
@@ -373,7 +337,6 @@ function SignupPage() {
     };
 
     setValues(nextValues);
-    setSubmitError("");
 
     if (touched[name]) {
       const nextError = hasSubmitted || hasFieldValue(name, nextValues) ? validateField(name, nextValues) : "";
@@ -434,71 +397,18 @@ function SignupPage() {
       return;
     }
 
-    setIsSubmitting(true);
-    setSubmitError("");
-
-    fetch(`${API_BASE_URL}/auth/signup`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    navigate(NEXT_STEP_ROUTE, {
+      state: {
+        origin: "signup",
+        account: {
+          fullName: values.fullName.trim(),
+          email: values.email.trim(),
+          phone: values.phone,
+          cpf: values.cpf,
+          birthDate: values.birthDate,
+        },
       },
-      body: JSON.stringify({
-        full_name: values.fullName.trim(),
-        email: values.email.trim(),
-        phone: values.phone,
-        cpf: values.cpf,
-        birth_date: values.birthDate,
-        password: values.password,
-      }),
-    })
-      .then(async (response) => {
-        const payload = await response.json().catch(() => null);
-
-        if (!response.ok) {
-          const detail = payload?.detail || "Nao foi possivel criar sua conta agora.";
-          const fieldError = getApiFieldError(detail);
-
-          if (fieldError) {
-            setTouched((currentTouched) => ({
-              ...currentTouched,
-              [fieldError.field]: true,
-            }));
-            setErrors((currentErrors) => ({
-              ...currentErrors,
-              [fieldError.field]: fieldError.message,
-            }));
-          } else {
-            setSubmitError(detail);
-          }
-
-          throw new Error(detail);
-        }
-
-        return payload;
-      })
-      .then((payload) => {
-        navigate(payload?.next_step_route || NEXT_STEP_ROUTE, {
-          state: {
-            origin: "signup",
-            account: {
-              id: payload?.user?.id,
-              fullName: values.fullName.trim(),
-              email: values.email.trim(),
-              phone: values.phone,
-              cpf: values.cpf,
-              birthDate: values.birthDate,
-            },
-          },
-        });
-      })
-      .catch((error) => {
-        if (error instanceof TypeError) {
-          setSubmitError("Nao foi possivel conectar ao servidor de cadastro.");
-        }
-      })
-      .finally(() => {
-        setIsSubmitting(false);
-      });
+    });
   }
 
   function renderFieldStatus(name, label) {
@@ -558,13 +468,7 @@ function SignupPage() {
                   <h2 id="signup-title">Crie sua conta no Care Plus</h2>
                 </div>
 
-                <form className="signup-form" noValidate onSubmit={handleSubmit} aria-busy={isSubmitting ? "true" : "false"}>
-                  {submitError ? (
-                    <div className="signup-form__feedback" role="alert">
-                      {submitError}
-                    </div>
-                  ) : null}
-
+                <form className="signup-form" noValidate onSubmit={handleSubmit}>
                   <section className="signup-section signup-section--stream" aria-labelledby="signup-section-dados">
                     <div className="signup-section__header">
                       <h3 id="signup-section-dados">Seus dados</h3>
@@ -844,8 +748,8 @@ function SignupPage() {
                   </section>
 
                   <div className="signup-actions">
-                    <button type="submit" className="signup-submit" disabled={isSubmitting}>
-                      {isSubmitting ? "Criando conta..." : "Criar conta"}
+                    <button type="submit" className="signup-submit">
+                      Criar conta
                       <ArrowRight size={18} aria-hidden="true" />
                     </button>
 
