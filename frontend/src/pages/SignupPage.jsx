@@ -14,7 +14,7 @@ import {
   Smartphone,
   User,
 } from "lucide-react";
-import CarePlus from "../assets/CarePlus.svg";
+import CarePlus from "../assets/branding/CarePlus.svg";
 import "./Signup.css";
 
 const NEXT_STEP_ROUTE = "/onboarding";

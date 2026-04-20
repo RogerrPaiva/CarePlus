@@ -1,7 +1,7 @@
 import { ArrowLeft, ShieldCheck } from "lucide-react";
 import { Link } from "react-router-dom";
-import CarePlus from "../assets/CarePlus.svg";
-import "../styles/product-header.css";
+import CarePlus from "../../assets/branding/CarePlus.svg";
+import "./product-header.css";
 
 function ProductHeader({ contextLabel, compactMobileHeader = false, minimalDesktopHeader = false }) {
   return (

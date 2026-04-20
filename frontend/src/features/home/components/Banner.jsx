@@ -7,8 +7,8 @@ import {
 } from "lucide-react";
 import { MdHealthAndSafety,} from "react-icons/md";
 import { FaUserMd } from "react-icons/fa";
-import bannerImg from "../assets/bannersaude.jpg";
-import "../css/banner.css";
+import bannerImg from "../../../assets/home/bannersaude.jpg";
+import "../styles/banner.css";
 
 function Banner() {
   return (

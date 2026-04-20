@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { ArrowLeft, ArrowRight, ShieldCheck } from "lucide-react";
-import CarePlus from "../assets/CarePlus.svg";
+import CarePlus from "../assets/branding/CarePlus.svg";
 import "./OnboardingPlaceholder.css";
 
 function OnboardingPlaceholder() {
