@@ -287,6 +287,16 @@
   gap: 16px;
 }
 
+.signup-form__feedback {
+  padding: 12px 14px;
+  border: 1px solid rgba(194, 66, 46, 0.2);
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(255, 250, 249, 0.96), rgba(255, 245, 243, 0.92));
+  color: #9f3f2d;
+  font-size: 0.88rem;
+  line-height: 1.42;
+}
+
 .signup-section {
   padding: 18px;
   border: 1px solid rgba(203, 225, 217, 0.92);
@@ -619,6 +629,16 @@
   box-shadow:
     0 0 0 4px rgba(28, 151, 112, 0.12),
     0 22px 42px rgba(28, 151, 112, 0.24);
+}
+
+.signup-submit:disabled {
+  cursor: wait;
+  opacity: 0.78;
+  transform: none;
+  filter: none;
+  box-shadow:
+    0 14px 28px rgba(28, 151, 112, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
 }
 
 .signup-secondary-link {
