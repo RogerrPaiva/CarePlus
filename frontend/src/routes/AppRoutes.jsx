@@ -7,7 +7,8 @@ import SignupPage from "../pages/SignupPage";
 
 function AppRoutes() {
   const location = useLocation();
-  const hasOnboardingAccess = location.state?.origin === "login" || location.state?.origin === "signup";
+  const hasOnboardingFlowAccess = location.state?.origin === "login" || location.state?.origin === "signup";
+  const hasOnboardingAccess = import.meta.env.DEV || hasOnboardingFlowAccess;
 
   return (
     <Routes>
