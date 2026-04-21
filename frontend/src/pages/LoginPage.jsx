@@ -111,7 +111,8 @@ function LoginPage() {
 
     navigate("/onboarding", {
       state: {
-        email: values.email,
+        origin: "login",
+        email: values.email.trim(),
       },
     });
   }

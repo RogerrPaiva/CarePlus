@@ -3,17 +3,13 @@ import ProductHeader from "./ProductHeader";
 function ProductLayout({ children, contextLabel, compactMobileHeader = false, minimalDesktopHeader = false }) {
   return (
     <>
-      <a className="skip-link" href="#main-content">
-        Pular para o conteúdo
-      </a>
       <ProductHeader
         contextLabel={contextLabel}
         compactMobileHeader={compactMobileHeader}
         minimalDesktopHeader={minimalDesktopHeader}
       />
-      <main id="main-content" className="product-page">
-        {children}
-      </main>
+      {/* The page owns the skip link and main landmark to keep a single main-content target in the DOM. */}
+      {children}
     </>
   );
 }
