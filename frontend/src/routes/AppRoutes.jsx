@@ -2,6 +2,7 @@ import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import HomePage from "../pages/HomePage";
 import LoginPage from "../pages/LoginPage";
 import OnboardingPlaceholder from "../pages/OnboardingPlaceholder";
+import PlansPage from "../pages/PlansPage";
 import SignupPage from "../pages/SignupPage";
 
 function AppRoutes() {
@@ -11,6 +12,7 @@ function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
+      <Route path="/planos" element={<PlansPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/cadastro" element={<SignupPage />} />
       <Route

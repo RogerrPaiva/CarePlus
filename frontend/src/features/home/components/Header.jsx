@@ -16,7 +16,7 @@ function Header() {
             </div>
 
             <div className="col-lg-6 d-none d-lg-flex justify-content-center gap-4">
-              <a href="#" className="topbar-link">Benefício</a>
+              <a href="#" className="topbar-link">Beneficio</a>
               <a href="#" className="topbar-link">RH</a>
               <a href="#" className="topbar-link">Corretor</a>
               <a href="#" className="topbar-link">Credenciado</a>
@@ -35,7 +35,7 @@ function Header() {
       <div className="main-navbar border-bottom-green">
         <div className="container-fluid custom-container">
           <nav className="navbar navbar-expand-lg bg-white p-0">
-            <Link to="/home" className="navbar-brand me-4" href="#">
+            <Link to="/" className="navbar-brand me-4">
               <img src={CarePlus} alt="CarePlus" className="logo-img" />
             </Link>
 
@@ -69,16 +69,16 @@ function Header() {
                     <li><a className="dropdown-item" href="#">A Empresa</a></li>
                     <li><a className="dropdown-item" href="#">Perguntas Frequentes</a></li>
                     <li><a className="dropdown-item" href="#">Diferenciais</a></li>
-                    <li><a className="dropdown-item" href="#">Materiais de Saúde</a></li>
+                    <li><a className="dropdown-item" href="#">Materiais de Saude</a></li>
                     <li><a className="dropdown-item" href="#">Rede Plus</a></li>
-                    <li><a className="dropdown-item" href="#">Declaração de Cookies</a></li>
-                    <li><a className="dropdown-item" href="#">Gestão de Saúde</a></li>
-                    <li><a className="dropdown-item" href="#">Termos e Condições</a></li>
-                    <li><a className="dropdown-item" href="#">O Lado Plus da Saúde</a></li>
+                    <li><a className="dropdown-item" href="#">Declaracao de Cookies</a></li>
+                    <li><a className="dropdown-item" href="#">Gestao de Saude</a></li>
+                    <li><a className="dropdown-item" href="#">Termos e Condicoes</a></li>
+                    <li><a className="dropdown-item" href="#">O Lado Plus da Saude</a></li>
                     <li><a className="dropdown-item" href="#">Portal de Privacidade</a></li>
                     <li><a className="dropdown-item" href="#">Responsabilidade Social</a></li>
                     <li><a className="dropdown-item" href="#">Resultados Financeiros</a></li>
-                    <li><a className="dropdown-item" href="#">Exerça seus Direitos</a></li>
+                    <li><a className="dropdown-item" href="#">Exerca seus Direitos</a></li>
                   </ul>
                 </li>
 
@@ -96,11 +96,11 @@ function Header() {
 
                   <ul className="dropdown-menu custom-dropdown medium-dropdown two-columns">
                     <li><a className="dropdown-item" href="#">Planos individuais</a></li>
-                    <li><a className="dropdown-item" href="#">Planos empresariais</a></li>
+                    <li><Link className="dropdown-item" to="/planos">Planos empresariais</Link></li>
                     <li><a className="dropdown-item" href="#">Coberturas</a></li>
-                    <li><a className="dropdown-item" href="#">Benefícios</a></li>
-                    <li><a className="dropdown-item" href="#">Tabela de preços</a></li>
-                    <li><a className="dropdown-item" href="#">Comparar planos</a></li>
+                    <li><Link className="dropdown-item" to="/planos">Beneficios</Link></li>
+                    <li><a className="dropdown-item" href="#">Tabela de precos</a></li>
+                    <li><Link className="dropdown-item" to="/planos">Comparar planos</Link></li>
                   </ul>
                 </li>
 
@@ -137,7 +137,7 @@ function Header() {
                   <ul className="dropdown-menu custom-dropdown small-dropdown">
                     <li><a className="dropdown-item" href="#">Solicite uma proposta</a></li>
                     <li><a className="dropdown-item" href="#">Contato</a></li>
-                    <li><a className="dropdown-item" href="#">Canal de Denúncias</a></li>
+                    <li><a className="dropdown-item" href="#">Canal de Denuncias</a></li>
                   </ul>
                 </li>
               </ul>
