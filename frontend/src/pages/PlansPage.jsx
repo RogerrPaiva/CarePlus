@@ -1,15 +1,15 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
-  ArrowLeft,
   ArrowRight,
   BriefcaseBusiness,
   Building2,
   Check,
-  CircleHelp,
+  Compass,
   Globe2,
   HeartPulse,
   Layers3,
+  MoveRight,
   ShieldCheck,
   Sparkles,
   Stethoscope,
@@ -21,84 +21,98 @@ import "./PlansPage.css";
 const planProfiles = [
   {
     audience: "10 a 29 vidas",
-    title: "Sob medida para empresas em formacao",
+    title: "Comeco premium para empresas em formacao",
     summary:
-      "Entrada premium para times menores que querem comecar com acolhimento, rede qualificada e base digital desde o inicio.",
+      "Ideal para times menores que querem uma entrada mais qualificada em saude, com linguagem clara e boa percepcao de valor.",
     highlights: [
       "Rede credenciada de alto padrao",
-      "Jornada digital para o colaborador",
-      "Experiencia simples para abrir o beneficio",
-      "Espaco para crescer sem trocar de linguagem",
+      "Experiencia digital para colaborador",
+      "Implementacao mais leve",
+      "Base preparada para crescer",
     ],
-    accent: "is-soft",
+    badge: "Entrada premium",
+    tone: "is-soft",
   },
   {
     audience: "30 a 200 colaboradores",
-    title: "Estrutura completa para empresas em expansao",
+    title: "Equilibrio entre cobertura e gestao",
     summary:
-      "Perfil pensado para operacoes que precisam equilibrar excelencia assistencial, suporte ao RH e capacidade de evolucao.",
+      "Faixa pensada para empresas em expansao que precisam combinar qualidade assistencial, leitura simples e apoio ao RH.",
     highlights: [
-      "Suporte dedicado ao RH",
-      "Programas complementares de saude",
-      "Canais digitais e atendimento proximo",
-      "Cobertura preparada para ganhar escala",
+      "Suporte mais proximo ao RH",
+      "Programas de saude complementares",
+      "Jornada mais estruturada para uso",
+      "Boa relacao entre escala e cuidado",
     ],
-    accent: "is-strong",
+    badge: "Mais aderente",
+    tone: "is-featured",
   },
   {
     audience: "200+ vidas",
-    title: "Gestao premium para empresas consolidadas",
+    title: "Gestao premium para operacoes consolidadas",
     summary:
-      "Direcao mais estrategica para beneficios de saude, com governanca, visao de uso e experiencia consistente para grandes times.",
+      "Direcao mais estrategica para companhias que precisam de maturidade operacional, continuidade de cuidado e capacidade de customizacao.",
     highlights: [
       "Operacao desenhada para alta escala",
-      "Leitura mais estrategica para gestao",
-      "Programas e servicos customizaveis",
-      "Cuidado premium com foco em continuidade",
+      "Leitura mais estrategica de uso",
+      "Servicos customizaveis",
+      "Experiencia premium consistente",
     ],
-    accent: "is-dark",
+    badge: "Escala e governanca",
+    tone: "is-deep",
   },
 ];
 
-const differentiators = [
+const pillars = [
   {
     icon: HeartPulse,
     title: "Rede premium",
-    description: "Hospitais, laboratorios, clinicas e especialistas alinhados a uma experiencia de cuidado mais qualificada.",
+    description: "Hospitais, clinicas, laboratorios e especialistas que sustentam uma experiencia mais qualificada.",
   },
   {
     icon: Sparkles,
     title: "Saude digital",
-    description: "Consultas, apoio remoto e recursos digitais entram como parte natural da jornada, nao como anexo.",
+    description: "Recursos digitais entram como parte da jornada, sem parecer um adicional isolado.",
   },
   {
     icon: BriefcaseBusiness,
     title: "Suporte ao RH",
-    description: "A tela fala tanto com o beneficiario quanto com quem precisa administrar o beneficio no dia a dia.",
+    description: "A pagina conversa com quem contrata o beneficio e com quem cuida dele depois.",
   },
   {
     icon: Globe2,
-    title: "Visao integral",
-    description: "A pagina mostra que o plano pode crescer com servicos extras, programas e cobertura mais ampla.",
+    title: "Visao de crescimento",
+    description: "A narrativa mostra como o plano pode evoluir com a empresa sem trocar de linguagem.",
   },
 ];
 
-const compareRows = [
+const comparisonCards = [
   {
-    label: "Melhor encaixe",
-    values: ["Empresa menor em estruturacao", "Empresa em crescimento", "Empresa com operacao consolidada"],
+    title: "Para quem faz sentido",
+    eyebrow: "Encaixe",
+    values: [
+      "Empresas menores em estruturacao",
+      "Empresas em crescimento",
+      "Operacoes maiores e mais maduras",
+    ],
   },
   {
-    label: "Experiencia principal",
-    values: ["Entrada premium com onboarding leve", "Equilibrio entre cobertura e operacao", "Gestao premium com escala e continuidade"],
+    title: "Foco de experiencia",
+    eyebrow: "Jornada",
+    values: [
+      "Comecar bem e ganhar confianca",
+      "Equilibrar escala e proximidade",
+      "Unificar governanca e cuidado",
+    ],
   },
   {
-    label: "Destaque de jornada",
-    values: ["Comecar bem e crescer com clareza", "Ganhar eficiencia sem perder cuidado", "Governanca, dados e experiencia unificada"],
-  },
-  {
-    label: "Beneficio adicional",
-    values: ["Base digital e rede qualificada", "Suporte mais proximo ao RH", "Customizacao e leitura estrategica de uso"],
+    title: "Valor percebido",
+    eyebrow: "Percepcao",
+    values: [
+      "Premium logo na entrada",
+      "Mais aderencia ao dia a dia do RH",
+      "Maturidade de operacao e leitura de uso",
+    ],
   },
 ];
 
@@ -106,29 +120,29 @@ const serviceExtensions = [
   {
     icon: Stethoscope,
     title: "Medicina ocupacional",
-    description: "Para aproximar saude assistencial e rotina corporativa sem quebrar a experiencia.",
+    description: "Aproxima a rotina corporativa da experiencia assistencial sem quebrar a narrativa da pagina.",
   },
   {
     icon: Layers3,
     title: "Dental",
-    description: "Complemento natural para ampliar o cuidado e mostrar valor percebido no beneficio.",
+    description: "Complemento natural para ampliar o pacote e aumentar percepcao de valor do beneficio.",
   },
   {
     icon: Users,
     title: "Programas de saude",
-    description: "Blocos para maternidade, saude mental, prevencao e acompanhamento continuo.",
+    description: "Blocos para prevencao, maternidade, saude mental e acompanhamento continuo.",
   },
   {
     icon: Building2,
     title: "Portal de gestao",
-    description: "Area pensada para RH acompanhar a operacao com menos atrito e mais visibilidade.",
+    description: "Um espaco pensado para RH acompanhar a operacao com menos atrito e mais visibilidade.",
   },
 ];
 
-const signalPoints = [
-  "Porte da empresa em primeiro plano",
-  "Comparacao curta e facil de entender",
-  "Complementos que expandem o valor do beneficio",
+const curationPoints = [
+  "A escolha comeca pelo contexto da empresa, nao por tabela.",
+  "O visual precisa parecer editorial e premium, nao um dashboard disfarçado.",
+  "A pagina deve vender clareza antes de vender volume de informacao.",
 ];
 
 function PlansPage() {
@@ -142,211 +156,238 @@ function PlansPage() {
         Pular para o conteudo
       </a>
 
-      <main id="main-content" className="product-page plans-shell">
-        <section className="plans-page" aria-labelledby="plans-title">
+      <main id="main-content" className="plans-page">
+        <section className="plans-hero-section">
           <div className="container-fluid custom-container">
-            <div className="plans-mobile-back">
-              <Link to="/" className="plans-back-link" aria-label="Voltar para a home do Care Plus" title="Voltar para a home">
-                <ArrowLeft size={20} aria-hidden="true" />
-                <span>Voltar para a home</span>
-              </Link>
-            </div>
+            <div className="plans-hero-card">
+              <div className="plans-hero-card__brand-row">
+                <Link to="/" className="plans-hero-card__brand" aria-label="Voltar para a home do Care Plus">
+                  <img src={CarePlus} alt="Care Plus" className="plans-hero-card__logo" />
+                </Link>
 
-            <div className="plans-grid">
-              <div className="plans-hero">
-                <div className="plans-hero__frame">
-                  <div className="plans-hero__brand">
-                    <img src={CarePlus} alt="Care Plus" className="plans-hero__logo" />
+                <div className="plans-hero-card__meta">
+                  <span className="plans-hero-card__eyebrow">Planos e produtos</span>
+                  <span className="plans-hero-card__trust">
+                    <ShieldCheck size={16} aria-hidden="true" />
+                    Premium, digital e orientado a crescimento
+                  </span>
+                </div>
+              </div>
+
+              <div className="plans-hero-card__content">
+                <div className="plans-hero-card__copy">
+                  <div className="plans-hero-card__kicker">
+                    <Compass size={16} aria-hidden="true" />
+                    Uma pagina comercial com narrativa, nao um mosaico de widgets
                   </div>
+                  <h1>Planos desenhados para o momento da sua empresa.</h1>
+                  <p>
+                    Em vez de empilhar opcoes e tabelas logo de cara, a tela organiza a escolha por porte, momento de negocio
+                    e experiencia que cada operacao precisa entregar.
+                  </p>
 
-                  <div className="plans-hero__content">
-                    <span className="plans-hero__eyebrow">Planos e produtos</span>
-                    <h1 id="plans-title">Um plano premium para cada fase da sua empresa.</h1>
+                  <div className="plans-hero-card__actions">
+                    <Link to="/cadastro" className="plans-primary-action">
+                      Solicitar proposta
+                      <ArrowRight size={18} aria-hidden="true" />
+                    </Link>
+
+                    <a href="#plans-profiles" className="plans-secondary-action">
+                      Ver perfis de plano
+                    </a>
+                  </div>
+                </div>
+
+                <div className="plans-hero-card__snapshot" aria-label="Resumo da proposta da tela">
+                  <div className="plans-snapshot-card plans-snapshot-card--quote">
+                    <strong>Direcao de design</strong>
                     <p>
-                      A tela traduz a linguagem institucional da Care Plus para um layout mais direto, premium e alinhado com
-                      login e cadastro.
+                      A tela quer parecer consultiva e calma. Menos cara de template. Mais curadoria, ritmo e contraste entre
+                      os blocos.
                     </p>
                   </div>
 
-                  <div className="plans-hero__signals" aria-label="Pontos-chave da tela de planos">
-                    {signalPoints.map((item) => (
-                      <div key={item} className="plans-hero__signal">
-                        <span className="plans-hero__signal-icon" aria-hidden="true">
-                          <Check size={16} />
+                  <div className="plans-snapshot-grid">
+                    <div className="plans-snapshot-tile">
+                      <span>3</span>
+                      <p>perfis principais para leitura rapida</p>
+                    </div>
+                    <div className="plans-snapshot-tile">
+                      <span>1</span>
+                      <p>CTA principal dominante na jornada</p>
+                    </div>
+                    <div className="plans-snapshot-tile">
+                      <span>4</span>
+                      <p>pilares de valor para reforcar percepcao premium</p>
+                    </div>
+                  </div>
+
+                  <div className="plans-hero-card__curation">
+                    {curationPoints.map((point) => (
+                      <div key={point} className="plans-hero-card__curation-item">
+                        <span aria-hidden="true">
+                          <MoveRight size={15} />
                         </span>
-                        <span>{item}</span>
+                        <p>{point}</p>
                       </div>
                     ))}
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
 
-              <div className="plans-panel">
-                <div className="plans-panel__topbar">
-                  <Link to="/" className="plans-back-link">
-                    <ArrowLeft size={18} aria-hidden="true" />
-                    <span>Voltar para a home</span>
-                  </Link>
-                </div>
+        <section className="plans-content-section" id="plans-profiles">
+          <div className="container-fluid custom-container">
+            <div className="plans-section-heading">
+              <span className="plans-section-heading__eyebrow">Escolha guiada</span>
+              <h2>Comece pelo porte da operacao e refine depois.</h2>
+              <p>
+                O bloco principal da pagina coloca a decisao mais importante primeiro. Cada card deixa claro o contexto,
+                a promessa e o tipo de experiencia que a empresa pode esperar.
+              </p>
+            </div>
 
-                <div className="plans-panel__header">
-                  <span className="plans-panel__eyebrow">Tela de planos</span>
-                  <h2>Uma vitrine que organiza o beneficio por momento de negocio, nao por excesso de informacao.</h2>
-                  <p>
-                    Em vez de abrir com tabela enorme, a pagina ajuda a pessoa a se reconhecer rapido: tamanho da empresa,
-                    proposta de valor e proximos complementos.
-                  </p>
-                </div>
-
-                <div className="plans-panel__actions">
-                  <a href="#plans-profiles" className="plans-primary-action">
-                    Comparar perfis
-                    <ArrowRight size={18} aria-hidden="true" />
-                  </a>
-
-                  <Link to="/cadastro" className="plans-secondary-action">
-                    Criar conta
-                  </Link>
-                </div>
-
-                <section className="plans-section" id="plans-profiles" aria-labelledby="plans-profiles-title">
-                  <div className="plans-section__header">
-                    <h3 id="plans-profiles-title">Perfis sugeridos</h3>
-                    <p>Os cards deixam claro para quem cada proposta faz mais sentido.</p>
+            <div className="plans-profile-grid">
+              {planProfiles.map((profile, index) => (
+                <article
+                  key={profile.audience}
+                  className={`plans-profile-card ${profile.tone} ${index === 1 ? "plans-profile-card--featured" : ""}`}
+                >
+                  <div className="plans-profile-card__header">
+                    <span className="plans-profile-card__badge">{profile.badge}</span>
+                    <span className="plans-profile-card__audience">{profile.audience}</span>
                   </div>
 
-                  <div className="plans-profile-list">
-                    {planProfiles.map((profile) => (
-                      <article key={profile.audience} className={`plans-profile ${profile.accent}`}>
-                        <div className="plans-profile__top">
-                          <span className="plans-profile__audience">{profile.audience}</span>
-                          <h4>{profile.title}</h4>
-                          <p>{profile.summary}</p>
-                        </div>
-
-                        <div className="plans-profile__highlights">
-                          {profile.highlights.map((highlight) => (
-                            <div key={highlight} className="plans-profile__highlight">
-                              <span className="plans-profile__highlight-icon" aria-hidden="true">
-                                <Check size={15} />
-                              </span>
-                              <span>{highlight}</span>
-                            </div>
-                          ))}
-                        </div>
-
-                        <div className="plans-profile__actions">
-                          <a href="#plans-compare" className="plans-profile__link">
-                            Ver comparativo
-                          </a>
-                          <Link to="/login" className="plans-profile__link is-secondary">
-                            Ja sou cliente
-                          </Link>
-                        </div>
-                      </article>
-                    ))}
-                  </div>
-                </section>
-
-                <section className="plans-section plans-section--muted" aria-labelledby="plans-differentials-title">
-                  <div className="plans-section__header">
-                    <h3 id="plans-differentials-title">O que essa tela precisa comunicar de cara</h3>
-                    <p>Os mesmos pilares do site oficial, mas apresentados com mais clareza dentro do produto.</p>
+                  <div className="plans-profile-card__body">
+                    <span className="plans-profile-card__index">0{index + 1}</span>
+                    <h3>{profile.title}</h3>
+                    <p>{profile.summary}</p>
                   </div>
 
-                  <div className="plans-differentials">
-                    {differentiators.map(({ icon: Icon, title, description }) => (
-                      <article key={title} className="plans-differential-card">
-                        <div className="plans-differential-card__icon" aria-hidden="true">
-                          <Icon size={18} />
-                        </div>
-                        <div>
-                          <h4>{title}</h4>
-                          <p>{description}</p>
-                        </div>
-                      </article>
-                    ))}
-                  </div>
-                </section>
-
-                <section className="plans-section" id="plans-compare" aria-labelledby="plans-compare-title">
-                  <div className="plans-section__header">
-                    <h3 id="plans-compare-title">Comparativo rapido</h3>
-                    <p>Uma leitura leve para decidir para onde seguir antes de falar de detalhes comerciais.</p>
-                  </div>
-
-                  <div className="plans-compare" role="table" aria-label="Comparativo de perfis de plano">
-                    <div className="plans-compare__header" role="rowgroup">
-                      <div className="plans-compare__row is-heading" role="row">
-                        <span role="columnheader">Criterio</span>
-                        <span role="columnheader">10 a 29</span>
-                        <span role="columnheader">30 a 200</span>
-                        <span role="columnheader">200+</span>
+                  <div className="plans-profile-card__highlights">
+                    {profile.highlights.map((highlight) => (
+                      <div key={highlight} className="plans-profile-card__highlight">
+                        <span className="plans-profile-card__highlight-icon" aria-hidden="true">
+                          <Check size={14} />
+                        </span>
+                        <span>{highlight}</span>
                       </div>
-                    </div>
+                    ))}
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
 
-                    <div className="plans-compare__body" role="rowgroup">
-                      {compareRows.map((row) => (
-                        <div key={row.label} className="plans-compare__row" role="row">
-                          <strong role="rowheader">{row.label}</strong>
-                          {row.values.map((value) => (
-                            <span key={value} role="cell">
-                              {value}
-                            </span>
-                          ))}
+        <section className="plans-pillars-section">
+          <div className="container-fluid custom-container">
+            <div className="plans-pillars-shell">
+              <div className="plans-pillars-intro">
+                <span className="plans-section-heading__eyebrow">O que sustenta a proposta</span>
+                <h2>Os pilares da Care Plus entram como reforco de marca, nao como ruido.</h2>
+                <p>
+                  A pagina precisa vender premium com serenidade: rede forte, saude digital, apoio ao RH e capacidade de
+                  evolucao sem perder clareza.
+                </p>
+              </div>
+
+              <div className="plans-pillars-grid">
+                {pillars.map(({ icon: Icon, title, description }) => (
+                  <article key={title} className="plans-pillar-card">
+                    <div className="plans-pillar-card__icon" aria-hidden="true">
+                      <Icon size={18} />
+                    </div>
+                    <h3>{title}</h3>
+                    <p>{description}</p>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="plans-comparison-section">
+          <div className="container-fluid custom-container">
+            <div className="plans-comparison-layout">
+              <div className="plans-comparison-copy">
+                <span className="plans-section-heading__eyebrow">Comparativo rapido</span>
+                <h2>Uma leitura comercial que continua funcionando no celular.</h2>
+                <p>
+                  Em vez de tabela horizontal, o comparativo vira uma grade de blocos tematicos. Cada bloco mostra como os
+                  tres perfis se posicionam naquele criterio.
+                </p>
+              </div>
+
+              <div className="plans-comparison-grid">
+                {comparisonCards.map((card) => (
+                  <article key={card.title} className="plans-comparison-card">
+                    <span className="plans-comparison-card__eyebrow">{card.eyebrow}</span>
+                    <h3>{card.title}</h3>
+                    <div className="plans-comparison-card__values">
+                      {card.values.map((value, index) => (
+                        <div key={value} className="plans-comparison-card__value">
+                          <strong>{planProfiles[index].audience}</strong>
+                          <span>{value}</span>
                         </div>
                       ))}
                     </div>
-                  </div>
-                </section>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
 
-                <section className="plans-section plans-section--compact" aria-labelledby="plans-extensions-title">
-                  <div className="plans-section__header">
-                    <h3 id="plans-extensions-title">Servicos que vao alem do plano</h3>
-                    <p>A area final reforca que o beneficio pode se expandir sem mudar a narrativa da pagina.</p>
-                  </div>
+        <section className="plans-services-section">
+          <div className="container-fluid custom-container">
+            <div className="plans-services-shell">
+              <div className="plans-services-heading">
+                <span className="plans-section-heading__eyebrow">Expansao do beneficio</span>
+                <h2>Depois do plano, a conversa continua com servicos complementares.</h2>
+                <p>
+                  O fechamento da pagina mostra amplitude de solucao sem disputar protagonismo com a escolha principal.
+                </p>
+              </div>
 
-                  <div className="plans-extensions">
-                    {serviceExtensions.map(({ icon: Icon, title, description }) => (
-                      <article key={title} className="plans-extension-card">
-                        <div className="plans-extension-card__icon" aria-hidden="true">
-                          <Icon size={18} />
-                        </div>
-                        <h4>{title}</h4>
-                        <p>{description}</p>
-                      </article>
-                    ))}
-                  </div>
-                </section>
+              <div className="plans-services-grid">
+                {serviceExtensions.map(({ icon: Icon, title, description }) => (
+                  <article key={title} className="plans-service-card">
+                    <div className="plans-service-card__icon" aria-hidden="true">
+                      <Icon size={18} />
+                    </div>
+                    <h3>{title}</h3>
+                    <p>{description}</p>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
 
-                <div className="plans-trust-note">
-                  <div className="plans-trust-note__icon" aria-hidden="true">
-                    <ShieldCheck size={16} />
-                  </div>
-                  <div className="plans-trust-note__content">
-                    <strong>Proposta de conteudo inspirada no posicionamento atual da Care Plus.</strong>
-                    <p>
-                      A composicao prioriza cuidado premium, saude digital, suporte ao RH e crescimento por porte de empresa,
-                      sem abandonar o visual forte das telas de autenticacao.
-                    </p>
-                  </div>
-                </div>
+        <section className="plans-cta-section">
+          <div className="container-fluid custom-container">
+            <div className="plans-cta-card">
+              <div>
+                <span className="plans-section-heading__eyebrow">Proximo passo</span>
+                <h2>Se a tela fizer sentido, o fluxo comercial pode nascer daqui.</h2>
+                <p>
+                  Hoje o CTA aponta para cadastro, mas a estrutura esta pronta para evoluir para proposta, simulacao ou
+                  contato consultivo.
+                </p>
+              </div>
 
-                <div className="plans-panel__footer">
-                  <Link to="/cadastro" className="plans-primary-action">
-                    Quero continuar no fluxo
-                    <ArrowRight size={18} aria-hidden="true" />
-                  </Link>
+              <div className="plans-cta-card__actions">
+                <Link to="/cadastro" className="plans-primary-action">
+                  Continuar no fluxo
+                  <ArrowRight size={18} aria-hidden="true" />
+                </Link>
 
-                  <Link to="/login" className="plans-text-link">
-                    Entrar com minha conta
-                  </Link>
-                </div>
-
-                <div className="plans-panel__caption">
-                  <CircleHelp size={15} aria-hidden="true" />
-                  <span>Os CTA comerciais podem virar proposta, simulacao ou contato quando esse fluxo for conectado.</span>
-                </div>
+                <Link to="/login" className="plans-cta-card__text-link">
+                  Ja tenho conta
+                </Link>
               </div>
             </div>
           </div>
