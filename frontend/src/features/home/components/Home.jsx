@@ -5,10 +5,16 @@ import {
   HeartPulse,
   ShieldPlus,
 } from "lucide-react";
+import { BsArrowRight } from "react-icons/bs";
 import { MdLaptopChromebook } from "react-icons/md";
 import HomeOcupacional from "../../../assets/home/home-ocupacional.jpg";
 import Humanizacao from "../../../assets/home/humanizacao.jpg";
 import SobreSoho from "../../../assets/home/sobre_plano_soho.png";
+import BannerSaude from "../../../assets/home/bannersaude.jpg";
+import recepcaomorumbi from "../../../assets/home/recepcaomorumbi.jpg"
+import recepcaorj from "../../../assets/home/recepcaomorumbi.jpg"
+import recepcaobrooklin from "../../../assets/home/recepcaobrooklin.webp"
+import recepcaopinheiros from "../../../assets/home/recepcaopinheiros.webp"
 
 import "../styles/home.css";
 
@@ -69,6 +75,37 @@ const exclusivePrograms = [
     description:
       "A Care Plus disponibiliza medicos, nutricionistas, enfermeiras e psicologos para realizar atendimento no ambiente das empresas.",
     Icon: BriefcaseMedical,
+  },
+];
+
+const locations = [
+  {
+    title: "Care Plus Barueri",
+    subtitle: "Unidade Alphaville",
+    image: BannerSaude,
+    href: "/unidades/alphaville",
+    imagePosition: "center center",
+  },
+  {
+    title: "Care Plus São Paulo",
+    subtitle: "Unidade Morumbi",
+    image: recepcaomorumbi,
+    href: "/unidades/morumbi",
+    imagePosition: "center center",
+  },
+  {
+    title: "Care Plus Rio de Janeiro",
+    subtitle: "Unidade Rio Sul",
+    image: recepcaorj,
+    href: "/unidades/rj",
+    imagePosition: "center center",
+  },
+  {
+    title: "Care Plus São Paulo",
+    subtitle: "Unidade Brooklin",
+    image: recepcaobrooklin,
+    href: "/unidades/brooklin",
+    imagePosition: "center center",
   },
 ];
 
@@ -166,11 +203,103 @@ function Home() {
 
           <div className="exclusive-programs-actions d-flex justify-content-center">
             <Link to="/gestao-de-saude" className="exclusive-programs-button">
-              Conheca o Gestao de Saude
+              Conheça a Gestão de Saúde
               <FaChevronRight aria-hidden="true" />
             </Link>
           </div>
         </section>
+
+        <section className="locations-section">
+          <div className="row g-4 g-xl-5 align-items-stretch">
+            <div className="col-12 col-lg-4">
+              <div className="locations-intro d-flex flex-column justify-content-center h-100">
+                <p className="home-plans-eyebrow mb-3">NOSSAS UNIDADES</p>
+                <h2 className="locations-title">Locais de atendimento</h2>
+                <p className="locations-description">
+                  Conheça mais sobre as unidades Care Plus e escolha o ponto de
+                  atendimento ideal para a sua empresa e seus beneficiários.
+                </p>
+
+                <div className="pt-2">
+                  <Link to="/unidades" className="locations-button">
+                    Explorar todas as unidades
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            <div className="col-12 col-lg-8">
+              <div className="row g-4">
+                {locations.slice(0, 2).map((location) => (
+                  <div className="col-12 col-md-6" key={location.title}>
+                    <Link to={location.href} className="location-card">
+                      <img
+                        src={location.image}
+                        alt={location.title}
+                        className="location-card__image"
+                        style={{ objectPosition: location.imagePosition }}
+                      />
+                      <div className="location-card__overlay"></div>
+                      <div className="location-card__content">
+                        <h3 className="location-card__title">
+                          {location.title}
+                          <FaChevronRight aria-hidden="true" />
+                        </h3>
+                        <p className="location-card__subtitle">{location.subtitle}</p>
+                      </div>
+                    </Link>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="col-12">
+              <div className="row g-4">
+                {locations.slice(2).map((location) => (
+                  <div className="col-12 col-md-6 col-xl-4" key={location.title}>
+                    <Link to={location.href} className="location-card is-compact">
+                      <img
+                        src={location.image}
+                        alt={location.title}
+                        className="location-card__image"
+                        style={{ objectPosition: location.imagePosition }}
+                      />
+                      <div className="location-card__overlay"></div>
+                      <div className="location-card__content">
+                        <h3 className="location-card__title">
+                          {location.title}
+                          <FaChevronRight aria-hidden="true" />
+                        </h3>
+                        <p className="location-card__subtitle">{location.subtitle}</p>
+                      </div>
+                    </Link>
+                  </div>
+                ))}
+                <div className="col-12 col-md-6 col-xl-4">
+                  <Link to="/unidades/internacional" className="location-card is-compact">
+                    <img
+                      src={recepcaopinheiros}
+                      alt="Care Plus Internacional"
+                      className="location-card__image"
+                      style={{ objectPosition: "center center" }}
+                    />
+                    <div className="location-card__overlay"></div>
+                    <div className="location-card__content">
+                      <h3 className="location-card__title">
+                        Care Plus São Paulo
+                        <FaChevronRight aria-hidden="true" />
+                      </h3>
+                      <p className="location-card__subtitle">
+                        Unidade Pinheiros
+                      </p>
+                    </div>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      
       </div>
     </section>
   );

@@ -63,11 +63,13 @@
   font-size: clamp(2.3rem, 4.6vw, 2.5rem);
   line-height: 1.08;
   letter-spacing: -0.05em;
+  font-family: Roboto;
 }
 
 .home-plans-description {
   max-width: 620px;
   color: #1c9770;
+  font-family: Roboto;
   font-size: 1.18rem;
   line-height: 1.42;
   font-weight: 500;
@@ -305,6 +307,92 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
+.diferenciais-section {
+  background-color: #f3f3f3;
+}
+
+.diferenciais-image-wrapper {
+  position: relative;
+  max-width: 520px;
+}
+
+.diferenciais-image {
+  width: 100%;
+  height: 520px;
+  object-fit: cover;
+  display: block;
+}
+
+.diferenciais-blue-detail {
+  position: absolute;
+  top: 42px;
+  right: -78px;
+  width: 190px;
+  height: 4px;
+  background-color: #9fd3f7;
+}
+
+.diferenciais-btn {
+  border: 2px solid #0072ce;
+  color: #0072ce;
+  background-color: transparent;
+  font-size: 1.05rem;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  transition: 0.3s ease;
+}
+
+.diferenciais-btn:hover {
+  background-color: #0072ce;
+  color: #fff;
+}
+
+.diferenciais-tag {
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: #0072ce;
+}
+
+.diferenciais-title {
+  max-width: 540px;
+  font-size: 3rem;
+  line-height: 1.15;
+  font-weight: 700;
+  color: #003b71;
+}
+
+.diferencial-item {
+  border-left: 2px solid #b8b8b8;
+  padding-left: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.diferencial-item.active {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.diferencial-heading {
+  font-size: 2rem;
+  font-weight: 400;
+  color: #5f5f5f;
+  margin-bottom: 0.5rem;
+}
+
+.diferencial-item.active .diferencial-heading {
+  color: #2d2d2d;
+}
+
+.diferencial-text {
+  max-width: 520px;
+  font-size: 1.25rem;
+  line-height: 1.6;
+  color: #7a7a7a;
+}
+
+
+
 .exclusive-program-card__title {
   margin: 0 0 18px;
   color: #1c9770;
@@ -343,6 +431,238 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.35);
 }
 
+.locations-section {
+  margin-top: 72px;
+  padding: 8px 0 12px;
+}
+
+.locations-intro {
+  max-width: 340px;
+  padding: 10px 12px;
+}
+
+.locations-title {
+  color: #000000;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  line-height: 1.08;
+  font-family: Roboto;
+}
+
+.locations-description {
+  margin-top: 22px;
+  color: #000000;
+  font-size: 1.12rem;
+  line-height: 1.6;
+  font-family: Roboto;
+}
+
+.locations-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 56px;
+  padding: 0 28px;
+  margin-top: 28px;
+  border: 2px solid #93CB52;
+  border-radius: 999px;
+  color: #1c9770;
+  background: #ffffff;
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    background-color 0.25s ease;
+}
+
+.locations-button:hover {
+  color: #0d6efd;
+  background: #f6f9ff;
+  box-shadow: 0 12px 26px rgba(13, 110, 253, 0.12);
+  transform: translateY(-2px);
+}
+
+.location-card {
+  position: relative;
+  display: block;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 14px;
+  overflow: hidden;
+  text-decoration: none;
+  background: #dce9f5;
+  box-shadow: 0 16px 36px rgba(20, 54, 44, 0.12);
+}
+
+.location-card.is-compact {
+  aspect-ratio: 1.2 / 1;
+}
+
+.location-card__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.35s ease;
+}
+
+.location-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(4, 16, 29, 0.02) 14%,
+    rgba(4, 16, 29, 0.22) 52%,
+    rgba(4, 16, 29, 0.74) 100%
+  );
+}
+
+.location-card__content {
+  position: absolute;
+  right: 24px;
+  bottom: 22px;
+  left: 24px;
+  z-index: 1;
+}
+
+.location-card__title {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  color: #ffffff;
+  font-size: clamp(1.1rem, 2.4vw, 1.5rem);
+  line-height: 1.12;
+  text-shadow: 0 4px 18px rgba(0, 0, 0, 0.28);
+}
+
+.location-card__subtitle {
+  margin-top: 10px;
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.35;
+  text-shadow: 0 4px 18px rgba(0, 0, 0, 0.28);
+}
+
+.location-card:hover .location-card__image {
+  transform: scale(1.04);
+}
+
+.specialists-section {
+  margin-top: 88px;
+  padding: 28px 0 12px;
+}
+
+.specialists-copy {
+  max-width: 760px;
+}
+
+.specialists-title {
+  color: #000000;
+  font-size: clamp(2.2rem, 4vw, 4.1rem);
+  line-height: 1.02;
+}
+
+.specialists-description {
+  max-width: 620px;
+  margin: 20px auto 0;
+  color: #7b7b7b;
+  font-size: 1.12rem;
+  line-height: 1.5;
+}
+
+.specialists-grid {
+  margin-top: 48px;
+}
+
+.specialist-card {
+  height: 100%;
+}
+
+.specialist-card__panel {
+  display: grid;
+  grid-template-columns: minmax(120px, 150px) 1fr;
+  align-items: end;
+  min-height: 170px;
+  border-radius: 22px;
+  overflow: hidden;
+  background: linear-gradient(180deg, #f1ebe1 0%, #e6ddcf 100%);
+}
+
+.specialist-card__media {
+  position: relative;
+  height: 100%;
+  min-height: 170px;
+}
+
+.specialist-card__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.specialist-card__summary {
+  padding: 24px 22px;
+}
+
+.specialist-card__role {
+  color: #151515;
+  font-size: 1.05rem;
+  line-height: 1.25;
+  font-family: "Manrope", sans-serif;
+  font-weight: 700;
+}
+
+.specialist-card__focus {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.specialist-card__focus li {
+  position: relative;
+  padding-left: 14px;
+  color: #6f6f6f;
+  font-size: 0.95rem;
+  line-height: 1.35;
+}
+
+.specialist-card__focus li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.3em;
+  width: 2px;
+  height: 0.95em;
+  border-radius: 999px;
+  background: #c88861;
+}
+
+.specialist-card__body {
+  padding-top: 18px;
+}
+
+.specialist-card__name {
+  color: #202020;
+  font-size: 1.15rem;
+  line-height: 1.25;
+}
+
+.specialist-card__description {
+  margin-top: 12px;
+  color: #5f5f5f;
+  font-size: 0.98rem;
+  line-height: 1.5;
+}
+
 @media (max-width: 991px) {
   .home-plans-section {
     padding: 56px 0 28px;
@@ -359,6 +679,19 @@
   .exclusive-programs-section {
     margin-top: 56px;
     padding: 56px 20px 64px;
+  }
+
+  .locations-section {
+    margin-top: 56px;
+  }
+
+  .locations-intro {
+    max-width: 100%;
+    padding: 0 12px 8px;
+  }
+
+  .specialists-section {
+    margin-top: 64px;
   }
 }
 
@@ -386,5 +719,67 @@
 
   .exclusive-program-card__body {
     padding: 52px 22px 24px;
+  }
+
+  .locations-title {
+    font-size: 2.2rem;
+  }
+
+  .locations-description {
+    font-size: 1rem;
+    margin-top: 16px;
+  }
+
+  .locations-button {
+    width: 100%;
+    margin-top: 22px;
+  }
+
+  .location-card,
+  .location-card.is-compact {
+    aspect-ratio: 1.15 / 1;
+  }
+
+  .location-card__content {
+    right: 18px;
+    bottom: 18px;
+    left: 18px;
+  }
+
+  .location-card__title {
+    font-size: 1.7rem;
+  }
+
+  .location-card__subtitle {
+    font-size: 0.98rem;
+  }
+
+  .specialists-title {
+    font-size: 2.5rem;
+  }
+
+  .specialists-description {
+    font-size: 1rem;
+  }
+
+  .specialist-card__panel {
+    grid-template-columns: 120px 1fr;
+    min-height: 156px;
+  }
+
+  .specialist-card__media {
+    min-height: 156px;
+  }
+
+  .specialist-card__summary {
+    padding: 18px 16px;
+  }
+
+  .specialist-card__role {
+    font-size: 0.96rem;
+  }
+
+  .specialist-card__focus li {
+    font-size: 0.88rem;
   }
 }
