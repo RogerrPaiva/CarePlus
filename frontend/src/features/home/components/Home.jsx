@@ -1,9 +1,13 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaChevronRight } from "react-icons/fa";
 import {
+  Briefcase,
+  Building2,
   BriefcaseMedical,
   HeartPulse,
   ShieldPlus,
+  UserRound,
 } from "lucide-react";
 import { BsArrowRight } from "react-icons/bs";
 import { MdLaptopChromebook } from "react-icons/md";
@@ -11,10 +15,15 @@ import HomeOcupacional from "../../../assets/home/home-ocupacional.jpg";
 import Humanizacao from "../../../assets/home/humanizacao.jpg";
 import SobreSoho from "../../../assets/home/sobre_plano_soho.png";
 import BannerSaude from "../../../assets/home/bannersaude.jpg";
-import recepcaomorumbi from "../../../assets/home/recepcaomorumbi.jpg"
-import recepcaorj from "../../../assets/home/recepcaomorumbi.jpg"
-import recepcaobrooklin from "../../../assets/home/recepcaobrooklin.webp"
-import recepcaopinheiros from "../../../assets/home/recepcaopinheiros.webp"
+import recepcaomorumbi from "../../../assets/home/recepcaomorumbi.jpg";
+import recepcaorj from "../../../assets/home/recepcaomorumbi.jpg";
+import recepcaobrooklin from "../../../assets/home/recepcaobrooklin.webp";
+import recepcaopinheiros from "../../../assets/home/recepcaopinheiros.webp";
+import rh from "../../../assets/home/rh.svg";
+import credenciado from "../../../assets/home/credenciado.svg";
+import corretor from "../../../assets/home/corretor.svg";
+import beneficiario from "../../../assets/home/beneficiario.svg";
+
 
 import "../styles/home.css";
 
@@ -109,11 +118,70 @@ const locations = [
   },
 ];
 
+const audienceProfiles = [
+  {
+    id: "beneficiario",
+    label: "Sou Beneficiário",
+    title: "Sou Beneficiário",
+    description:
+      "Acompanhe serviços, orientações e facilidades digitais para tornar o cuidado mais simples no seu dia a dia.",
+    href: "/beneficiario",
+    cta: "Visite sua área",
+    image: beneficiario,
+    imageAlt: "Beneficiária Care Plus",
+    Icon: UserRound,
+  },
+  {
+    id: "rh",
+    label: "Sou RH",
+    title: "Sou RH",
+    description:
+      "Tenha acesso a um ambiente feito para gestão de saúde corporativa, suporte operacional e acompanhamento da carteira.",
+    href: "/rh",
+    cta: "Acessar portal RH",
+    image: rh,
+    imageAlt: "Área de RH Care Plus",
+    Icon: Briefcase,
+  },
+  {
+    id: "corretor",
+    label: "Sou Corretor",
+    title: "Sou Corretor",
+    description:
+      "Consulte materiais comerciais, recursos de apoio e informações rápidas para apoiar suas negociações.",
+    href: "/corretor",
+    cta: "Entrar como corretor",
+    image: corretor,
+    imageAlt: "Área do corretor Care Plus",
+    Icon: ShieldPlus,
+  },
+  {
+    id: "credenciado",
+    label: "Sou Credenciado",
+    title: "Sou Credenciado",
+    description:
+      "Para você que é nosso parceiro e oferece atendimento médico e odontológico aos nossos beneficiários.",
+    href: "/credenciado",
+    cta: "Visite sua área",
+    image: credenciado,
+    imageAlt: "Área do credenciado Care Plus",
+    Icon: Building2,
+  },
+];
+
 function Home() {
+  const [activeAudienceId, setActiveAudienceId] = useState("credenciado");
+
+  const activeAudience =
+    audienceProfiles.find((profile) => profile.id === activeAudienceId) ??
+    audienceProfiles[0];
+  const ActiveAudienceIcon = activeAudience.Icon;
+
   return (
     <section className="home-plans-section">
 
       <div className="container-fluid custom-container home-plans-shell">
+
         <div className="row justify-content-center">
           <div className="col-12 d-flex justify-content-center">
             <div className="home-plans-copy d-flex flex-column align-items-center text-center">
@@ -209,6 +277,75 @@ function Home() {
           </div>
         </section>
 
+        <section className="audience-section">
+          <div className="row justify-content-center">
+            <div className="col-12 col-xl-8">
+              <div className="audience-copy text-center mx-auto">
+                <p className="home-plans-eyebrow mb-3">PARA QUEM BUSCA</p>
+                <h2 className="audience-title">
+                  Um espaço personalizado
+                  <br />
+                  para o seu perfil
+                </h2>
+              </div>
+            </div>
+          </div>
+
+          <div
+            className="audience-tabs"
+            role="tablist"
+            aria-label="Perfis de acesso Care Plus"
+          >
+            {audienceProfiles.map((profile) => {
+              const IconComponent = profile.Icon;
+              const isActive = profile.id === activeAudienceId;
+
+              return (
+                <button
+                  key={profile.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={isActive}
+                  className={`audience-tab ${isActive ? "is-active" : ""}`}
+                  onClick={() => setActiveAudienceId(profile.id)}
+                >
+                  <span className="audience-tab__icon">
+                    <IconComponent size={20} aria-hidden="true" />
+                  </span>
+                  <span>{profile.label}</span>
+                </button>
+              );
+            })}
+          </div>
+
+          <div className="audience-panel">
+            <div className="audience-panel__visual">
+              <img
+                src={activeAudience.image}
+                alt={activeAudience.imageAlt}
+                className="audience-panel__image"
+              />
+            </div>
+
+            <div className="audience-panel__card">
+              <div className="audience-panel__icon">
+                <ActiveAudienceIcon size={28} aria-hidden="true" />
+              </div>
+
+              <div className="audience-panel__content">
+                <h3 className="audience-panel__title">{activeAudience.title}</h3>
+                <p className="audience-panel__description">
+                  {activeAudience.description}
+                </p>
+
+                <Link to={activeAudience.href} className="audience-panel__button">
+                  <span>{activeAudience.cta}</span>
+                  <BsArrowRight size={24} aria-hidden="true" />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
         <section className="locations-section">
           <div className="row g-4 g-xl-5 align-items-stretch">
             <div className="col-12 col-lg-4">
@@ -299,7 +436,7 @@ function Home() {
             </div>
           </div>
         </section>
-      
+        
       </div>
     </section>
   );

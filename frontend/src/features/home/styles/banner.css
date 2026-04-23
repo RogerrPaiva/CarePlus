@@ -25,9 +25,9 @@
 .health-banner-title {
   font-size: 3.7rem;
   line-height: 1.08;
-  font-weight: 300;
+  font-weight: 700;
   color: #1c9770ff;
-  font-family: Roboto;
+  font-family: Roboto, sans-serif;
   max-width: 620px;
   margin-bottom: 28px;
 }
@@ -73,7 +73,7 @@
   font-size: 1.05rem;
   color: #1f2d3d;
   font-weight: 400;
-  font-family: Roboto;
+  font-family: Roboto, sans-serif;
 }
 
 .health-link-arrow {
@@ -120,7 +120,7 @@
   line-height: 1.1;
   font-weight: 700;
   margin-bottom: 22px;
-  font-family: Roboto;
+  font-family: Roboto, sans-serif;
 }
 
 .Health-card-banner-text {
