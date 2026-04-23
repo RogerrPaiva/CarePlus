@@ -1,6 +1,14 @@
 .health-banner-section {
-  background: #f3f3f3;
   padding: 34px 0;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0.5) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow:
+    0 24px 60px rgba(167, 180, 177, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(24px) saturate(1.2);
+  -webkit-backdrop-filter: blur(24px) saturate(1.2);
 }
 
 .custom-container {
@@ -19,6 +27,7 @@
   line-height: 1.08;
   font-weight: 300;
   color: #1c9770ff;
+  font-family: Roboto;
   max-width: 620px;
   margin-bottom: 28px;
 }
@@ -64,6 +73,7 @@
   font-size: 1.05rem;
   color: #1f2d3d;
   font-weight: 400;
+  font-family: Roboto;
 }
 
 .health-link-arrow {
@@ -110,10 +120,11 @@
   line-height: 1.1;
   font-weight: 700;
   margin-bottom: 22px;
+  font-family: Roboto;
 }
 
 .Health-card-banner-text {
-  bottom: 24px;
+  bottom: 20px;
   z-index: 3;
   position: absolute;
   left: 24px;
