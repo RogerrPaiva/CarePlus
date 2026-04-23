@@ -1,4 +1,5 @@
 import { FileText, Stethoscope } from "lucide-react";
+import { Link } from "react-router-dom";
 import {
   FaFacebookF,
   FaYoutube,
@@ -30,14 +31,14 @@ function Footer() {
             <div className="col-12 col-md-4">
               <a href="#" className="footer-card">
                 <FileText size={22} className="footer-card-icon" />
-                <span className="footer-card-text">Convênios Médicos</span>
+                <span className="footer-card-text">Convenios Medicos</span>
               </a>
             </div>
 
             <div className="col-12 col-md-4">
               <a href="#" className="footer-card">
                 <Stethoscope size={22} className="footer-card-icon" />
-                <span className="footer-card-text">Encontre um Médico</span>
+                <span className="footer-card-text">Encontre um Medico</span>
               </a>
             </div>
           </div>
@@ -52,8 +53,8 @@ function Footer() {
                 <li><a href="#">A empresa</a></li>
                 <li><a href="#">Diferenciais</a></li>
                 <li><a href="#">Rede Plus</a></li>
-                <li><a href="#">Gestão De Saúde</a></li>
-                <li><a href="#">O Lado Plus Da Saúde</a></li>
+                <li><a href="#">Gestao de Saude</a></li>
+                <li><a href="#">O Lado Plus da Saude</a></li>
                 <li><a href="#">Responsabilidade Social</a></li>
                 <li><a href="#">Perguntas Frequentes</a></li>
               </ul>
@@ -64,10 +65,10 @@ function Footer() {
               <ul className="footer-links">
                 <li><a href="#">Planos Individuais</a></li>
                 <li><a href="#">Coberturas</a></li>
-                <li><a href="#">Tabela de Preços</a></li>
-                <li><a href="#">Planos Empresariais</a></li>
-                <li><a href="#">Benefícios</a></li>
-                <li><a href="#">Comparar Planos</a></li>
+                <li><a href="#">Tabela de Precos</a></li>
+                <li><Link to="/planos">Planos Empresariais</Link></li>
+                <li><Link to="/planos">Beneficios</Link></li>
+                <li><Link to="/planos">Comparar Planos</Link></li>
               </ul>
             </div>
 
@@ -84,7 +85,7 @@ function Footer() {
               <ul className="footer-links">
                 <li><a href="#">Solicite Uma Proposta</a></li>
                 <li><a href="#">Contato</a></li>
-                <li><a href="#">Canal de Denúncias</a></li>
+                <li><a href="#">Canal de Denuncias</a></li>
               </ul>
             </div>
           </div>
@@ -96,8 +97,8 @@ function Footer() {
         <div className="container-fluid custom-container py-5">
           <div className="row g-4">
             <div className="col-12 col-md-6 col-lg-3">
-              <h4 className="footer-subtitle">Certificações</h4>
-              <img src={GODADDY} alt="Certificações" className="img-fluid footer-cert-img" />
+              <h4 className="footer-subtitle">Certificacoes</h4>
+              <img src={GODADDY} alt="Certificacoes" className="img-fluid footer-cert-img" />
             </div>
 
             <div className="col-12 col-md-6 col-lg-3">
@@ -130,7 +131,7 @@ function Footer() {
                   className="footer-ans-logo"
                 />
                 <div className="ans-badge">
-                  ANS Nº 37995-6
+                  ANS No 37995-6
                 </div>
               </div>
             </div>
@@ -151,11 +152,11 @@ function Footer() {
           <div className="row gy-4 align-items-center">
             <div className="col-12 col-lg-6">
               <div className="footer-copy">
-                © 2026 - Care Plus Medicina Assistencial LTDA | Todos os direitos reservados
+                Copyright 2026 - Care Plus Medicina Assistencial LTDA | Todos os direitos reservados
                 <br />
                 CNPJ: 00.000.000/0001-00
                 <br />
-                Endereço: Alameda Exemplo, 687 - 12º andar
+                Endereco: Alameda Exemplo, 687 - 12o andar
                 <br />
                 Alphaville - Barueri - SP - CEP: 06454-040
               </div>
@@ -165,10 +166,10 @@ function Footer() {
               <div className="footer-bottom-links">
                 <a href="#">Acessibilidade</a>
                 <a href="#">Aviso de Privacidade</a>
-                <a href="#">Termos & Condições</a>
+                <a href="#">Termos & Condicoes</a>
                 <a href="#">Contato</a>
                 <a href="#">Mapa do site</a>
-                <a href="#">Transparência Salarial</a>
+                <a href="#">Transparencia Salarial</a>
               </div>
             </div>
           </div>

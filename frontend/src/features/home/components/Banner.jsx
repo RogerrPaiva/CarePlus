@@ -1,11 +1,11 @@
+import { Link } from "react-router-dom";
 import {
   ChevronRight,
   ChevronLeft,
   Stethoscope,
-  Ambulance,
   FileText,
 } from "lucide-react";
-import { MdHealthAndSafety,} from "react-icons/md";
+import { MdHealthAndSafety } from "react-icons/md";
 import { FaUserMd } from "react-icons/fa";
 import bannerImg from "../../../assets/home/bannersaude.jpg";
 import "../styles/banner.css";
@@ -19,7 +19,7 @@ function Banner() {
           <div className="col-lg-6">
             <div className="health-banner-left">
               <h1 className="health-banner-title">
-                Soluções personalizadas em saúde com absoluta dedicação e cuidado
+                Solucoes personalizadas em saude com absoluta dedicacao e cuidado
               </h1>
 
               <div className="health-links-list">
@@ -35,7 +35,7 @@ function Banner() {
                   <span className="health-link-icon">
                     <Stethoscope size={18} />
                   </span>
-                  <span className="health-link-text">Encontre um Médico</span>
+                  <span className="health-link-text">Encontre um Medico</span>
                   <ChevronRight size={18} className="health-link-arrow" />
                 </a>
 
@@ -47,14 +47,13 @@ function Banner() {
                   <ChevronRight size={18} className="health-link-arrow" />
                 </a>
 
-                <a href="#" className="health-link-card">
+                <Link to="/planos" className="health-link-card">
                   <span className="health-link-icon">
                     <FaUserMd size={18} />
                   </span>
                   <span className="health-link-text">Programas Empresariais</span>
                   <ChevronRight size={18} className="health-link-arrow" />
-                </a>
-
+                </Link>
               </div>
             </div>
           </div>
@@ -64,21 +63,21 @@ function Banner() {
             <div className="health-banner-card">
               <img
                 src={bannerImg}
-                alt="Banner saúde"
+                alt="Banner saude"
                 className="health-banner-image"
               />
-            
-            <div className="Health-card-banner-text">
-                <a href="#" className="health-banner-btn">
-                  Saiba mais
-                </a>
-            </div>
 
-            <div className="health-banner-overlay"></div>
+              <div className="Health-card-banner-text">
+                <Link to="/planos" className="health-banner-btn">
+                  Saiba mais
+                </Link>
+              </div>
+
+              <div className="health-banner-overlay"></div>
 
               <div className="health-banner-content">
                 <h2 className="health-banner-card-title">
-                  Atendimento médico adulto e pediátrico imediato
+                  Atendimento medico adulto e pediatrico imediato
                 </h2>
               </div>
 
