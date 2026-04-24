@@ -11,6 +11,7 @@ import { FaUserMd } from "react-icons/fa";
 import recepcaoBrooklin from "../../../assets/home/recepcaobrooklin.webp";
 import recepcaoMorumbi from "../../../assets/home/recepcaomorumbi.jpg";
 import recepcaoRio from "../../../assets/home/recepcaorj.jpg";
+import bannerSaude from "../../../assets/home/bannersaude.jpg";
 import "../styles/banner.css";
 
 const bannerSlides = [
@@ -31,6 +32,12 @@ const bannerSlides = [
     alt: "Recepcao da unidade do Rio de Janeiro",
     title: "Estrutura pronta para receber adultos e familias com mais proximidade",
     objectPosition: "center 22%",
+  },
+  {
+    image: bannerSaude,
+    alt: "Unidade de atendimento Care Plus",
+    title: "Cuidado completo em saude para empresas, familias e beneficiarios",
+    objectPosition: "center center",
   },
 ];
 
