@@ -1,10 +1,39 @@
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Search, User, HeadsetIcon } from "lucide-react";
 import { FaChevronDown } from "react-icons/fa";
 import CarePlus from "../../../assets/branding/CarePlus.svg";
+import { clearAuthenticatedUser, readAuthenticatedUser } from "../../auth/authStorage";
+import { clearOnboardingFlowContext } from "../../onboarding/flowStorage";
 import "../styles/header.css";
 
+function resolvePrimaryName(user) {
+  const fullName = user?.full_name?.trim();
+
+  if (!fullName) {
+    return "";
+  }
+
+  return fullName.split(/\s+/)[0];
+}
+
 function Header() {
+  const navigate = useNavigate();
+  const [authenticatedUser, setAuthenticatedUser] = useState(() => readAuthenticatedUser());
+  const primaryName = resolvePrimaryName(authenticatedUser);
+  const ctaLabel = primaryName ? primaryName : "Seja Plus";
+
+  useEffect(() => {
+    setAuthenticatedUser(readAuthenticatedUser());
+  }, []);
+
+  function handleLogout() {
+    clearAuthenticatedUser();
+    clearOnboardingFlowContext();
+    setAuthenticatedUser(null);
+    navigate("/login");
+  }
+
   return (
     <header className="header-bootstrap bg-white">
       <div className="topbar border-bottom">
@@ -150,10 +179,18 @@ function Header() {
                   <Search size={20} />
                 </button>
 
-                <Link to="/login" className="btn btn-plus d-flex align-items-center gap-2">
-                  Seja Plus
-                  <User size={18} />
-                </Link>
+                <div className="header-auth-actions d-flex align-items-center gap-2">
+                  <Link to={primaryName ? "/" : "/login"} className="btn btn-plus d-flex align-items-center gap-2">
+                    {ctaLabel}
+                    <User size={18} />
+                  </Link>
+
+                  {primaryName ? (
+                    <button type="button" className="header-logout-button" onClick={handleLogout}>
+                      Sair
+                    </button>
+                  ) : null}
+                </div>
               </div>
             </div>
           </nav>

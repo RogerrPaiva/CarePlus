@@ -20,5 +20,27 @@
     "password_hash": "c00357563669ed21c34e13687cad669038eb88a2831fc8109b40ddc62f63e934",
     "created_at": "2026-04-24T18:16:55.219065+00:00",
     "updated_at": "2026-04-24T18:16:55.219065+00:00"
+  },
+  {
+    "id": "bec25a7f-8268-479e-8a0b-51fb127ece37",
+    "full_name": "Roger De Carvalho Paiva",
+    "email": "rogerpaiva1801@gmail.com",
+    "phone": "55539916133",
+    "cpf": "04622317044",
+    "birth_date": "03/08/2005",
+    "password_hash": "c00357563669ed21c34e13687cad669038eb88a2831fc8109b40ddc62f63e934",
+    "created_at": "2026-04-24T18:37:34.930184+00:00",
+    "updated_at": "2026-04-24T18:37:34.930184+00:00"
+  },
+  {
+    "id": "8a83d5b2-a332-42e5-bfa9-634606ddc570",
+    "full_name": "Iago cunha de carvalho",
+    "email": "needy1801@gmail.com",
+    "phone": "55539916133",
+    "cpf": "44853254072",
+    "birth_date": "03/08/2005",
+    "password_hash": "177959238b31f126b4ee0a707af27a7ef04d7a53ed2a9d8e0e56f0f9b73a1a8e",
+    "created_at": "2026-04-24T19:03:23.163498+00:00",
+    "updated_at": "2026-04-24T19:03:23.163498+00:00"
   }
 ]

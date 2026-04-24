@@ -4,6 +4,9 @@ import { ArrowLeft, ArrowRight, Eye, EyeOff, Info, Lock, Mail, ShieldCheck } fro
 import { FaApple } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import CarePlus from "../assets/branding/CarePlus.svg";
+import { saveAuthenticatedUser } from "../features/auth/authStorage";
+import { writeOnboardingFlowContext } from "../features/onboarding/flowStorage";
+import { loginUser } from "../lib/api";
 import "./login-page.css";
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -57,6 +60,7 @@ function LoginPage() {
   const [touched, setTouched] = useState({});
   const [showPassword, setShowPassword] = useState(false);
   const [helperMessage, setHelperMessage] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     document.title = "Care Plus | Login";
@@ -70,6 +74,8 @@ function LoginPage() {
     };
 
     setValues(nextValues);
+
+    setHelperMessage((currentMessage) => (currentMessage?.type === "error" ? null : currentMessage));
 
     if (touched[name]) {
       setErrors((currentErrors) => ({
@@ -93,7 +99,7 @@ function LoginPage() {
     }));
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
 
     const nextErrors = validateForm(values);
@@ -109,16 +115,40 @@ function LoginPage() {
       return;
     }
 
-    navigate("/onboarding", {
-      state: {
-        origin: "login",
+    try {
+      setIsSubmitting(true);
+      setHelperMessage(null);
+
+      const response = await loginUser({
         email: values.email.trim(),
-      },
-    });
+        password: values.password,
+      });
+
+      const flowContext = {
+        origin: "login",
+        email: response?.user?.email ?? values.email.trim(),
+        user: response?.user ?? null,
+      };
+
+      saveAuthenticatedUser(response?.user ?? null);
+      writeOnboardingFlowContext(flowContext);
+
+      navigate("/onboarding", {
+        state: flowContext,
+      });
+    } catch (error) {
+      setHelperMessage({
+        type: "error",
+        text: error instanceof Error ? error.message : "Nao foi possivel entrar agora. Tente novamente.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   function showTemporaryMessage(message) {
     setHelperMessage({
+      type: "info",
       text: message,
     });
   }
@@ -200,7 +230,7 @@ function LoginPage() {
                 </div>
 
                 {helperMessage ? (
-                  <div className="login-helper-message is-info" aria-live="polite">
+                  <div className={`login-helper-message ${helperMessage.type === "error" ? "is-error" : "is-info"}`} aria-live="polite">
                     <span className="login-helper-message__icon" aria-hidden="true">
                       <Info size={18} />
                     </span>
@@ -272,8 +302,8 @@ function LoginPage() {
                     ) : null}
                   </div>
 
-                  <button type="submit" className="login-submit">
-                    Entrar no Care Plus
+                  <button type="submit" className="login-submit" disabled={isSubmitting}>
+                    {isSubmitting ? "Entrando..." : "Entrar no Care Plus"}
                     <ArrowRight size={18} aria-hidden="true" />
                   </button>
                 </form>
