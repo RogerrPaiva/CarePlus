@@ -9,5 +9,16 @@
     "password_hash": "c29b0d2ab857086ce8e424ce25376eb98d09337ed9dfc0c6a13615f4be05a7a2",
     "created_at": "2026-04-20T03:25:47.903655+00:00",
     "updated_at": "2026-04-20T03:25:47.903655+00:00"
+  },
+  {
+    "id": "a262b38b-0251-4f4d-9dc5-7465bd61f18b",
+    "full_name": "Roger Paiva",
+    "email": "roger@email.com",
+    "phone": "11999999999",
+    "cpf": "12345678909",
+    "birth_date": "10/05/2004",
+    "password_hash": "c00357563669ed21c34e13687cad669038eb88a2831fc8109b40ddc62f63e934",
+    "created_at": "2026-04-24T18:16:55.219065+00:00",
+    "updated_at": "2026-04-24T18:16:55.219065+00:00"
   }
 ]
