@@ -1,3 +1,10 @@
+:root {
+  --pages-primary: #1c9770;
+  --pages-primary-rgb: 28, 151, 112;
+  --pages-secondary: #93CB52;
+  --pages-secondary-rgb: 147, 203, 82;
+}
+
 .signup-shell {
   min-height: 100vh;
   min-height: 100dvh;
@@ -15,10 +22,10 @@
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 12% 14%, rgba(122, 209, 195, 0.18), transparent 22%),
+    radial-gradient(circle at 12% 14%, rgba(var(--pages-primary-rgb), 0.18), transparent 22%),
     radial-gradient(circle at 88% 12%, rgba(147, 203, 82, 0.14), transparent 18%),
-    radial-gradient(circle at 60% 92%, rgba(122, 209, 128, 0.08), transparent 28%),
-    linear-gradient(180deg, rgba(248, 252, 250, 0.14), rgba(223, 245, 238, 0.24));
+    radial-gradient(circle at 60% 92%, rgba(var(--pages-primary-rgb), 0.08), transparent 28%),
+    linear-gradient(180deg, rgba(248, 252, 250, 0.14), rgba(var(--pages-primary-rgb), 0.12));
   pointer-events: none;
 }
 
@@ -93,8 +100,8 @@
 .signup-grid::before {
   inset: 0;
   background:
-    radial-gradient(circle at 18% 42%, rgba(28, 151, 112, 0.12), transparent 34%),
-    radial-gradient(circle at 72% 16%, rgba(122, 209, 195, 0.12), transparent 22%);
+    radial-gradient(circle at 18% 42%, rgba(var(--pages-primary-rgb), 0.12), transparent 34%),
+    radial-gradient(circle at 72% 16%, rgba(var(--pages-secondary-rgb), 0.12), transparent 22%);
   opacity: 0.92;
 }
 
@@ -103,7 +110,7 @@
   bottom: 8%;
   left: calc(50% - 54px);
   width: 190px;
-  background: linear-gradient(90deg, rgba(28, 151, 112, 0.16), rgba(122, 209, 195, 0.08) 42%, rgba(255, 255, 255, 0));
+  background: linear-gradient(90deg, rgba(var(--pages-primary-rgb), 0.16), rgba(var(--pages-secondary-rgb), 0.08) 42%, rgba(255, 255, 255, 0));
   filter: blur(18px);
   opacity: 0.82;
 }
@@ -114,10 +121,10 @@
   min-height: 100%;
   padding: clamp(40px, 4.6vw, 62px);
   background:
-    radial-gradient(circle at 86% 22%, rgba(122, 209, 195, 0.34), rgba(122, 209, 195, 0) 28%),
-    radial-gradient(circle at 76% 84%, rgba(147, 203, 82, 0.4), rgba(147, 203, 82, 0) 34%),
+    radial-gradient(circle at 86% 22%, rgba(var(--pages-primary-rgb), 0.3), rgba(var(--pages-primary-rgb), 0) 28%),
+    radial-gradient(circle at 76% 84%, rgba(var(--pages-secondary-rgb), 0.4), rgba(var(--pages-secondary-rgb), 0) 34%),
     radial-gradient(circle at 18% 18%, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0) 22%),
-    linear-gradient(160deg, #0b5642 0%, #117256 30%, #1c9770 56%, #49c09b 78%, #93cb52 100%);
+    linear-gradient(160deg, #0d5f47 0%, #167a5c 30%, var(--pages-primary) 56%, #4ab987 78%, var(--pages-secondary) 100%);
   isolation: isolate;
 }
 
@@ -231,7 +238,7 @@
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 0 16%, rgba(122, 209, 195, 0.18), transparent 24%),
+    radial-gradient(circle at 0 16%, rgba(var(--pages-primary-rgb), 0.18), transparent 24%),
     linear-gradient(90deg, rgba(245, 251, 248, 0.28), rgba(255, 255, 255, 0.74) 24%, rgba(255, 255, 255, 0.58));
   pointer-events: none;
 }
@@ -307,7 +314,7 @@
 
 .signup-section--compact {
   background:
-    linear-gradient(180deg, rgba(122, 209, 195, 0.08), rgba(255, 255, 255, 0.7)),
+    linear-gradient(180deg, rgba(var(--pages-primary-rgb), 0.08), rgba(255, 255, 255, 0.7)),
     rgba(255, 255, 255, 0.6);
 }
 
@@ -500,7 +507,7 @@
 }
 
 .signup-checkbox:focus-within {
-  background: linear-gradient(90deg, rgba(122, 209, 195, 0.08), rgba(255, 255, 255, 0));
+  background: linear-gradient(90deg, rgba(var(--pages-primary-rgb), 0.08), rgba(255, 255, 255, 0));
 }
 
 .signup-checkbox label {
@@ -549,7 +556,7 @@
 }
 
 .signup-checkbox.is-valid {
-  border-color: rgba(28, 151, 112, 0.28);
+  border-color: rgba(var(--pages-primary-rgb), 0.28);
 }
 
 .signup-checkbox.is-valid label {
@@ -579,7 +586,7 @@
   height: 18px;
   margin-top: 2px;
   border-radius: 999px;
-  background: rgba(122, 209, 195, 0.22);
+  background: rgba(var(--pages-primary-rgb), 0.22);
   color: var(--cp-green-strong);
 }
 
@@ -603,7 +610,7 @@
   padding: 0 22px;
   border: none;
   border-radius: 17px;
-  background: linear-gradient(135deg, #1c9770, #0d5f47);
+  background: linear-gradient(135deg, var(--pages-secondary), var(--pages-primary));
   color: #fff;
   font-weight: 800;
   letter-spacing: 0.01em;
@@ -688,8 +695,8 @@
   .signup-grid::before {
     inset: 0;
     background:
-      radial-gradient(circle at 16% 46%, rgba(28, 151, 112, 0.14), transparent 34%),
-      radial-gradient(circle at 78% 16%, rgba(122, 209, 195, 0.12), transparent 24%),
+      radial-gradient(circle at 16% 46%, rgba(var(--pages-primary-rgb), 0.14), transparent 34%),
+      radial-gradient(circle at 78% 16%, rgba(var(--pages-secondary-rgb), 0.12), transparent 24%),
       radial-gradient(circle at 84% 78%, rgba(147, 203, 82, 0.1), transparent 20%);
     opacity: 0.9;
   }
@@ -735,7 +742,7 @@
     min-height: 100dvh;
     padding: 26px clamp(34px, 3.6vw, 56px) 28px clamp(34px, 3.6vw, 56px);
     background:
-      radial-gradient(circle at 8% 28%, rgba(122, 209, 195, 0.2), transparent 24%),
+      radial-gradient(circle at 8% 28%, rgba(var(--pages-primary-rgb), 0.18), transparent 24%),
       radial-gradient(circle at 18% 72%, rgba(28, 151, 112, 0.14), transparent 28%),
       radial-gradient(circle at 86% 10%, rgba(147, 203, 82, 0.12), transparent 18%),
       linear-gradient(90deg, rgba(231, 245, 240, 0.82) 0%, rgba(241, 249, 245, 0.64) 38%, rgba(248, 252, 250, 0.26) 100%);
@@ -744,9 +751,9 @@
 
   .signup-panel::before {
     background:
-      radial-gradient(circle at 16% 24%, rgba(122, 209, 195, 0.18), transparent 24%),
-      radial-gradient(circle at 24% 58%, rgba(122, 209, 128, 0.14), transparent 26%),
-      linear-gradient(90deg, rgba(122, 209, 195, 0.08), rgba(255, 255, 255, 0) 52%);
+      radial-gradient(circle at 16% 24%, rgba(var(--pages-primary-rgb), 0.16), transparent 24%),
+      radial-gradient(circle at 24% 58%, rgba(var(--pages-secondary-rgb), 0.14), transparent 26%),
+      linear-gradient(90deg, rgba(var(--pages-primary-rgb), 0.08), rgba(255, 255, 255, 0) 52%);
     opacity: 0.92;
   }
 
@@ -908,7 +915,7 @@
 
   .signup-panel {
     background:
-      radial-gradient(circle at 4% 24%, rgba(122, 209, 195, 0.26), transparent 24%),
+      radial-gradient(circle at 4% 24%, rgba(var(--pages-primary-rgb), 0.22), transparent 24%),
       radial-gradient(circle at 14% 68%, rgba(28, 151, 112, 0.18), transparent 30%),
       radial-gradient(circle at 84% 10%, rgba(147, 203, 82, 0.14), transparent 18%),
       linear-gradient(90deg, rgba(223, 242, 235, 0.92) 0%, rgba(236, 247, 241, 0.76) 34%, rgba(246, 251, 248, 0.34) 100%);
@@ -916,9 +923,9 @@
 
   .signup-panel::before {
     background:
-      radial-gradient(circle at 12% 22%, rgba(122, 209, 195, 0.22), transparent 24%),
-      radial-gradient(circle at 18% 56%, rgba(122, 209, 128, 0.18), transparent 28%),
-      linear-gradient(90deg, rgba(122, 209, 195, 0.12), rgba(255, 255, 255, 0) 56%);
+      radial-gradient(circle at 12% 22%, rgba(var(--pages-primary-rgb), 0.2), transparent 24%),
+      radial-gradient(circle at 18% 56%, rgba(var(--pages-secondary-rgb), 0.18), transparent 28%),
+      linear-gradient(90deg, rgba(var(--pages-primary-rgb), 0.12), rgba(255, 255, 255, 0) 56%);
     opacity: 0.98;
   }
 
@@ -941,10 +948,10 @@
 
   .signup-page::before {
     background:
-      radial-gradient(circle at 12% 8%, rgba(122, 209, 195, 0.2), transparent 24%),
+      radial-gradient(circle at 12% 8%, rgba(var(--pages-primary-rgb), 0.2), transparent 24%),
       radial-gradient(circle at 88% 2%, rgba(147, 203, 82, 0.14), transparent 18%),
-      radial-gradient(circle at 50% 92%, rgba(122, 209, 195, 0.1), transparent 34%),
-      linear-gradient(180deg, rgba(248, 252, 250, 0.12), rgba(223, 245, 238, 0.22));
+      radial-gradient(circle at 50% 92%, rgba(var(--pages-primary-rgb), 0.1), transparent 34%),
+      linear-gradient(180deg, rgba(248, 252, 250, 0.12), rgba(var(--pages-primary-rgb), 0.1));
   }
 
   .signup-page .custom-container {
@@ -1106,7 +1113,7 @@
     width: 24px;
     height: 24px;
     border-radius: 8px;
-    background: linear-gradient(180deg, rgba(122, 209, 195, 0.2), rgba(122, 209, 195, 0.08));
+    background: linear-gradient(180deg, rgba(var(--pages-primary-rgb), 0.2), rgba(var(--pages-primary-rgb), 0.08));
   }
 
   .signup-trust-note p {
