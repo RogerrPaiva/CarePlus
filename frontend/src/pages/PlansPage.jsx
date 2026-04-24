@@ -1,80 +1,111 @@
-import { useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { ArrowLeft, ArrowRight, Check, Crown, Heart, ShieldCheck, Sparkles, Star } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, ShieldCheck, Sparkles, Star } from "lucide-react";
 import CarePlus from "../assets/branding/CarePlus.svg";
-import { readOnboardingFlowContext } from "../features/onboarding/flowStorage";
+import { readAuthenticatedUser, saveAuthenticatedUser } from "../features/auth/authStorage";
+import { readOnboardingFlowContext, writeOnboardingFlowContext } from "../features/onboarding/flowStorage";
+import { comparisonRows, getPlanByKey, getRecommendedPlan, plans } from "../features/plans/planCatalog";
+import { completeUserOnboarding } from "../lib/api";
 import "./PlansPage.css";
 
 const planSteps = [
-  { number: 1, title: "Permissões e ajustes iniciais", status: "Concluído" },
-  { number: 2, title: "Preferências de cuidado", status: "Concluído" },
-  { number: 3, title: "Confirmação final", status: "Concluído" },
-  { number: 4, title: "Planos", status: "Próximo passo" },
-];
-
-const comparisonRows = [
-  "Frequência de acompanhamento",
-  "Lembretes inteligentes",
-  "Conteúdos personalizados",
-  "Suporte ampliado",
-  "Relatórios de progresso",
-  "Benefícios exclusivos",
-];
-
-const plans = [
-  {
-    key: "essencial",
-    title: "Essencial",
-    description: "Acompanhamento básico, lembretes e visão da rotina.",
-    price: "R$29",
-    cycle: "/mes",
-    icon: Heart,
-    values: ["Mensal", true, false, false, "Visao basica", false],
-  },
-  {
-    key: "equilibrio",
-    title: "Equilibrio",
-    description: "Metas personalizadas, acompanhamento mais frequente e conteúdos de bem-estar.",
-    price: "R$59",
-    cycle: "/mes",
-    icon: Star,
-    values: ["Semanal", true, true, true, "Detalhados", false],
-    recommended: true,
-  },
-  {
-    key: "integral",
-    title: "Integral",
-    description: "Experiência completa, acompanhamento ampliado e benefícios extras.",
-    price: "R$89",
-    cycle: "/mes",
-    icon: Crown,
-    values: ["Ilimitada", true, true, true, "Avançados", true],
-  },
+  { number: 1, title: "Permissoes e ajustes iniciais", status: "Concluido" },
+  { number: 2, title: "Preferencias de cuidado", status: "Concluido" },
+  { number: 3, title: "Confirmacao final", status: "Concluido" },
+  { number: 4, title: "Planos", status: "Escolha seu plano" },
 ];
 
 function buildPlansFlowContext(navigationState, storedContext) {
   return {
     origin: navigationState?.origin ?? storedContext?.origin ?? null,
+    account: navigationState?.account ?? storedContext?.account ?? null,
+    email: navigationState?.email ?? storedContext?.email ?? "",
+    preferences: navigationState?.preferences ?? storedContext?.preferences ?? null,
+    selectedPlan: navigationState?.selectedPlan ?? storedContext?.selectedPlan ?? null,
   };
 }
 
 function PlansPage() {
   const navigate = useNavigate();
   const location = useLocation();
-  const flowContext = buildPlansFlowContext(location.state, readOnboardingFlowContext());
+  const flowContext = useMemo(
+    () => buildPlansFlowContext(location.state, readOnboardingFlowContext()),
+    [location.state],
+  );
+  const [selectedPlanKey, setSelectedPlanKey] = useState(() => flowContext.selectedPlan?.key ?? getRecommendedPlan().key);
+  const selectedPlan = useMemo(() => getPlanByKey(selectedPlanKey) ?? getRecommendedPlan(), [selectedPlanKey]);
   const backButtonLabel = flowContext.origin === "signup" ? "Voltar para o cadastro" : "Voltar";
 
   useEffect(() => {
     document.title = "Care Plus | Planos";
   }, []);
 
+  useEffect(() => {
+    writeOnboardingFlowContext({
+      ...flowContext,
+      selectedPlan,
+    });
+  }, [flowContext, selectedPlan]);
+
   function handleBackToReview() {
+    if (window.history.length > 1) {
+      navigate(-1);
+      return;
+    }
+
     navigate("/onboarding", {
       state: {
-        ...location.state,
+        ...flowContext,
         currentStepNumber: 3,
+        selectedPlan,
       },
     });
+  }
+
+  async function handleConfirmPlan(planToConfirm = selectedPlan) {
+    const nextFlowContext = {
+      ...flowContext,
+      currentStepNumber: 3,
+      selectedPlan: planToConfirm,
+    };
+
+    const authenticatedUser = readAuthenticatedUser();
+
+    if (authenticatedUser) {
+      const nextAuthenticatedUser = {
+        ...authenticatedUser,
+        selected_plan: planToConfirm.key,
+        onboarding_completed: true,
+      };
+
+      saveAuthenticatedUser(nextAuthenticatedUser);
+
+      if (authenticatedUser.id) {
+        const response = await completeUserOnboarding(authenticatedUser.id, {
+          selected_plan: planToConfirm.key,
+        });
+
+        saveAuthenticatedUser(response?.user ?? nextAuthenticatedUser);
+      }
+    }
+
+    writeOnboardingFlowContext(nextFlowContext);
+  }
+
+  async function handleSelectRecommendedPlan() {
+    const recommendedPlan = getRecommendedPlan();
+    setSelectedPlanKey(recommendedPlan.key);
+    await handleConfirmPlan(recommendedPlan);
+    navigate("/", {
+      state: {
+        selectedPlan: recommendedPlan,
+      },
+    });
+  }
+
+  async function handleFinishPlans() {
+    await handleConfirmPlan();
+    navigate("/");
   }
 
   return (
@@ -121,7 +152,7 @@ function PlansPage() {
                 <header className="plans-topbar">
                   <span className="plans-step-pill">
                     <Sparkles size={14} aria-hidden="true" />
-                    <span>Próximo passo</span>
+                    <span>Ultima etapa</span>
                   </span>
 
                   <button type="button" className="plans-back-button" onClick={handleBackToReview}>
@@ -133,8 +164,8 @@ function PlansPage() {
                 <div className="plans-content-panel__inner">
                   <section className="plans-main-section" aria-labelledby="plans-section-title">
                     <div className="plans-main-section__header">
-                      <h2 id="plans-section-title">Planos e recursos</h2>
-                      <p>Escolha o formato que mais combina com sua rotina e seus objetivos de cuidado.</p>
+                      <h2 id="plans-section-title">Escolha seu plano</h2>
+                      <p>Selecione a opcao que mais combina com sua rotina. Voce pode trocar depois sem fidelidade.</p>
                     </div>
 
                     <div className="plans-matrix" role="table" aria-label="Comparativo dos planos do Care Plus">
@@ -149,20 +180,30 @@ function PlansPage() {
 
                       {plans.map((plan) => {
                         const Icon = plan.icon;
+                        const isSelected = selectedPlanKey === plan.key;
 
                         return (
                           <article
                             key={plan.key}
-                            className={`plans-matrix__plan ${plan.recommended ? "is-recommended" : ""}`}
+                            className={`plans-matrix__plan ${plan.recommended ? "is-recommended" : ""} ${
+                              isSelected ? "is-selected" : ""
+                            }`}
                             aria-label={`Plano ${plan.title}`}
                           >
-                            <div className="plan-column">
+                            <button
+                              type="button"
+                              className="plan-column"
+                              onClick={() => setSelectedPlanKey(plan.key)}
+                              aria-pressed={isSelected}
+                            >
                               {plan.recommended ? (
                                 <span className="plan-column__badge">
                                   <Star size={12} aria-hidden="true" />
                                   <span>Recomendado</span>
                                 </span>
                               ) : null}
+
+                              {isSelected ? <span className="plan-column__selection">Selecionado</span> : null}
 
                               <span className="plan-column__icon" aria-hidden="true">
                                 <Icon size={28} />
@@ -177,7 +218,7 @@ function PlansPage() {
                                 <strong>{plan.price}</strong>
                                 <span>{plan.cycle}</span>
                               </div>
-                            </div>
+                            </button>
 
                             <div className="plans-matrix__values">
                               {plan.values.map((value, index) => (
@@ -205,18 +246,18 @@ function PlansPage() {
                         <ShieldCheck size={18} />
                       </span>
                       <div>
-                        <strong>Você pode mudar de plano depois.</strong>
+                        <strong>{selectedPlan.title} selecionado para sua jornada.</strong>
                         <p>Sem fidelidade. Cancele quando quiser.</p>
                       </div>
                     </div>
 
                     <div className="plans-footer-actions">
-                      <button type="button" className="plans-secondary-button">
+                      <button type="button" className="plans-secondary-button" onClick={handleSelectRecommendedPlan}>
                         Continuar com plano recomendado
                       </button>
 
-                      <button type="button" className="plans-primary-button">
-                        <span>Escolher plano</span>
+                      <button type="button" className="plans-primary-button" onClick={handleFinishPlans}>
+                        <span>{`Escolher ${selectedPlan.title}`}</span>
                         <ArrowRight size={18} aria-hidden="true" />
                       </button>
                     </div>

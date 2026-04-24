@@ -341,9 +341,20 @@
   color: rgba(33, 74, 62, 0.98);
 }
 
+.login-helper-message.is-error {
+  background: rgba(194, 66, 46, 0.08);
+  border-color: rgba(194, 66, 46, 0.14);
+  color: #8f3f30;
+}
+
 .login-helper-message.is-info .login-helper-message__icon {
   background: rgba(28, 151, 112, 0.12);
   color: var(--cp-green-strong);
+}
+
+.login-helper-message.is-error .login-helper-message__icon {
+  background: rgba(194, 66, 46, 0.12);
+  color: #b34a34;
 }
 
 .login-divider {
@@ -505,6 +516,16 @@
   box-shadow:
     0 0 0 4px rgba(28, 151, 112, 0.12),
     0 22px 42px rgba(28, 151, 112, 0.24);
+}
+
+.login-submit:disabled {
+  cursor: wait;
+  opacity: 0.82;
+  transform: none;
+  filter: none;
+  box-shadow:
+    0 14px 28px rgba(28, 151, 112, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
 }
 
 .login-secondary-actions {

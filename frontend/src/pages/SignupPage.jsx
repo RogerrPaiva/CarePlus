@@ -15,6 +15,9 @@ import {
   User,
 } from "lucide-react";
 import CarePlus from "../assets/branding/CarePlus.svg";
+import { saveAuthenticatedUser } from "../features/auth/authStorage";
+import { writeOnboardingFlowContext } from "../features/onboarding/flowStorage";
+import { registerUser } from "../lib/api";
 import "./Signup.css";
 
 const NEXT_STEP_ROUTE = "/onboarding";
@@ -303,6 +306,8 @@ function SignupPage() {
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     document.title = "Care Plus | Cadastro";
@@ -337,6 +342,7 @@ function SignupPage() {
     };
 
     setValues(nextValues);
+    setSubmitError("");
 
     if (touched[name]) {
       const nextError = hasSubmitted || hasFieldValue(name, nextValues) ? validateField(name, nextValues) : "";
@@ -374,7 +380,7 @@ function SignupPage() {
     }));
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
 
     const nextErrors = validateForm(values);
@@ -394,21 +400,46 @@ function SignupPage() {
     setErrors(nextErrors);
 
     if (Object.keys(nextErrors).length > 0) {
+      setSubmitError("");
       return;
     }
 
-    navigate(NEXT_STEP_ROUTE, {
-      state: {
+    try {
+      setIsSubmitting(true);
+      setSubmitError("");
+
+      const response = await registerUser({
+        full_name: values.fullName.trim(),
+        email: values.email.trim(),
+        phone: values.phone,
+        cpf: values.cpf,
+        birth_date: values.birthDate,
+        password: values.password,
+      });
+
+      const flowContext = {
         origin: "signup",
         account: {
-          fullName: values.fullName.trim(),
-          email: values.email.trim(),
-          phone: values.phone,
-          cpf: values.cpf,
-          birthDate: values.birthDate,
+          fullName: response?.user?.full_name ?? values.fullName.trim(),
+          email: response?.user?.email ?? values.email.trim(),
+          phone: response?.user?.phone ?? values.phone,
+          cpf: response?.user?.cpf ?? values.cpf,
+          birthDate: response?.user?.birth_date ?? values.birthDate,
         },
-      },
-    });
+        user: response?.user ?? null,
+      };
+
+      saveAuthenticatedUser(response?.user ?? null);
+      writeOnboardingFlowContext(flowContext);
+
+      navigate(NEXT_STEP_ROUTE, {
+        state: flowContext,
+      });
+    } catch (error) {
+      setSubmitError(error instanceof Error ? error.message : "Nao foi possivel criar sua conta agora.");
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   function renderFieldStatus(name, label) {
@@ -469,6 +500,12 @@ function SignupPage() {
                 </div>
 
                 <form className="signup-form" noValidate onSubmit={handleSubmit}>
+                  {submitError ? (
+                    <div className="signup-form__feedback" role="alert">
+                      {submitError}
+                    </div>
+                  ) : null}
+
                   <section className="signup-section signup-section--stream" aria-labelledby="signup-section-dados">
                     <div className="signup-section__header">
                       <h3 id="signup-section-dados">Seus dados</h3>
@@ -748,8 +785,8 @@ function SignupPage() {
                   </section>
 
                   <div className="signup-actions">
-                    <button type="submit" className="signup-submit">
-                      Criar conta
+                    <button type="submit" className="signup-submit" disabled={isSubmitting}>
+                      {isSubmitting ? "Criando conta..." : "Criar conta"}
                       <ArrowRight size={18} aria-hidden="true" />
                     </button>
 

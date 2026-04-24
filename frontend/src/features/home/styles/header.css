@@ -189,6 +189,31 @@
   box-shadow: none !important;
 }
 
+.header-auth-actions {
+  flex-wrap: wrap;
+}
+
+.header-logout-button {
+  border: 1px solid #cfd8d3;
+  background: #fff;
+  color: #1c4337;
+  border-radius: 8px;
+  padding: 12px 18px;
+  font-size: 15px;
+  font-weight: 600;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.header-logout-button:hover,
+.header-logout-button:focus {
+  background: #eff8f5;
+  border-color: #1c9770;
+  color: #157a5a;
+}
+
 .navbar-toggler {
   border: none;
   box-shadow: none !important;

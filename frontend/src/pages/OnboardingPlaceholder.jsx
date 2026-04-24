@@ -27,6 +27,7 @@ import {
 } from "lucide-react";
 import CarePlus from "../assets/branding/CarePlus.svg";
 import { readOnboardingFlowContext, writeOnboardingFlowContext } from "../features/onboarding/flowStorage";
+import { getPlanByKey } from "../features/plans/planCatalog";
 import "./OnboardingPlaceholder.css";
 
 const onboardingSteps = [
@@ -260,6 +261,7 @@ function buildFlowContext(navigationState, storedContext) {
       navigationState?.currentStepNumber ?? storedContext?.currentStepNumber ?? 1,
     ),
     preferences: createCarePreferencesSnapshot(navigationState?.preferences ?? storedContext?.preferences),
+    selectedPlan: navigationState?.selectedPlan ?? storedContext?.selectedPlan ?? null,
   };
 }
 
@@ -395,6 +397,7 @@ function buildIncomingFlowKey(incomingFlowContext) {
     email: incomingFlowContext.email,
     currentStepNumber: incomingFlowContext.currentStepNumber,
     preferences: incomingFlowContext.preferences,
+    selectedPlan: incomingFlowContext.selectedPlan,
   });
 }
 
@@ -415,6 +418,7 @@ function OnboardingFlowScreen({ incomingFlowContext }) {
   const [isEditingData, setIsEditingData] = useState(false);
   const [expandedPermissionKey, setExpandedPermissionKey] = useState("");
   const [carePreferences, setCarePreferences] = useState(() => createCarePreferencesSnapshot(incomingFlowContext.preferences));
+  const selectedPlan = getPlanByKey(incomingFlowContext.selectedPlan?.key) ?? incomingFlowContext.selectedPlan ?? null;
 
   const currentStep = onboardingSteps.find((step) => step.number === currentStepNumber) ?? onboardingSteps[0];
   const upcomingSteps = onboardingSteps.filter((step) => step.number > currentStepNumber);
@@ -459,8 +463,9 @@ function OnboardingFlowScreen({ incomingFlowContext }) {
       email: emailFromLogin,
       currentStepNumber,
       preferences: carePreferences,
+      selectedPlan,
     });
-  }, [origin, displayAccount, emailFromLogin, currentStepNumber, carePreferences]);
+  }, [origin, displayAccount, emailFromLogin, currentStepNumber, carePreferences, selectedPlan]);
 
   function buildFlowState(overrides = {}) {
     return {
@@ -469,6 +474,7 @@ function OnboardingFlowScreen({ incomingFlowContext }) {
       email: emailFromLogin,
       currentStepNumber,
       preferences: carePreferences,
+      selectedPlan,
       ...overrides,
     };
   }
@@ -668,7 +674,7 @@ function OnboardingFlowScreen({ incomingFlowContext }) {
                 </span>
                 <div>
                   <span className="onboarding-stage-detail__label">{currentStep.nextStepLabel}</span>
-                  <strong>{currentStep.nextStepValue}</strong>
+                  <strong>{selectedPlan ? `${selectedPlan.title} pronto para confirmar` : currentStep.nextStepValue}</strong>
                 </div>
               </div>
 
@@ -1076,6 +1082,14 @@ function OnboardingFlowScreen({ incomingFlowContext }) {
                   <span className="onboarding-summary-row__label">Horário ideal</span>
                   <strong>{selectedTimeSlot.label}</strong>
                 </div>
+
+                <div className="onboarding-summary-row">
+                  <span className="onboarding-summary-row__icon" aria-hidden="true">
+                    <Sparkles size={20} />
+                  </span>
+                  <span className="onboarding-summary-row__label">Plano</span>
+                  <strong>{selectedPlan?.title ?? "Ainda nao escolhido"}</strong>
+                </div>
               </div>
             </div>
 
@@ -1193,7 +1207,7 @@ function OnboardingFlowScreen({ incomingFlowContext }) {
           </button>
 
           <button type="button" className="onboarding-primary-button" onClick={handleAdvanceStep}>
-            <span>{currentStep.primaryActionLabel}</span>
+            <span>{selectedPlan ? "Revisar ou trocar plano" : currentStep.primaryActionLabel}</span>
             <ArrowRight size={18} aria-hidden="true" />
           </button>
         </section>
