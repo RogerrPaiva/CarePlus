@@ -54,3 +54,10 @@ export async function registerUser(payload) {
     body: JSON.stringify(payload),
   });
 }
+
+export async function completeUserOnboarding(userId, payload) {
+  return apiRequest(`/users/${userId}/onboarding-complete`, {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+}

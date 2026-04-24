@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   ChevronRight,
@@ -7,10 +8,54 @@ import {
 } from "lucide-react";
 import { MdHealthAndSafety } from "react-icons/md";
 import { FaUserMd } from "react-icons/fa";
-import bannerImg from "../../../assets/home/bannersaude.jpg";
+import recepcaoBrooklin from "../../../assets/home/recepcaobrooklin.webp";
+import recepcaoMorumbi from "../../../assets/home/recepcaomorumbi.jpg";
+import recepcaoRio from "../../../assets/home/recepcaorj.jpg";
 import "../styles/banner.css";
 
+const bannerSlides = [
+  {
+    image: recepcaoBrooklin,
+    alt: "Recepcao da unidade Brooklin",
+    title: "Recepcao moderna para um atendimento mais leve no Brooklin",
+    objectPosition: "center center",
+  },
+  {
+    image: recepcaoMorumbi,
+    alt: "Recepcao da unidade Morumbi",
+    title: "Ambiente acolhedor para voce chegar bem desde o primeiro contato",
+    objectPosition: "center center",
+  },
+  {
+    image: recepcaoRio,
+    alt: "Recepcao da unidade do Rio de Janeiro",
+    title: "Estrutura pronta para receber adultos e familias com mais proximidade",
+    objectPosition: "center 22%",
+  },
+];
+
 function Banner() {
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+  const currentSlide = bannerSlides[currentSlideIndex];
+
+  useEffect(() => {
+    const intervalId = window.setInterval(() => {
+      setCurrentSlideIndex((currentIndex) => (currentIndex + 1) % bannerSlides.length);
+    }, 4500);
+
+    return () => {
+      window.clearInterval(intervalId);
+    };
+  }, []);
+
+  function handlePreviousSlide() {
+    setCurrentSlideIndex((currentIndex) => (currentIndex - 1 + bannerSlides.length) % bannerSlides.length);
+  }
+
+  function handleNextSlide() {
+    setCurrentSlideIndex((currentIndex) => (currentIndex + 1) % bannerSlides.length);
+  }
+
   return (
     <section className="health-banner-section">
       <div className="container-fluid custom-container">
@@ -62,9 +107,10 @@ function Banner() {
           <div className="col-lg-6">
             <div className="health-banner-card">
               <img
-                src={bannerImg}
-                alt="Banner saude"
+                src={currentSlide.image}
+                alt={currentSlide.alt}
                 className="health-banner-image"
+                style={{ objectPosition: currentSlide.objectPosition }}
               />
 
               <div className="Health-card-banner-text">
@@ -77,17 +123,30 @@ function Banner() {
 
               <div className="health-banner-content">
                 <h2 className="health-banner-card-title">
-                  Atendimento medico adulto e pediatrico imediato
+                  {currentSlide.title}
                 </h2>
               </div>
 
               <div className="health-banner-arrows">
-                <button className="health-arrow-btn">
+                <button type="button" className="health-arrow-btn" onClick={handlePreviousSlide} aria-label="Imagem anterior">
                   <ChevronLeft size={24} />
                 </button>
-                <button className="health-arrow-btn">
+                <button type="button" className="health-arrow-btn" onClick={handleNextSlide} aria-label="Proxima imagem">
                   <ChevronRight size={24} />
                 </button>
+              </div>
+
+              <div className="health-banner-dots" aria-label="Navegacao do carrossel">
+                {bannerSlides.map((slide, index) => (
+                  <button
+                    key={slide.alt}
+                    type="button"
+                    className={`health-banner-dot ${index === currentSlideIndex ? "is-active" : ""}`}
+                    onClick={() => setCurrentSlideIndex(index)}
+                    aria-label={`Ir para imagem ${index + 1}`}
+                    aria-pressed={index === currentSlideIndex}
+                  />
+                ))}
               </div>
             </div>
           </div>

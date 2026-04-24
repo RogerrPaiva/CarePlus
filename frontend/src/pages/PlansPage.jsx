@@ -5,6 +5,7 @@ import CarePlus from "../assets/branding/CarePlus.svg";
 import { readAuthenticatedUser, saveAuthenticatedUser } from "../features/auth/authStorage";
 import { readOnboardingFlowContext, writeOnboardingFlowContext } from "../features/onboarding/flowStorage";
 import { comparisonRows, getPlanByKey, getRecommendedPlan, plans } from "../features/plans/planCatalog";
+import { completeUserOnboarding } from "../lib/api";
 import "./PlansPage.css";
 
 const planSteps = [
@@ -61,7 +62,7 @@ function PlansPage() {
     });
   }
 
-  function handleConfirmPlan(planToConfirm = selectedPlan) {
+  async function handleConfirmPlan(planToConfirm = selectedPlan) {
     const nextFlowContext = {
       ...flowContext,
       currentStepNumber: 3,
@@ -71,19 +72,30 @@ function PlansPage() {
     const authenticatedUser = readAuthenticatedUser();
 
     if (authenticatedUser) {
-      saveAuthenticatedUser({
+      const nextAuthenticatedUser = {
         ...authenticatedUser,
         selected_plan: planToConfirm.key,
-      });
+        onboarding_completed: true,
+      };
+
+      saveAuthenticatedUser(nextAuthenticatedUser);
+
+      if (authenticatedUser.id) {
+        const response = await completeUserOnboarding(authenticatedUser.id, {
+          selected_plan: planToConfirm.key,
+        });
+
+        saveAuthenticatedUser(response?.user ?? nextAuthenticatedUser);
+      }
     }
 
     writeOnboardingFlowContext(nextFlowContext);
   }
 
-  function handleSelectRecommendedPlan() {
+  async function handleSelectRecommendedPlan() {
     const recommendedPlan = getRecommendedPlan();
     setSelectedPlanKey(recommendedPlan.key);
-    handleConfirmPlan(recommendedPlan);
+    await handleConfirmPlan(recommendedPlan);
     navigate("/", {
       state: {
         selectedPlan: recommendedPlan,
@@ -91,8 +103,8 @@ function PlansPage() {
     });
   }
 
-  function handleFinishPlans() {
-    handleConfirmPlan();
+  async function handleFinishPlans() {
+    await handleConfirmPlan();
     navigate("/");
   }
 

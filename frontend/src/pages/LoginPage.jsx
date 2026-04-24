@@ -5,7 +5,7 @@ import { FaApple } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import CarePlus from "../assets/branding/CarePlus.svg";
 import { saveAuthenticatedUser } from "../features/auth/authStorage";
-import { writeOnboardingFlowContext } from "../features/onboarding/flowStorage";
+import { clearOnboardingFlowContext, writeOnboardingFlowContext } from "../features/onboarding/flowStorage";
 import { loginUser } from "../lib/api";
 import "./login-page.css";
 
@@ -131,6 +131,13 @@ function LoginPage() {
       };
 
       saveAuthenticatedUser(response?.user ?? null);
+      clearOnboardingFlowContext();
+
+      if (response?.user?.onboarding_completed) {
+        navigate("/");
+        return;
+      }
+
       writeOnboardingFlowContext(flowContext);
 
       navigate("/onboarding", {

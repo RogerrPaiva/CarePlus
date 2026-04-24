@@ -26,6 +26,10 @@ class LoginPayload(Protocol):
   password: str
 
 
+class OnboardingCompletionPayload(Protocol):
+  selected_plan: str
+
+
 class UpdatePayload(Protocol):
   full_name: str | None
   email: str | None
@@ -277,6 +281,8 @@ class AuthService:
     user = {
       "id": str(uuid4()),
       **normalized,
+      "selected_plan": None,
+      "onboarding_completed": False,
       "created_at": timestamp,
       "updated_at": timestamp,
     }
@@ -297,6 +303,24 @@ class AuthService:
 
   def get_user(self, user_id: str) -> dict:
     user = self._find_user(user_id)
+    return self._public_user(user)
+
+  def complete_onboarding(self, user_id: str, payload: OnboardingCompletionPayload) -> dict:
+    users = self.storage.load_users()
+    user = next((item for item in users if item["id"] == user_id), None)
+
+    if user is None:
+      raise UserNotFoundError()
+
+    selected_plan = (payload.selected_plan or "").strip()
+
+    if not selected_plan:
+      raise ValueError("Selecione um plano para concluir o onboarding.")
+
+    user["selected_plan"] = selected_plan
+    user["onboarding_completed"] = True
+    user["updated_at"] = now_iso()
+    self.storage.save_users(users)
     return self._public_user(user)
 
   def update_user(self, user_id: str, payload: UpdatePayload) -> dict:
@@ -335,6 +359,8 @@ class AuthService:
       "phone": user["phone"],
       "cpf": user["cpf"],
       "birth_date": user["birth_date"],
+      "selected_plan": user.get("selected_plan"),
+      "onboarding_completed": bool(user.get("onboarding_completed", False)),
       "created_at": user["created_at"],
       "updated_at": user["updated_at"],
     }

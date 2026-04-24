@@ -7,6 +7,7 @@ from services import (
     DuplicateResourceError,
     InvalidCredentialsError,
     StorageError,
+    UserNotFoundError,
 )
 
 app = FastAPI()
@@ -33,6 +34,10 @@ class SignupRequest(BaseModel):
 class LoginRequest(BaseModel):
     email: str
     password: str
+
+
+class CompleteOnboardingRequest(BaseModel):
+    selected_plan: str
 
 
 @app.get("/")
@@ -71,4 +76,24 @@ def login_user(payload: LoginRequest):
         raise HTTPException(status_code=401, detail=error.message)
 
     except (ValueError, StorageError) as error:
+        raise HTTPException(status_code=400, detail=str(error))
+
+
+@app.post("/users/{user_id}/onboarding-complete")
+def complete_user_onboarding(user_id: str, payload: CompleteOnboardingRequest):
+    try:
+        user = service.complete_onboarding(user_id, payload)
+
+        return {
+            "message": "Onboarding concluido com sucesso",
+            "user": user,
+        }
+
+    except ValueError as error:
+        raise HTTPException(status_code=400, detail=str(error))
+
+    except UserNotFoundError as error:
+        raise HTTPException(status_code=404, detail=error.message)
+
+    except StorageError as error:
         raise HTTPException(status_code=400, detail=str(error))
