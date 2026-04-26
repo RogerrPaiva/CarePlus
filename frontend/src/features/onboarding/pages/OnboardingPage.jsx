@@ -25,10 +25,10 @@ import {
   User,
   X,
 } from "lucide-react";
-import CarePlus from "../assets/branding/CarePlus.svg";
-import { readOnboardingFlowContext, writeOnboardingFlowContext } from "../features/onboarding/flowStorage";
-import { getPlanByKey } from "../features/plans/planCatalog";
-import "./OnboardingPlaceholder.css";
+import CarePlus from "../../../assets/branding/CarePlus.svg";
+import { getPlanByKey } from "../../plans/planCatalog";
+import { readOnboardingFlowContext, writeOnboardingFlowContext } from "../flowStorage";
+import "../styles/OnboardingPage.css";
 
 const onboardingSteps = [
   {
@@ -1292,7 +1292,7 @@ function OnboardingFlowScreen({ incomingFlowContext }) {
   );
 }
 
-function OnboardingPlaceholder() {
+function OnboardingPage() {
   const location = useLocation();
   const incomingFlowContext = buildFlowContext(location.state, readOnboardingFlowContext());
   const flowResetKey = buildIncomingFlowKey(incomingFlowContext);
@@ -1300,4 +1300,4 @@ function OnboardingPlaceholder() {
   return <OnboardingFlowScreen key={flowResetKey} incomingFlowContext={incomingFlowContext} />;
 }
 
-export default OnboardingPlaceholder;
+export default OnboardingPage;

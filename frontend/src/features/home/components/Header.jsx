@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Search, User, HeadsetIcon } from "lucide-react";
 import { FaChevronDown } from "react-icons/fa";
@@ -22,10 +22,6 @@ function Header() {
   const [authenticatedUser, setAuthenticatedUser] = useState(() => readAuthenticatedUser());
   const primaryName = resolvePrimaryName(authenticatedUser);
   const ctaLabel = primaryName ? primaryName : "Seja Plus";
-
-  useEffect(() => {
-    setAuthenticatedUser(readAuthenticatedUser());
-  }, []);
 
   function handleLogout() {
     clearAuthenticatedUser();

@@ -1,10 +1,10 @@
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+import LoginPage from "../features/auth/pages/LoginPage";
+import SignupPage from "../features/auth/pages/SignupPage";
+import HomePage from "../features/home/pages/HomePage";
 import { hasSavedOnboardingFlowAccess } from "../features/onboarding/flowStorage";
-import HomePage from "../pages/HomePage";
-import LoginPage from "../pages/LoginPage";
-import OnboardingPlaceholder from "../pages/OnboardingPlaceholder";
-import PlansPage from "../pages/PlansPage";
-import SignupPage from "../pages/SignupPage";
+import OnboardingPage from "../features/onboarding/pages/OnboardingPage";
+import PlansPage from "../features/plans/pages/PlansPage";
 
 function AppRoutes() {
   const location = useLocation();
@@ -22,7 +22,7 @@ function AppRoutes() {
       <Route path="/cadastro" element={<SignupPage />} />
       <Route
         path="/onboarding"
-        element={hasOnboardingAccess ? <OnboardingPlaceholder /> : <Navigate to="/login" replace />}
+        element={hasOnboardingAccess ? <OnboardingPage /> : <Navigate to="/login" replace />}
       />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
