@@ -32,6 +32,12 @@
   z-index: 1;
 }
 
+.topbar-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .topbar-btn::before {
   content: "";
   position: absolute;

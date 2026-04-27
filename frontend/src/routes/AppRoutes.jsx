@@ -2,6 +2,7 @@ import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { hasSavedOnboardingFlowAccess } from "../features/onboarding/flowStorage";
 import HomePage from "../pages/HomePage";
 import LoginPage from "../pages/LoginPage";
+import MissionsPage from "../pages/MissionsPage";
 import OnboardingPlaceholder from "../pages/OnboardingPlaceholder";
 import PlansPage from "../pages/PlansPage";
 import SignupPage from "../pages/SignupPage";
@@ -17,6 +18,7 @@ function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
+      <Route path="/missoes" element={<MissionsPage />} />
       <Route path="/planos" element={hasPlansAccess ? <PlansPage /> : <Navigate to="/login" replace />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/cadastro" element={<SignupPage />} />

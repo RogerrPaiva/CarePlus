@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Search, User, HeadsetIcon } from "lucide-react";
+import { Search, User, HeadsetIcon, Target } from "lucide-react";
 import { FaChevronDown } from "react-icons/fa";
 import CarePlus from "../../../assets/branding/CarePlus.svg";
 import { clearAuthenticatedUser, readAuthenticatedUser } from "../../auth/authStorage";
@@ -23,10 +23,6 @@ function Header() {
   const primaryName = resolvePrimaryName(authenticatedUser);
   const ctaLabel = primaryName ? primaryName : "Seja Plus";
 
-  useEffect(() => {
-    setAuthenticatedUser(readAuthenticatedUser());
-  }, []);
-
   function handleLogout() {
     clearAuthenticatedUser();
     clearOnboardingFlowContext();
@@ -40,8 +36,9 @@ function Header() {
         <div className="container-fluid custom-container">
           <div className="row align-items-center topbar-row">
             <div className="col-lg-2 col-md-3 col-4 d-flex align-items-center">
-              <button className="topbar-btn">A+</button>
-              <button className="topbar-btn">A-</button>
+              <Link to="/missoes" className="topbar-btn" aria-label="Missoes">
+                <Target size={18} />
+              </Link>
             </div>
 
             <div className="col-lg-6 d-none d-lg-flex justify-content-center gap-4">
