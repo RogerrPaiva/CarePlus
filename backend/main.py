@@ -140,7 +140,6 @@ def complete_user_onboarding(user_id: str, payload: CompleteOnboardingRequest):
     except StorageError as error:
         raise HTTPException(status_code=400, detail=str(error))
 
-
 # =========================
 # PONTOS E MISSÕES CAREPLUS
 # =========================

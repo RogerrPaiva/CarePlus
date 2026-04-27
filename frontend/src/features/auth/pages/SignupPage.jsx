@@ -14,11 +14,11 @@ import {
   Smartphone,
   User,
 } from "lucide-react";
-import CarePlus from "../assets/branding/CarePlus.svg";
-import { saveAuthenticatedUser } from "../features/auth/authStorage";
-import { writeOnboardingFlowContext } from "../features/onboarding/flowStorage";
-import { registerUser } from "../lib/api";
-import "./Signup.css";
+import CarePlus from "../../../assets/branding/CarePlus.svg";
+import { registerUser } from "../../../lib/api";
+import { saveAuthenticatedUser } from "../authStorage";
+import { writeOnboardingFlowContext } from "../../onboarding/flowStorage";
+import "../styles/Signup.css";
 
 const NEXT_STEP_ROUTE = "/onboarding";
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

@@ -66,30 +66,13 @@ export async function getUserPoints(userId) {
   return apiRequest(`/users/${userId}/points`);
 }
 
-const IOT_API_URL = "http://127.0.0.1:8000";
-
 export async function getUserMission(userId) {
-  const response = await fetch(`${IOT_API_URL}/users/${userId}/mission`);
-
-  if (!response.ok) {
-    throw new Error("Erro ao buscar missão do usuário");
-  }
-
-  return response.json();
+  return apiRequest(`/users/${userId}/mission`);
 }
 
 export async function startTokenCollection(payload) {
-  const response = await fetch(`${IOT_API_URL}/missions/start-collection`, {
+  return apiRequest("/missions/start-collection", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
     body: JSON.stringify(payload),
   });
-
-  if (!response.ok) {
-    throw new Error("Erro ao iniciar coleta do token");
-  }
-
-  return response.json();
 }

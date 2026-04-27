@@ -1,12 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ArrowLeft, ArrowRight, Check, ShieldCheck, Sparkles, Star } from "lucide-react";
-import CarePlus from "../assets/branding/CarePlus.svg";
-import { readAuthenticatedUser, saveAuthenticatedUser } from "../features/auth/authStorage";
-import { readOnboardingFlowContext, writeOnboardingFlowContext } from "../features/onboarding/flowStorage";
-import { comparisonRows, getPlanByKey, getRecommendedPlan, plans } from "../features/plans/planCatalog";
-import { completeUserOnboarding } from "../lib/api";
-import "./PlansPage.css";
+import CarePlus from "../../../assets/branding/CarePlus.svg";
+import { completeUserOnboarding } from "../../../lib/api";
+import { readAuthenticatedUser, saveAuthenticatedUser } from "../../auth/authStorage";
+import { readOnboardingFlowContext, writeOnboardingFlowContext } from "../../onboarding/flowStorage";
+import { comparisonRows, getPlanByKey, getRecommendedPlan, plans } from "../planCatalog";
+import "../styles/PlansPage.css";
 
 const planSteps = [
   { number: 1, title: "Permissoes e ajustes iniciais", status: "Concluido" },

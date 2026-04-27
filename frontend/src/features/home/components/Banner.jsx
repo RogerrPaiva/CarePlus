@@ -64,7 +64,7 @@ function Banner() {
           <div className="col-lg-6">
             <div className="health-banner-left">
               <h1 className="health-banner-title">
-                Solucoes personalizadas em saude com absoluta dedicacao e cuidado
+                Soluções personalizadas em saúde com absoluta dedição e cuidado
               </h1>
 
               <div className="health-links-list">

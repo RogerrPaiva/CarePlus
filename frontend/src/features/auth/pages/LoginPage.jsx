@@ -3,11 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, ArrowRight, Eye, EyeOff, Info, Lock, Mail, ShieldCheck } from "lucide-react";
 import { FaApple } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-import CarePlus from "../assets/branding/CarePlus.svg";
-import { saveAuthenticatedUser } from "../features/auth/authStorage";
-import { clearOnboardingFlowContext, writeOnboardingFlowContext } from "../features/onboarding/flowStorage";
-import { loginUser } from "../lib/api";
-import "./login-page.css";
+import CarePlus from "../../../assets/branding/CarePlus.svg";
+import { loginUser } from "../../../lib/api";
+import { saveAuthenticatedUser } from "../authStorage";
+import { clearOnboardingFlowContext, writeOnboardingFlowContext } from "../../onboarding/flowStorage";
+import "../styles/login-page.css";
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const initialValues = {
