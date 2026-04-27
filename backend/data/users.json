@@ -3,8 +3,8 @@
     "id": "73f38fa5-8b24-4335-a779-47fd2c6cc4b5",
     "full_name": "Pedro Henrique",
     "email": "pedrot.ytb@gmail.com",
-    "phone": "11998869027",
-    "cpf": "48693741888",
+    "phone": "11999999999",
+    "cpf": "11111111111",
     "birth_date": "16/04/2006",
     "password_hash": "c29b0d2ab857086ce8e424ce25376eb98d09337ed9dfc0c6a13615f4be05a7a2",
     "created_at": "2026-04-20T03:25:47.903655+00:00",
@@ -57,5 +57,18 @@
     "onboarding_completed": true,
     "created_at": "2026-04-24T19:31:02.776862+00:00",
     "updated_at": "2026-04-24T19:31:08.146754+00:00"
+  },
+  {
+    "id": "42eb25d4-f638-47ec-92a7-a6f8c5db6164",
+    "full_name": "David gama",
+    "email": "davidgamadavid@hotmail.com",
+    "phone": "11998150993",
+    "cpf": "50632642807",
+    "birth_date": "22/03/2006",
+    "password_hash": "881887b223070cf9219f54f181b1a2d526a91de76a33dbfc5da94e687a620480",
+    "selected_plan": "integral",
+    "onboarding_completed": true,
+    "created_at": "2026-04-27T11:42:10.520233+00:00",
+    "updated_at": "2026-04-27T11:42:39.366652+00:00"
   }
 ]
