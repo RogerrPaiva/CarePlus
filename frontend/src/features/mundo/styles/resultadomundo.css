@@ -1,0 +1,1390 @@
+/* src/features/mundo/styles/resultadomundo.css */
+
+/* ===================================================== */
+/* CONTAINER DO RESULTADO */
+/* ===================================================== */
+
+.resultado-container {
+  max-width: 900px;
+  margin: 48px auto;
+  padding: 0 24px 72px;
+}
+
+.resultado-container-novo {
+  max-width: 1120px;
+  margin: 32px auto;
+  padding: 0 24px 56px;
+}
+
+.resultado-card {
+  background: #ffffff;
+  border: 1px solid #e2eee7;
+  border-radius: 34px;
+  padding: 38px;
+  box-shadow: 0 18px 44px rgba(45, 84, 65, 0.1);
+}
+
+.resultado-card-novo,
+.resultado-card-limpo {
+  padding: 22px;
+  border-radius: 34px;
+}
+
+.resultado-card h2 {
+  color: #173b2f;
+  font-size: 2.2rem;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.resultado-card .resultado-tag {
+  display: block;
+  width: fit-content;
+  margin: 0 auto 18px;
+}
+
+.resultado-descricao {
+  max-width: 600px;
+  margin: 0 auto 34px;
+  text-align: center;
+  color: #6c7d74;
+  line-height: 1.7;
+  font-size: 1.05rem;
+}
+
+/* ===================================================== */
+/* NAV DO RESULTADO */
+/* ===================================================== */
+
+.resultado-nav {
+  position: relative;
+  z-index: 60;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto 18px;
+  padding: 8px;
+  background: #ffffff;
+  border: 1px solid #dcebe3;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 12px 30px rgba(39, 73, 57, 0.09);
+}
+
+.nav-resultado-btn {
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: #426b54;
+  padding: 11px 18px;
+  font-size: 0.92rem;
+  font-weight: 900;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.nav-resultado-btn:hover {
+  background: #edf7f1;
+  transform: translateY(-2px);
+}
+
+.nav-resultado-btn.ativo {
+  background: #4f8f70;
+  color: #ffffff;
+  box-shadow: 0 8px 18px rgba(79, 143, 112, 0.22);
+}
+
+.nav-saude-btn {
+  background: #f5faf7;
+}
+
+/* ===================================================== */
+/* VISUAL DO MUNDO NO RESULTADO */
+/* ===================================================== */
+
+.visual-mundo {
+  position: relative;
+  background: #f8fbf9;
+  border: 1px solid #e2eee7;
+  border-radius: 30px;
+  padding: 22px;
+  margin-bottom: 34px;
+  overflow: hidden;
+}
+
+.visual-mundo-limpo {
+  position: relative;
+  padding: 14px;
+  margin-bottom: 18px;
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+.mundo-cenario {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  border-radius: 24px;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  isolation: isolate;
+}
+
+.visual-mundo-limpo .mundo-cenario {
+  height: 430px;
+  border-radius: 24px;
+}
+
+.visual-mundo-info {
+  position: relative;
+  z-index: 20;
+  margin-top: 18px;
+  text-align: center;
+  background: #f8fbf9;
+  padding-top: 14px;
+}
+
+.visual-mundo-info span {
+  display: inline-block;
+  color: #173b2f;
+  font-size: 1.15rem;
+  font-weight: 900;
+  margin-bottom: 8px;
+}
+
+.visual-mundo-info p {
+  max-width: 620px;
+  margin: 0 auto;
+  color: #66796f;
+  line-height: 1.6;
+}
+
+.visual-mundo-limpo .visual-mundo-info-nova {
+  margin-top: 10px;
+  padding: 10px 12px 0;
+}
+
+.visual-mundo-limpo .visual-mundo-info-nova span {
+  font-size: 1rem;
+}
+
+.visual-mundo-limpo .visual-mundo-info-nova p {
+  font-size: 0.9rem;
+  max-width: 620px;
+}
+
+/* ===================================================== */
+/* MUNDO JARDIM NO RESULTADO */
+/* ===================================================== */
+
+.jardim-cenario {
+  background: linear-gradient(180deg, #d8eef8 0%, #eef8ef 58%, #cde3b8 100%);
+}
+
+.jardim-sol {
+  position: absolute;
+  top: 28px;
+  right: 44px;
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  background: #f8e6a0;
+  box-shadow: 0 0 34px rgba(248, 230, 160, 0.55);
+  z-index: 2;
+}
+
+.jardim-nuvem {
+  position: absolute;
+  width: 95px;
+  height: 30px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 999px;
+  z-index: 2;
+}
+
+.jardim-nuvem::before,
+.jardim-nuvem::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.jardim-nuvem::before {
+  width: 36px;
+  height: 36px;
+  left: 14px;
+  top: -16px;
+}
+
+.jardim-nuvem::after {
+  width: 46px;
+  height: 46px;
+  right: 12px;
+  top: -22px;
+}
+
+.jardim-nuvem-1 {
+  top: 58px;
+  left: 58px;
+}
+
+.jardim-nuvem-2 {
+  top: 94px;
+  right: 130px;
+  transform: scale(0.75);
+}
+
+.jardim-colina {
+  position: absolute;
+  bottom: 78px;
+  border-radius: 50% 50% 0 0;
+}
+
+.jardim-colina-1 {
+  left: -50px;
+  width: 300px;
+  height: 150px;
+  background: #9bc79c;
+  z-index: 1;
+}
+
+.jardim-colina-2 {
+  right: -30px;
+  width: 320px;
+  height: 170px;
+  background: #87b98d;
+  z-index: 1;
+}
+
+.jardim-lago {
+  position: absolute;
+  left: 50%;
+  bottom: 34px;
+  transform: translateX(-50%);
+  width: 250px;
+  height: 78px;
+  background: linear-gradient(180deg, #b5e4f2 0%, #81c8de 100%);
+  border-radius: 999px;
+  z-index: 3;
+  box-shadow: inset 0 4px 10px rgba(255, 255, 255, 0.28);
+}
+
+.jardim-caminho {
+  position: absolute;
+  left: 54%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 110px;
+  height: 135px;
+  background: #dcc8a2;
+  clip-path: polygon(38% 0%, 62% 0%, 100% 100%, 0% 100%);
+  z-index: 4;
+  opacity: 0.95;
+}
+
+.jardim-casa {
+  position: absolute;
+  left: 145px;
+  bottom: 78px;
+  width: 96px;
+  height: 70px;
+  background: #f1dfbf;
+  border-radius: 10px 10px 4px 4px;
+  z-index: 6;
+}
+
+.jardim-casa::before {
+  content: "";
+  position: absolute;
+  left: -10px;
+  top: -36px;
+  width: 116px;
+  height: 54px;
+  background: #c88f5d;
+  clip-path: polygon(50% 0%, 100% 70%, 0% 70%);
+}
+
+.jardim-casa::after {
+  content: "";
+  position: absolute;
+  left: 38px;
+  bottom: 0;
+  width: 18px;
+  height: 34px;
+  background: #8c6547;
+  border-radius: 8px 8px 0 0;
+}
+
+.jardim-arvore {
+  position: absolute;
+  bottom: 56px;
+  width: 58px;
+  height: 108px;
+  z-index: 7;
+}
+
+.jardim-arvore::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 24px;
+  width: 10px;
+  height: 42px;
+  background: #7c5a42;
+  border-radius: 8px;
+}
+
+.jardim-arvore::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 4px;
+  width: 50px;
+  height: 56px;
+  background: #67b278;
+  border-radius: 50%;
+  box-shadow:
+    -16px 20px 0 #7ac28a,
+    16px 20px 0 #7ac28a,
+    0 34px 0 #67b278;
+}
+
+.jardim-arvore-1 {
+  left: 62px;
+}
+
+.jardim-arvore-2 {
+  right: 68px;
+}
+
+.jardim-arvore-3 {
+  right: 150px;
+  transform: scale(0.82);
+}
+
+.jardim-flor {
+  position: absolute;
+  bottom: 46px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #f3b3c6;
+  z-index: 8;
+  box-shadow:
+    -8px 0 0 #f7cf72,
+    8px 0 0 #c9b3f2,
+    0 -8px 0 #ffd7df;
+}
+
+.jardim-flor-1 {
+  left: 260px;
+}
+
+.jardim-flor-2 {
+  left: 292px;
+}
+
+.jardim-flor-3 {
+  right: 208px;
+}
+
+.jardim-grama {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 74px;
+  background: #8fc17d;
+  z-index: 5;
+}
+
+/* ===================================================== */
+/* MUNDO TECH NO RESULTADO */
+/* ===================================================== */
+
+.tech-cenario {
+  position: relative;
+  overflow: hidden;
+  height: 300px;
+  background: linear-gradient(
+    180deg,
+    #8fb6d8 0%,
+    #7ea3d1 22%,
+    #8d76bc 52%,
+    #d36b98 100%
+  );
+}
+
+.tech-ceu {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(190, 220, 240, 0.25) 0%,
+    rgba(255, 255, 255, 0.08) 38%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  z-index: 1;
+}
+
+.tech-sol-neon {
+  position: absolute;
+  top: 24px;
+  right: 28px;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #ffd989 0%, #ff9abf 60%, #ff6aa2 100%);
+  box-shadow: 0 0 28px rgba(255, 118, 177, 0.35);
+  z-index: 2;
+}
+
+.tech-nuvem {
+  position: absolute;
+  width: 84px;
+  height: 26px;
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 999px;
+  z-index: 2;
+}
+
+.tech-nuvem::before,
+.tech-nuvem::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.tech-nuvem::before {
+  width: 30px;
+  height: 30px;
+  left: 12px;
+  top: -12px;
+}
+
+.tech-nuvem::after {
+  width: 38px;
+  height: 38px;
+  right: 10px;
+  top: -18px;
+}
+
+.tech-nuvem-1 {
+  top: 48px;
+  left: 46px;
+}
+
+.tech-nuvem-2 {
+  top: 86px;
+  left: 142px;
+  transform: scale(0.8);
+}
+
+.tech-predio {
+  position: absolute;
+  bottom: 112px;
+  border-radius: 12px 12px 0 0;
+  z-index: 5;
+  overflow: hidden;
+  box-shadow: 0 0 14px rgba(76, 171, 255, 0.15);
+}
+
+.tech-predio::before {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.55) 0px,
+    rgba(255, 255, 255, 0.55) 5px,
+    transparent 5px,
+    transparent 13px
+  );
+  border-radius: 8px;
+  opacity: 0.75;
+}
+
+.tech-predio-1 {
+  left: 22px;
+  width: 56px;
+  height: 90px;
+  background: linear-gradient(180deg, #73deff 0%, #2c8fff 100%);
+}
+
+.tech-predio-2 {
+  left: 90px;
+  width: 72px;
+  height: 118px;
+  background: linear-gradient(180deg, #ff94d0 0%, #9d61ff 100%);
+}
+
+.tech-predio-3 {
+  left: 176px;
+  width: 62px;
+  height: 96px;
+  background: linear-gradient(180deg, #90efff 0%, #39b4ff 100%);
+}
+
+.tech-predio-4 {
+  right: 92px;
+  width: 76px;
+  height: 112px;
+  background: linear-gradient(180deg, #ff90cb 0%, #7d5fff 100%);
+}
+
+.tech-predio-5 {
+  right: 22px;
+  width: 58px;
+  height: 92px;
+  background: linear-gradient(180deg, #89ebff 0%, #2e9cff 100%);
+}
+
+.tech-torre-central {
+  position: absolute;
+  left: 50%;
+  bottom: 112px;
+  transform: translateX(-50%);
+  width: 82px;
+  height: 130px;
+  border-radius: 18px 18px 0 0;
+  background: linear-gradient(180deg, #b6fcff 0%, #72cbff 55%, #8f6cff 100%);
+  z-index: 6;
+  box-shadow: 0 0 22px rgba(114, 203, 255, 0.28);
+}
+
+.tech-torre-central::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #dcffff;
+  box-shadow: 0 0 10px rgba(220, 255, 255, 0.7);
+}
+
+.tech-torre-central::after {
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  top: 12px;
+  bottom: 12px;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.68) 0px,
+    rgba(255, 255, 255, 0.68) 5px,
+    transparent 5px,
+    transparent 13px
+  );
+  border-radius: 10px;
+  opacity: 0.8;
+}
+
+.tech-palmeira {
+  position: absolute;
+  bottom: 102px;
+  width: 10px;
+  height: 50px;
+  background: #4a315c;
+  z-index: 7;
+}
+
+.tech-palmeira::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: -18px;
+  width: 46px;
+  height: 24px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 20% 70%, #73f0ff 0 24%, transparent 25%),
+    radial-gradient(circle at 50% 15%, #ff91d4 0 24%, transparent 25%),
+    radial-gradient(circle at 80% 70%, #82cfff 0 24%, transparent 25%);
+}
+
+.tech-palmeira-1 {
+  left: 112px;
+}
+
+.tech-palmeira-2 {
+  right: 112px;
+}
+
+/* ===================================================== */
+/* FAIXA DE CARROS */
+/* ===================================================== */
+
+.tech-faixa-carros {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 78px;
+  height: 34px;
+  background: linear-gradient(180deg, #42325f 0%, #2a1f46 100%);
+  border-top: 2px solid rgba(255, 255, 255, 0.18);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.08);
+  z-index: 8;
+}
+
+.tech-faixa-carros::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 15px;
+  height: 2px;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.85) 0 18px,
+    transparent 18px 34px
+  );
+  opacity: 0.8;
+}
+
+.tech-carro {
+  position: absolute;
+  bottom: 6px;
+  width: 34px;
+  height: 14px;
+  border-radius: 8px 10px 4px 4px;
+  z-index: 9;
+}
+
+.tech-carro::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: 7px;
+  width: 18px;
+  height: 8px;
+  border-radius: 8px 8px 2px 2px;
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.tech-carro::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  bottom: -4px;
+  width: 26px;
+  height: 6px;
+  background:
+    radial-gradient(circle, #1d1d1d 0 3px, transparent 4px) left center/12px 6px no-repeat,
+    radial-gradient(circle, #1d1d1d 0 3px, transparent 4px) right center/12px 6px no-repeat;
+}
+
+.tech-carro-1 {
+  left: 34px;
+  background: linear-gradient(180deg, #74e6ff 0%, #35a4ff 100%);
+}
+
+.tech-carro-2 {
+  left: 112px;
+  background: linear-gradient(180deg, #ff94d4 0%, #e65ab5 100%);
+}
+
+.tech-carro-3 {
+  right: 112px;
+  background: linear-gradient(180deg, #9df5ff 0%, #43c3ff 100%);
+}
+
+.tech-carro-4 {
+  right: 34px;
+  background: linear-gradient(180deg, #ffc18c 0%, #ff8a64 100%);
+}
+
+/* ===================================================== */
+/* CHÃO / GRID TECH */
+/* ===================================================== */
+
+.tech-grid {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 78px;
+  background: linear-gradient(180deg, #352452 0%, #211537 100%);
+  z-index: 3;
+}
+
+.tech-linha-perspectiva {
+  position: absolute;
+  bottom: 0;
+  width: 2px;
+  height: 78px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 114, 184, 0.78) 0%,
+    rgba(110, 233, 255, 0.82) 100%
+  );
+  z-index: 4;
+  transform-origin: bottom center;
+}
+
+.tech-linha-perspectiva-1 {
+  left: 16%;
+  transform: rotate(18deg);
+}
+
+.tech-linha-perspectiva-2 {
+  left: 32%;
+  transform: rotate(9deg);
+}
+
+.tech-linha-perspectiva-3 {
+  left: 50%;
+  transform: rotate(0deg);
+}
+
+.tech-linha-perspectiva-4 {
+  left: 68%;
+  transform: rotate(-9deg);
+}
+
+.tech-linha-perspectiva-5 {
+  left: 84%;
+  transform: rotate(-18deg);
+}
+
+.tech-linha-horizontal {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 4;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 102, 173, 0.82),
+    rgba(116, 233, 255, 0.82),
+    rgba(255, 102, 173, 0.82)
+  );
+}
+
+.tech-linha-horizontal-1 {
+  bottom: 14px;
+}
+
+.tech-linha-horizontal-2 {
+  bottom: 36px;
+}
+
+.tech-linha-horizontal-3 {
+  bottom: 62px;
+}
+
+.tech-base {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 16px;
+  background: #201432;
+  z-index: 2;
+}
+
+/* ===================================================== */
+/* ESTADOS DO MUNDO - JARDIM */
+/* ===================================================== */
+
+.mundo-jardim.mundo-saudavel .jardim-cenario {
+  background: linear-gradient(180deg, #d8eef8 0%, #eef8ef 58%, #cde3b8 100%);
+}
+
+.mundo-jardim.mundo-saudavel .jardim-sol {
+  opacity: 1;
+}
+
+.mundo-jardim.mundo-saudavel .jardim-lago {
+  width: 250px;
+  height: 78px;
+  opacity: 1;
+}
+
+.mundo-jardim.mundo-saudavel .jardim-grama {
+  background: #8fc17d;
+}
+
+.mundo-jardim.mundo-saudavel .jardim-arvore::after {
+  background: #67b278;
+  box-shadow:
+    -16px 20px 0 #7ac28a,
+    16px 20px 0 #7ac28a,
+    0 34px 0 #67b278;
+}
+
+.mundo-jardim.mundo-evolucao .jardim-cenario {
+  background: linear-gradient(180deg, #dde7ea 0%, #edf0dd 58%, #d1c99f 100%);
+}
+
+.mundo-jardim.mundo-evolucao .jardim-sol {
+  opacity: 0.75;
+}
+
+.mundo-jardim.mundo-evolucao .jardim-lago {
+  width: 215px;
+  height: 62px;
+  opacity: 0.9;
+}
+
+.mundo-jardim.mundo-evolucao .jardim-grama {
+  background: #b8b478;
+}
+
+.mundo-jardim.mundo-evolucao .jardim-arvore::after {
+  background: #86a66d;
+  box-shadow:
+    -16px 20px 0 #98b37a,
+    16px 20px 0 #98b37a,
+    0 34px 0 #86a66d;
+}
+
+.mundo-jardim.mundo-fraco .jardim-cenario {
+  background: linear-gradient(180deg, #dde0e2 0%, #e8decd 58%, #ceb98b 100%);
+}
+
+.mundo-jardim.mundo-fraco .jardim-sol {
+  opacity: 0.45;
+}
+
+.mundo-jardim.mundo-fraco .jardim-lago {
+  width: 180px;
+  height: 42px;
+  opacity: 0.78;
+  background: linear-gradient(180deg, #c2d3d8 0%, #91afb6 100%);
+}
+
+.mundo-jardim.mundo-fraco .jardim-grama {
+  background: #baa66f;
+}
+
+.mundo-jardim.mundo-fraco .jardim-arvore::after {
+  background: #90956b;
+  box-shadow:
+    -16px 20px 0 #a79f72,
+    16px 20px 0 #a79f72,
+    0 34px 0 #90956b;
+}
+
+/* ===================================================== */
+/* ESTADOS DO MUNDO - TECH */
+/* ===================================================== */
+
+.mundo-tech.mundo-saudavel .tech-cenario {
+  filter: saturate(1.02) brightness(1);
+}
+
+.mundo-tech.mundo-saudavel .tech-sol-neon,
+.mundo-tech.mundo-saudavel .tech-faixa-carros,
+.mundo-tech.mundo-saudavel .tech-carro,
+.mundo-tech.mundo-saudavel .tech-linha-horizontal,
+.mundo-tech.mundo-saudavel .tech-linha-perspectiva {
+  opacity: 1;
+}
+
+.mundo-tech.mundo-evolucao .tech-cenario {
+  filter: saturate(0.82) brightness(0.96);
+}
+
+.mundo-tech.mundo-evolucao .tech-sol-neon,
+.mundo-tech.mundo-evolucao .tech-faixa-carros,
+.mundo-tech.mundo-evolucao .tech-carro,
+.mundo-tech.mundo-evolucao .tech-linha-horizontal,
+.mundo-tech.mundo-evolucao .tech-linha-perspectiva {
+  opacity: 0.78;
+}
+
+.mundo-tech.mundo-evolucao .tech-torre-central {
+  height: 118px;
+}
+
+.mundo-tech.mundo-fraco .tech-cenario {
+  filter: saturate(0.56) brightness(0.9);
+}
+
+.mundo-tech.mundo-fraco .tech-sol-neon,
+.mundo-tech.mundo-fraco .tech-faixa-carros,
+.mundo-tech.mundo-fraco .tech-carro,
+.mundo-tech.mundo-fraco .tech-linha-horizontal,
+.mundo-tech.mundo-fraco .tech-linha-perspectiva {
+  opacity: 0.42;
+}
+
+.mundo-tech.mundo-fraco .tech-torre-central {
+  height: 104px;
+}
+
+/* ===================================================== */
+/* PAINEL DE MISSÕES */
+/* ===================================================== */
+
+.painel-missoes,
+.painel-saude-tela {
+  max-width: 920px;
+  margin: 0 auto 18px;
+  background: #f8fbf9;
+  border: 1px solid #e2eee7;
+  border-radius: 30px;
+  padding: 28px;
+  animation: aparecerPainel 0.28s ease;
+}
+
+@keyframes aparecerPainel {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.painel-missoes-header,
+.painel-saude-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.painel-missoes-header h2,
+.painel-saude-header h2 {
+  color: #173b2f;
+  font-size: 1.8rem;
+  margin-bottom: 8px;
+}
+
+.painel-missoes-header p,
+.painel-saude-header p {
+  color: #66796f;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.missoes-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.missao-card {
+  background: #ffffff;
+  border: 1px solid #e2eee7;
+  border-radius: 24px;
+  padding: 20px;
+  box-shadow: 0 10px 24px rgba(39, 73, 57, 0.06);
+  transition: all 0.25s ease;
+}
+
+.missao-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 34px rgba(39, 73, 57, 0.1);
+}
+
+.missao-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.missao-topo span {
+  background: #e8f4ed;
+  color: #3f7d60;
+  padding: 7px 12px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 900;
+}
+
+.missao-topo strong {
+  color: #4f8f70;
+  font-size: 0.95rem;
+  font-weight: 900;
+}
+
+.missao-card h3 {
+  color: #173b2f;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.missao-card p {
+  color: #66796f;
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.missao-card small {
+  display: block;
+  color: #4f8f70;
+  font-weight: 800;
+  margin-bottom: 16px;
+}
+
+.btn-concluir-missao {
+  width: 100%;
+  border: none;
+  border-radius: 999px;
+  background: #4f8f70;
+  color: #ffffff;
+  padding: 12px 18px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.btn-concluir-missao:hover {
+  background: #3f7d60;
+  transform: translateY(-2px);
+}
+
+/* ===================================================== */
+/* PAINEL DE SAÚDE */
+/* ===================================================== */
+
+.painel-saude-tela {
+  max-width: 760px;
+}
+
+.resultado-geral {
+  background: #f8fbf9;
+  border: 1px solid #e2eee7;
+  border-radius: 28px;
+  padding: 28px;
+  text-align: center;
+  margin-bottom: 34px;
+}
+
+.resultado-geral h3,
+.resultado-categorias h3 {
+  color: #173b2f;
+  margin-bottom: 14px;
+  font-size: 1.35rem;
+}
+
+.resultado-geral strong {
+  display: block;
+  color: #173b2f;
+  font-size: 3.2rem;
+  font-weight: 900;
+  margin-bottom: 22px;
+}
+
+.saude-geral-card {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 22px;
+  margin-bottom: 22px;
+}
+
+.saude-geral-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.saude-geral-topo h3 {
+  color: #173b2f;
+  font-size: 1.15rem;
+  margin: 0;
+}
+
+.saude-geral-topo strong {
+  color: #173b2f;
+  font-size: 2rem;
+  font-weight: 900;
+}
+
+.resultado-categorias {
+  margin-top: 28px;
+}
+
+.resultado-categorias-compacta {
+  margin-top: 0;
+}
+
+.resultado-categorias-compacta h3 {
+  color: #173b2f;
+  font-size: 1.2rem;
+  margin-bottom: 14px;
+}
+
+.categoria-resultado {
+  background: #fbfdfc;
+  border: 1px solid #e8f1ec;
+  border-radius: 22px;
+  padding: 18px;
+  margin-bottom: 16px;
+}
+
+.resultado-categorias-compacta .categoria-resultado {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 14px;
+  margin-bottom: 12px;
+}
+
+.categoria-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.categoria-topo span {
+  color: #173b2f;
+  font-weight: 800;
+  font-size: 1rem;
+}
+
+.categoria-topo strong {
+  color: #4f8f70;
+  font-weight: 900;
+  font-size: 1rem;
+}
+
+/* ===================================================== */
+/* BOTÃO REFAZER */
+/* ===================================================== */
+
+.btn-refazer {
+  display: block;
+  margin: 34px auto 0;
+  background: #e8f4ed;
+  color: #2f6b52;
+}
+
+.btn-refazer:hover {
+  background: #d8eee2;
+  transform: translateY(-3px);
+}
+
+.btn-refazer-novo {
+  margin-top: 14px;
+}
+
+/* ===================================================== */
+/* RESPONSIVO */
+/* ===================================================== */
+
+@media (max-width: 768px) {
+  .resultado-container {
+    margin-top: 36px;
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .resultado-container-novo {
+    padding: 0 14px 48px;
+  }
+
+  .resultado-card,
+  .resultado-card-limpo {
+    padding: 16px;
+    border-radius: 28px;
+  }
+
+  .resultado-card h2 {
+    font-size: 1.9rem;
+  }
+
+  .resultado-nav {
+    width: 100%;
+    justify-content: center;
+    border-radius: 22px;
+    flex-wrap: wrap;
+  }
+
+  .nav-resultado-btn {
+    flex: 1;
+    padding: 10px 12px;
+    font-size: 0.85rem;
+  }
+
+  .visual-mundo-limpo {
+    padding: 10px;
+  }
+
+  .mundo-cenario {
+    height: 250px;
+  }
+
+  .visual-mundo-limpo .mundo-cenario {
+    height: 300px;
+    border-radius: 20px;
+  }
+
+  .visual-mundo-limpo .visual-mundo-info-nova p {
+    font-size: 0.85rem;
+  }
+
+  .jardim-casa {
+    left: 92px;
+    transform: scale(0.88);
+  }
+
+  .jardim-arvore-1 {
+    left: 32px;
+  }
+
+  .jardim-arvore-2 {
+    right: 34px;
+  }
+
+  .jardim-arvore-3 {
+    right: 102px;
+  }
+
+  .tech-sol-neon {
+    top: 20px;
+    right: 20px;
+    width: 64px;
+    height: 64px;
+  }
+
+  .tech-predio-1 {
+    left: 10px;
+  }
+
+  .tech-predio-2 {
+    left: 68px;
+  }
+
+  .tech-predio-3 {
+    left: 142px;
+  }
+
+  .tech-predio-4 {
+    right: 70px;
+  }
+
+  .tech-predio-5 {
+    right: 10px;
+  }
+
+  .tech-palmeira-1 {
+    left: 68px;
+  }
+
+  .tech-palmeira-2 {
+    right: 68px;
+  }
+
+  .tech-carro-1 {
+    left: 18px;
+  }
+
+  .tech-carro-2 {
+    left: 84px;
+  }
+
+  .tech-carro-3 {
+    right: 84px;
+  }
+
+  .tech-carro-4 {
+    right: 18px;
+  }
+
+  .painel-missoes,
+  .painel-saude-tela {
+    padding: 20px;
+    border-radius: 24px;
+  }
+
+  .missoes-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .painel-missoes-header h2,
+  .painel-saude-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .resultado-geral {
+    padding: 24px;
+  }
+
+  .resultado-geral strong {
+    font-size: 2.6rem;
+  }
+
+  .saude-geral-topo strong {
+    font-size: 1.6rem;
+  }
+
+  .categoria-topo span,
+  .categoria-topo strong {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .resultado-card h2 {
+    font-size: 1.7rem;
+  }
+
+  .visual-mundo-limpo .mundo-cenario {
+    height: 260px;
+  }
+
+  .jardim-casa {
+    left: 62px;
+    transform: scale(0.72);
+  }
+
+  .jardim-arvore-1 {
+    left: 18px;
+    transform: scale(0.78);
+  }
+
+  .jardim-arvore-2 {
+    right: 18px;
+    transform: scale(0.78);
+  }
+
+  .jardim-arvore-3 {
+    right: 72px;
+    transform: scale(0.65);
+  }
+
+  .jardim-lago {
+    width: 190px;
+  }
+
+  .tech-predio-1,
+  .tech-predio-5 {
+    display: none;
+  }
+
+  .tech-predio-2 {
+    left: 24px;
+  }
+
+  .tech-predio-3 {
+    left: 112px;
+  }
+
+  .tech-predio-4 {
+    right: 24px;
+  }
+
+  .tech-torre-central {
+    width: 70px;
+  }
+
+  .tech-palmeira-1,
+  .tech-palmeira-2 {
+    display: none;
+  }
+}

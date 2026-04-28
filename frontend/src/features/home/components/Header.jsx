@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Search, User, HeadsetIcon, Target } from "lucide-react";
+import { Search, User, HeadsetIcon, Target, Sprout } from "lucide-react";
 import { FaChevronDown } from "react-icons/fa";
 import CarePlus from "../../../assets/branding/CarePlus.svg";
 import { clearAuthenticatedUser, readAuthenticatedUser } from "../../auth/authStorage";
@@ -35,9 +35,13 @@ function Header() {
       <div className="topbar border-bottom">
         <div className="container-fluid custom-container">
           <div className="row align-items-center topbar-row">
-            <div className="col-lg-2 col-md-3 col-4 d-flex align-items-center">
+            <div className="col-lg-2 col-md-3 col-4 d-flex align-items-center gap-2">
               <Link to="/missoes" className="topbar-btn" aria-label="Missoes">
                 <Target size={18} />
+              </Link>
+
+              <Link to="/mundo" className="topbar-btn" aria-label="Mundo">
+                <Sprout size={18} />
               </Link>
             </div>
 
@@ -128,6 +132,24 @@ function Header() {
                     <li><a className="dropdown-item" href="#">Tabela de precos</a></li>
                     <li><Link className="dropdown-item" to="/planos">Comparar planos</Link></li>
                   </ul>
+                </li>
+
+                <li className="nav-item">
+                  <Link
+                    to="/mundo"
+                    className="nav-link custom-nav-link d-flex align-items-center gap-2"
+                  >
+                    Mundo
+                  </Link>
+                </li>
+
+                <li className="nav-item">
+                  <Link
+                    to="/missoes"
+                    className="nav-link custom-nav-link d-flex align-items-center gap-2"
+                  >
+                    Missões
+                  </Link>
                 </li>
 
                 <li className="nav-item dropdown">

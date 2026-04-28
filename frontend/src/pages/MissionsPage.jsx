@@ -17,6 +17,7 @@ import {
   HeartPulse,
   Home,
   Info,
+  Leaf,
   Lock,
   Medal,
   Moon,
@@ -124,6 +125,7 @@ const upcomingMissions = [
 
 const sidebarItems = [
   { label: "Início", Icon: Home, to: "/" },
+  { label: "Mundo", Icon: Leaf, to: "/mundo" },
   { label: "Missões", Icon: Target, to: "/missoes", active: true },
   { label: "Loja", Icon: ShoppingBag, to: "#" },
   { label: "Comunidade", Icon: UsersRound, to: "#" },
@@ -413,14 +415,21 @@ function MissionsPage() {
           </div>
 
           <nav className="missions-tabs" aria-label="Áreas de recompensas">
+            <Link to="/mundo">
+              <Leaf size={18} aria-hidden="true" />
+              Mundo
+            </Link>
+
             <Link to="/missoes" className="is-active">
               <Target size={18} aria-hidden="true" />
               Missões
             </Link>
+
             <a href="#">
               <ShoppingBag size={18} aria-hidden="true" />
               Loja
             </a>
+
             <a href="#">
               <UsersRound size={18} aria-hidden="true" />
               Comunidade

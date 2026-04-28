@@ -1,0 +1,342 @@
+.escolha-mundo-section {
+  min-height: calc(100vh - 260px);
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 34px 24px 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.escolha-mundo-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.escolha-mundo-header-clean {
+  margin-bottom: 28px;
+}
+
+.escolha-mundo-header h2 {
+  font-size: 2.3rem;
+  color: #173b2f;
+  margin-bottom: 0;
+}
+
+.escolha-mundo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(320px, 1fr));
+  gap: 28px;
+  align-items: stretch;
+}
+
+.mundo-bloco {
+  background: #ffffff;
+  border: 1px solid #e3eee8;
+  border-radius: 32px;
+  padding: 22px;
+  box-shadow: 0 16px 38px rgba(39, 73, 57, 0.08);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+}
+
+.mundo-bloco:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 22px 48px rgba(39, 73, 57, 0.14);
+  border-color: #9fd8b5;
+}
+
+.mundo-preview {
+  width: 100%;
+  height: 250px;
+  border-radius: 24px;
+  overflow: hidden;
+  margin-bottom: 22px;
+  position: relative;
+}
+
+.mundo-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.mundo-info h3 {
+  font-size: 1.55rem;
+  color: #173b2f;
+  margin-bottom: 10px;
+}
+
+.mundo-info p {
+  color: #66796f;
+  line-height: 1.6;
+  font-size: 1rem;
+  margin-bottom: 18px;
+}
+
+.mundo-diferenciais {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: auto;
+  margin-bottom: 20px;
+}
+
+.mundo-diferenciais span {
+  background: #f0f7f3;
+  color: #3f7d60;
+  border: 1px solid #d8eee2;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.mundo-escolher-area {
+  margin-top: 4px;
+}
+
+.mundo-escolher {
+  display: inline-block;
+  padding: 11px 18px;
+  border-radius: 999px;
+  background: #4f8f70;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 0.92rem;
+  box-shadow: 0 10px 20px rgba(79, 143, 112, 0.18);
+}
+
+/* BLOCO NATUREZA */
+
+.preview-natureza {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, #dff1ff 0%, #e9f7ef 55%, #cfe8d6 100%);
+}
+
+.preview-natureza .ceu {
+  position: absolute;
+  inset: 0;
+}
+
+.preview-natureza .sol {
+  position: absolute;
+  top: 28px;
+  right: 36px;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #f8e5a4;
+  box-shadow: 0 0 30px rgba(248, 229, 164, 0.45);
+}
+
+.preview-natureza .montanha {
+  position: absolute;
+  bottom: 82px;
+  background: #9cc9ab;
+  border-radius: 50% 50% 0 0;
+}
+
+.preview-natureza .montanha-1 {
+  left: -20px;
+  width: 200px;
+  height: 120px;
+}
+
+.preview-natureza .montanha-2 {
+  right: -10px;
+  width: 220px;
+  height: 130px;
+  background: #86b997;
+}
+
+.preview-natureza .cachoeira {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 55px;
+  width: 38px;
+  height: 110px;
+  background: linear-gradient(180deg, #d9f3ff 0%, #8ad0e8 100%);
+  border-radius: 20px;
+}
+
+.preview-natureza .lago {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 22px;
+  width: 180px;
+  height: 42px;
+  background: #9fd7ea;
+  border-radius: 999px;
+}
+
+.preview-natureza .arvore {
+  position: absolute;
+  bottom: 26px;
+  width: 36px;
+  height: 70px;
+}
+
+.preview-natureza .arvore::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 14px;
+  width: 8px;
+  height: 24px;
+  background: #7b5e4b;
+  border-radius: 10px;
+}
+
+.preview-natureza .arvore::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 36px;
+  background: #74bb84;
+  border-radius: 50%;
+  box-shadow: 0 10px 0 2px #74bb84;
+}
+
+.preview-natureza .arvore-1 {
+  left: 50px;
+}
+
+.preview-natureza .arvore-2 {
+  right: 58px;
+}
+
+/* BLOCO FUTURISTA */
+
+.preview-futurista {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, #edf4ff 0%, #f3f8ff 40%, #dfeef5 100%);
+}
+
+.preview-futurista .ceu-futuro {
+  position: absolute;
+  inset: 0;
+}
+
+.preview-futurista .circulo-energia {
+  position: absolute;
+  top: 26px;
+  right: 34px;
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #d6f8ef 0%, #a8e7d3 60%, #85d4d3 100%);
+  box-shadow: 0 0 24px rgba(133, 212, 211, 0.45);
+}
+
+.preview-futurista .predio {
+  position: absolute;
+  bottom: 38px;
+  border-radius: 16px 16px 0 0;
+  background: linear-gradient(180deg, #b7d7ef 0%, #8bb4d1 100%);
+}
+
+.preview-futurista .predio-1 {
+  left: 40px;
+  width: 70px;
+  height: 120px;
+}
+
+.preview-futurista .predio-2 {
+  left: 130px;
+  width: 90px;
+  height: 160px;
+  background: linear-gradient(180deg, #c5d2ff 0%, #93a8eb 100%);
+}
+
+.preview-futurista .predio-3 {
+  right: 46px;
+  width: 95px;
+  height: 140px;
+  background: linear-gradient(180deg, #b8ece3 0%, #84d6c6 100%);
+}
+
+.preview-futurista .rua {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 48px;
+  background: #d4e2ea;
+}
+
+.preview-futurista .linha-neon {
+  position: absolute;
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #8ed8d0, #7db7ff);
+  box-shadow: 0 0 10px rgba(125, 183, 255, 0.35);
+}
+
+.preview-futurista .linha-1 {
+  width: 140px;
+  bottom: 20px;
+  left: 36px;
+}
+
+.preview-futurista .linha-2 {
+  width: 170px;
+  bottom: 20px;
+  right: 28px;
+}
+
+/* VARIAÇÃO DOS BLOCOS */
+
+.mundo-natureza {
+  background: linear-gradient(180deg, #ffffff 0%, #fbfefc 100%);
+}
+
+.mundo-futurista {
+  background: linear-gradient(180deg, #ffffff 0%, #fbfcff 100%);
+}
+
+/* RESPONSIVO */
+
+@media (max-width: 900px) {
+  .escolha-mundo-grid {
+    grid-template-columns: 1fr;
+    max-width: 580px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .escolha-mundo-section {
+    min-height: auto;
+    padding: 30px 18px 56px;
+  }
+
+  .escolha-mundo-header h2 {
+    font-size: 1.9rem;
+  }
+
+  .mundo-bloco {
+    padding: 18px;
+    border-radius: 24px;
+  }
+
+  .mundo-preview {
+    height: 220px;
+    border-radius: 20px;
+  }
+
+  .mundo-info h3 {
+    font-size: 1.3rem;
+  }
+}

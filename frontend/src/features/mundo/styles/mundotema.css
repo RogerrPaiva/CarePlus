@@ -1,0 +1,846 @@
+/* src/features/mundo/styles/mundoTemaMissoes.css */
+
+/* ===================================================== */
+/* TEMA BASEADO NA PÁGINA DE MISSÕES */
+/* Não altera as cores dos mundos nem da barra de saúde */
+/* ===================================================== */
+
+.mundo-page {
+  --mundo-primary: #1c9770ff;
+  --mundo-secondary: #93cb52;
+  --mundo-accent-green: #7ad180;
+  --mundo-accent-aqua: #7ad1c3;
+  --mundo-green: var(--mundo-primary);
+  --mundo-green-dark: var(--mundo-primary);
+  --mundo-lime: var(--mundo-secondary);
+  --mundo-mint: rgba(122, 209, 128, 0.18);
+  --mundo-aqua-soft: rgba(122, 209, 195, 0.2);
+  --mundo-text: var(--mundo-primary);
+  --mundo-muted: rgba(28, 151, 112, 0.68);
+  --mundo-border: rgba(122, 209, 195, 0.54);
+  --mundo-surface: #ffffff;
+
+  background:
+    linear-gradient(135deg, rgba(122, 209, 195, 0.2), rgba(122, 209, 128, 0.14)),
+    #ffffff;
+  color: var(--mundo-text);
+}
+
+.mundo-dashboard-page {
+  display: grid;
+  grid-template-columns: 244px minmax(0, 1fr);
+  min-height: 100vh;
+  background:
+    linear-gradient(135deg, rgba(122, 209, 195, 0.2), rgba(122, 209, 128, 0.14)),
+    #ffffff;
+}
+
+/* SIDEBAR */
+
+.mundo-sidebar {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 28px 18px;
+  background:
+    linear-gradient(180deg, rgba(147, 203, 82, 0.1), transparent 24%),
+    linear-gradient(180deg, #1c9770 0%, #1c9770 56%, #93cb52 140%);
+  color: #ffffff;
+}
+
+.mundo-sidebar__brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 72px;
+  margin-bottom: 38px;
+  padding: 14px 18px;
+  border-radius: 8px;
+  background: transparent;
+}
+
+.mundo-sidebar__brand img {
+  width: 156px;
+  height: auto;
+  filter: brightness(0) invert(1) drop-shadow(0 14px 22px rgba(28, 151, 112, 0.18));
+}
+
+.mundo-sidebar__nav {
+  display: grid;
+  gap: 8px;
+}
+
+.mundo-sidebar__link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 54px;
+  padding: 0 16px;
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.92);
+  font-weight: 700;
+  text-decoration: none;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.mundo-sidebar__link:hover,
+.mundo-sidebar__link.is-active {
+  background: rgba(255, 255, 255, 0.17);
+  color: #ffffff;
+  transform: translateX(2px);
+}
+
+.mundo-sidebar__link svg {
+  color: #ffffff;
+}
+
+.mundo-level {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 10px;
+  align-items: center;
+  min-height: 70px;
+  margin-top: auto;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  border-radius: 8px;
+  color: #ffffff;
+}
+
+.mundo-level span {
+  display: block;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.mundo-level strong {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.92rem;
+}
+
+.mundo-tip {
+  display: grid;
+  gap: 10px;
+  margin-top: 22px;
+  padding: 18px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--mundo-primary), var(--mundo-secondary));
+}
+
+.mundo-tip span {
+  color: #ffffff;
+  font-weight: 800;
+}
+
+.mundo-tip p {
+  color: #ffffff;
+  font-size: 0.98rem;
+  font-weight: 700;
+  line-height: 1.48;
+  margin: 0;
+}
+
+/* CONTEÚDO PRINCIPAL */
+
+.mundo-content {
+  padding: 28px 32px 34px;
+}
+
+.mundo-topbar {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) auto minmax(280px, 1fr);
+  gap: 18px;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+.mundo-greeting {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.mundo-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
+  height: 58px;
+  flex: 0 0 58px;
+  border-radius: 50%;
+  background: var(--mundo-mint);
+  color: var(--mundo-green);
+}
+
+.mundo-greeting p {
+  font-size: 1.08rem;
+  font-weight: 800;
+  margin: 0;
+}
+
+.mundo-greeting strong {
+  color: var(--mundo-green);
+}
+
+.mundo-greeting span {
+  color: var(--mundo-muted);
+  font-size: 0.9rem;
+}
+
+/* ABAS SUPERIORES */
+
+.mundo-tabs {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.mundo-tabs a,
+.mundo-tabs button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 50px;
+  padding: 0 18px;
+  border-radius: 999px;
+  color: var(--mundo-text);
+  font-weight: 800;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.mundo-tabs button {
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.mundo-tabs a.is-active,
+.mundo-tabs button.is-active {
+  border: 1px solid var(--mundo-border);
+  background: var(--mundo-mint);
+  color: var(--mundo-green-dark);
+}
+
+/* AÇÕES DO USUÁRIO */
+
+.mundo-user-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 14px;
+}
+
+.mundo-user-actions button,
+.mundo-points-pill,
+.mundo-user-card {
+  display: inline-flex;
+  align-items: center;
+}
+
+.mundo-user-actions button {
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--mundo-text);
+}
+
+.mundo-points-pill {
+  gap: 7px;
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--mundo-border);
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--mundo-muted);
+  font-weight: 700;
+}
+
+.mundo-points-pill svg {
+  color: var(--mundo-secondary);
+}
+
+.mundo-points-pill strong {
+  color: var(--mundo-green);
+  font-size: 1.04rem;
+}
+
+.mundo-user-card {
+  gap: 10px;
+  padding-left: 10px;
+  border-left: 1px solid var(--mundo-border);
+}
+
+.mundo-user-photo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--mundo-accent-aqua), var(--mundo-accent-green));
+  color: var(--mundo-green-dark);
+  font-weight: 900;
+}
+
+.mundo-user-card strong,
+.mundo-user-card span {
+  display: block;
+}
+
+.mundo-user-card strong {
+  color: var(--mundo-text);
+  font-size: 0.94rem;
+}
+
+.mundo-user-card span {
+  color: var(--mundo-green);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+/* HERO */
+
+.mundo-dashboard-page .mundo-hero {
+  background:
+    linear-gradient(135deg, rgba(28, 151, 112, 0.96), rgba(147, 203, 82, 0.88)),
+    var(--mundo-primary);
+  color: #ffffff;
+  border-radius: 8px;
+  margin: 0 0 16px;
+  padding: 46px 44px;
+  overflow: hidden;
+  position: relative;
+}
+
+.mundo-dashboard-page .mundo-hero::before {
+  content: "";
+  position: absolute;
+  right: 178px;
+  bottom: -70px;
+  width: 260px;
+  height: 260px;
+  border: 34px solid rgba(255, 255, 255, 0.24);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.mundo-dashboard-page .mundo-hero::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 46%;
+  height: 100%;
+  background:
+    linear-gradient(135deg, transparent 0 42%, rgba(255, 255, 255, 0.12) 42% 68%, transparent 68%),
+    linear-gradient(45deg, transparent 0 54%, rgba(122, 209, 128, 0.16) 54%);
+  pointer-events: none;
+}
+
+.mundo-hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: left;
+  max-width: 760px;
+  margin: 0;
+}
+
+.mundo-tag,
+.resultado-tag {
+  background: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+}
+
+.mundo-dashboard-page .mundo-hero h1 {
+  color: #ffffff;
+}
+
+.mundo-dashboard-page .mundo-hero p {
+  color: rgba(255, 255, 255, 0.94);
+  margin: 0;
+  max-width: 680px;
+  font-weight: 700;
+}
+
+/* GRID */
+
+.mundo-dashboard-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.mundo-dashboard-main {
+  display: grid;
+  gap: 16px;
+}
+
+/* QUIZ */
+
+.quiz-progress-info span,
+.quiz-progress-info strong {
+  color: var(--mundo-muted);
+}
+
+.quiz-progress-bar {
+  background: rgba(122, 209, 195, 0.32);
+}
+
+.quiz-progress-fill {
+  background: linear-gradient(90deg, var(--mundo-primary), var(--mundo-accent-green));
+}
+
+.pergunta-full-card {
+  background: var(--mundo-surface);
+  border: 1px solid var(--mundo-border);
+  border-radius: 8px;
+  box-shadow: 0 14px 28px rgba(10, 112, 78, 0.05);
+}
+
+.pergunta-full-card .pergunta-topo span {
+  background: var(--mundo-mint);
+  color: var(--mundo-green);
+  border: 1px solid var(--mundo-border);
+}
+
+.pergunta-full-card .pergunta-topo h2 {
+  color: var(--mundo-text);
+}
+
+.opcao-full-card {
+  background: #ffffff;
+  border: 1px solid var(--mundo-border);
+  border-radius: 8px;
+  color: var(--mundo-text);
+  box-shadow: 0 10px 22px rgba(10, 112, 78, 0.04);
+}
+
+.opcao-full-card:hover {
+  background: var(--mundo-mint);
+  border-color: var(--mundo-accent-aqua);
+}
+
+.opcao-selecionada {
+  background: linear-gradient(90deg, rgba(122, 209, 128, 0.22), rgba(122, 209, 195, 0.18));
+  border-color: var(--mundo-accent-green);
+  color: var(--mundo-green-dark);
+  box-shadow: 0 12px 24px rgba(28, 151, 112, 0.1);
+}
+
+.btn-voltar,
+.btn-proxima,
+.btn-refazer,
+.btn-concluir-missao {
+  border-radius: 999px;
+}
+
+.btn-voltar {
+  background: var(--mundo-mint);
+  color: var(--mundo-green);
+}
+
+.btn-voltar:hover:not(:disabled) {
+  background: rgba(122, 209, 195, 0.26);
+}
+
+.btn-proxima,
+.btn-concluir-missao {
+  background: var(--mundo-primary);
+  color: #ffffff;
+  box-shadow: 0 12px 24px rgba(28, 151, 112, 0.18);
+}
+
+.btn-proxima:hover:not(:disabled),
+.btn-concluir-missao:hover {
+  background: #168761;
+}
+
+/* ESCOLHA DE MUNDO */
+
+.escolha-mundo-header h2 {
+  color: var(--mundo-text);
+}
+
+.mundo-bloco {
+  background: #ffffff;
+  border: 1px solid var(--mundo-border);
+  border-radius: 8px;
+  box-shadow: 0 14px 28px rgba(10, 112, 78, 0.05);
+}
+
+.mundo-bloco:hover {
+  border-color: var(--mundo-accent-green);
+  box-shadow: 0 18px 34px rgba(10, 112, 78, 0.1);
+}
+
+.mundo-info h3 {
+  color: var(--mundo-text);
+}
+
+.mundo-info p {
+  color: var(--mundo-muted);
+}
+
+.mundo-diferenciais span {
+  background: var(--mundo-mint);
+  color: var(--mundo-green);
+  border: 1px solid var(--mundo-border);
+}
+
+.mundo-escolher {
+  background: var(--mundo-primary);
+  color: #ffffff;
+  box-shadow: 0 10px 20px rgba(28, 151, 112, 0.18);
+}
+
+/* RESULTADO */
+
+.resultado-container,
+.resultado-container-novo {
+  color: var(--mundo-text);
+}
+
+.resultado-card,
+.resultado-card-novo,
+.resultado-card-limpo {
+  background: #ffffff;
+  border: 1px solid var(--mundo-border);
+  border-radius: 8px;
+  box-shadow: 0 14px 28px rgba(10, 112, 78, 0.05);
+}
+
+.visual-mundo {
+  background: #ffffff;
+  border: 1px solid var(--mundo-border);
+  border-radius: 8px;
+}
+
+.visual-mundo-limpo {
+  border-radius: 8px;
+}
+
+.visual-mundo-info {
+  background: #ffffff;
+}
+
+.visual-mundo-info span {
+  color: var(--mundo-text);
+}
+
+.visual-mundo-info p {
+  color: var(--mundo-muted);
+}
+
+/* PAINÉIS */
+
+.painel-missoes,
+.painel-saude-tela {
+  background: #ffffff;
+  border: 1px solid var(--mundo-border);
+  border-radius: 8px;
+  box-shadow: 0 14px 28px rgba(10, 112, 78, 0.05);
+}
+
+.painel-missoes-header h2,
+.painel-saude-header h2,
+.saude-geral-topo h3,
+.resultado-categorias-compacta h3,
+.missao-card h3 {
+  color: var(--mundo-text);
+}
+
+.painel-missoes-header p,
+.painel-saude-header p,
+.missao-card p {
+  color: var(--mundo-muted);
+}
+
+.missao-card,
+.saude-geral-card,
+.categoria-resultado,
+.resultado-categorias-compacta .categoria-resultado {
+  background: #ffffff;
+  border: 1px solid var(--mundo-border);
+  border-radius: 8px;
+  box-shadow: 0 10px 22px rgba(10, 112, 78, 0.04);
+}
+
+.missao-topo span {
+  background: var(--mundo-mint);
+  color: var(--mundo-green);
+}
+
+.missao-topo strong,
+.missao-card small,
+.categoria-topo strong {
+  color: var(--mundo-green);
+}
+
+.categoria-topo span {
+  color: var(--mundo-text);
+}
+
+/* BOTÃO REFAZER */
+
+.btn-refazer {
+  background: var(--mundo-mint);
+  color: var(--mundo-green);
+}
+
+.btn-refazer:hover {
+  background: rgba(122, 209, 195, 0.26);
+}
+
+/* RESPONSIVO */
+
+@media (max-width: 1180px) {
+  .mundo-dashboard-page {
+    grid-template-columns: 1fr;
+  }
+
+  .mundo-sidebar {
+    position: static;
+    min-height: auto;
+    padding: 18px;
+  }
+
+  .mundo-sidebar__brand {
+    justify-content: flex-start;
+    width: fit-content;
+    min-height: 56px;
+    margin-bottom: 18px;
+  }
+
+  .mundo-sidebar__nav {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .mundo-level,
+  .mundo-tip {
+    display: none;
+  }
+
+  .mundo-topbar {
+    grid-template-columns: 1fr;
+  }
+
+  .mundo-tabs {
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+
+  .mundo-user-actions {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 820px) {
+  .mundo-content {
+    padding: 20px 14px 28px;
+  }
+
+  .mundo-sidebar__nav {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .mundo-user-card {
+    width: 100%;
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .mundo-dashboard-page .mundo-hero {
+    padding: 34px 24px;
+    border-radius: 8px;
+  }
+
+  .mundo-hero-content {
+    text-align: left;
+  }
+
+  .mundo-dashboard-page .mundo-hero p {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 560px) {
+  .mundo-sidebar__brand img {
+    width: 134px;
+  }
+
+  .mundo-sidebar__nav {
+    grid-template-columns: 1fr;
+  }
+
+  .mundo-tabs a,
+  .mundo-tabs button {
+    min-height: 44px;
+    padding: 0 14px;
+    font-size: 0.9rem;
+  }
+
+  .mundo-greeting {
+    align-items: flex-start;
+  }
+
+  .mundo-avatar {
+    width: 50px;
+    height: 50px;
+    flex-basis: 50px;
+  }
+}
+.mundo-streak-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid rgba(255, 159, 67, 0.38);
+  border-radius: 999px;
+  background: #fff7ed;
+  color: #b45309;
+  font-weight: 700;
+}
+
+.mundo-streak-pill svg {
+  color: #f97316;
+}
+
+.mundo-streak-pill strong {
+  color: #ea580c;
+  font-size: 1.04rem;
+}
+/* ===================================================== */
+/* FONTES PADRÃO IGUAL À ABA MISSÕES */
+/* ===================================================== */
+
+.mundo-page,
+.mundo-page * {
+  font-family: "Manrope", "Inter", "Segoe UI", sans-serif;
+}
+
+.mundo-page h1,
+.mundo-page h2,
+.mundo-page h3,
+.mundo-page h4,
+.mundo-page h5,
+.mundo-page h6,
+.mundo-hero h1,
+.mundo-hero h2,
+.mundo-hero h3,
+.escolha-mundo-header h2,
+.mundo-info h3,
+.pergunta-full-card .pergunta-topo h2,
+.resultado-card h2,
+.painel-missoes-header h2,
+.painel-saude-header h2,
+.saude-geral-topo h3,
+.resultado-categorias-compacta h3,
+.missao-card h3 {
+  font-family: "Manrope", "Inter", "Segoe UI", sans-serif;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+}
+
+.mundo-page p,
+.mundo-page span,
+.mundo-page a,
+.mundo-page button,
+.mundo-page small,
+.mundo-page strong {
+  font-family: "Manrope", "Inter", "Segoe UI", sans-serif;
+}
+
+.mundo-points-pill strong,
+.mundo-streak-pill strong,
+.saude-geral-topo strong,
+.resultado-geral strong,
+.categoria-topo strong,
+.missao-topo strong,
+.mundo-user-card strong,
+.mundo-level strong {
+  font-family: "Sora", "Manrope", sans-serif;
+  letter-spacing: -0.03em;
+}
+
+.mundo-sidebar__link,
+.mundo-tabs a,
+.mundo-tabs button,
+.mundo-points-pill,
+.mundo-streak-pill,
+.mundo-user-card,
+.mundo-greeting,
+.mundo-tip,
+.mundo-level,
+.opcao-full-card,
+.btn-voltar,
+.btn-proxima,
+.btn-refazer,
+.btn-concluir-missao {
+  font-family: "Manrope", "Inter", "Segoe UI", sans-serif;
+}
+
+.mundo-dashboard-page .mundo-hero h1 {
+  font-family: "Manrope", "Inter", "Segoe UI", sans-serif;
+  font-weight: 900;
+  letter-spacing: -0.055em;
+}
+
+.mundo-dashboard-page .mundo-hero p {
+  font-family: "Manrope", "Inter", "Segoe UI", sans-serif;
+  font-weight: 800;
+}
+
+.pergunta-full-card .pergunta-topo span,
+.mundo-tag,
+.resultado-tag,
+.mundo-diferenciais span,
+.missao-topo span {
+  font-family: "Manrope", "Inter", "Segoe UI", sans-serif;
+  font-weight: 900;
+}
+/* ===================================================== */
+/* MISSÕES DO MUNDO FUNCIONANDO */
+/* ===================================================== */
+
+.missao-saude-bonus {
+  display: inline-flex;
+  width: fit-content;
+  margin-bottom: 14px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(122, 209, 128, 0.18);
+  color: #1c9770;
+  font-size: 0.8rem;
+  font-weight: 900;
+}
+
+.btn-concluir-missao.missao-concluida {
+  background: rgba(122, 209, 128, 0.35);
+  color: #1c9770;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.btn-concluir-missao.missao-concluida:hover {
+  background: rgba(122, 209, 128, 0.35);
+  transform: none;
+}

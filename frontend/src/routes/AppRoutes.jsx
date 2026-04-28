@@ -6,7 +6,7 @@ import { hasSavedOnboardingFlowAccess } from "../features/onboarding/flowStorage
 import OnboardingPage from "../features/onboarding/pages/OnboardingPage";
 import PlansPage from "../features/plans/pages/PlansPage";
 import MissionsPage from "../pages/MissionsPage";
-
+import Mundo from "../features/mundo/pages/Mundo";
 function AppRoutes() {
   const location = useLocation();
   const hasStoredFlowAccess = hasSavedOnboardingFlowAccess();
@@ -27,6 +27,7 @@ function AppRoutes() {
         element={hasOnboardingAccess ? <OnboardingPage /> : <Navigate to="/login" replace />}
       />
       <Route path="*" element={<Navigate to="/" replace />} />
+      <Route path="/mundo" element={<Mundo />} />
     </Routes>
   );
 }
