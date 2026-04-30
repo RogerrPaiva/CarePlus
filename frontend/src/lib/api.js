@@ -76,3 +76,21 @@ export async function startTokenCollection(payload) {
     body: JSON.stringify(payload),
   });
 }
+
+export async function getUserMundo(userId) {
+  return apiRequest(`/users/${userId}/mundo`);
+}
+
+export async function updateUserMundo(userId, payload) {
+  return apiRequest(`/users/${userId}/mundo`, {
+    method: "PATCH",
+    body: JSON.stringify(payload),
+  });
+}
+
+export async function completeDailyMission(userId, payload) {
+  return apiRequest(`/users/${userId}/missions/daily`, {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+}

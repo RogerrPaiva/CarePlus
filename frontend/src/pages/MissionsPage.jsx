@@ -31,45 +31,59 @@ import { GiChest } from "react-icons/gi";
 import CarePlus from "../assets/branding/CarePlus.svg";
 import missoes from "../assets/home/missoes.svg";
 import { readAuthenticatedUser } from "../features/auth/authStorage";
-import { getUserMission, getUserPoints, startTokenCollection } from "../lib/api";
+import {
+  completeDailyMission,
+  getUserMission,
+  getUserMundo,
+  getUserPoints,
+  startTokenCollection,
+} from "../lib/api";
 import "./MissionsPage.css";
 
 const TOKEN_DEVICE_ID = "careplus-token-001";
 
 const dailyMissions = [
   {
+    id: "steps_4000",
     title: "Caminhe 4 mil passos",
     description: "Movimente-se todos os dias",
     progress: "0/1",
     percent: 0,
     points: 10,
+    healthBonus: 2,
     Icon: Footprints,
     complete: false,
   },
   {
+    id: "water_25l",
     title: "Tomar 2,5 L de água",
     description: "Hidrate seu corpo e sua mente",
     progress: "0/1",
     percent: 0,
     points: 10,
+    healthBonus: 2,
     Icon: Droplets,
     complete: false,
   },
   {
+    id: "healthy_meal",
     title: "Alimentação equilibrada",
     description: "Faça 1 refeição saudável",
     progress: "0/1",
     percent: 0,
     points: 10,
+    healthBonus: 2,
     Icon: Apple,
     complete: false,
   },
   {
+    id: "sleep_7h",
     title: "Dormir 7 horas",
     description: "Uma boa noite de sono",
     progress: "0/1",
     percent: 0,
     points: 10,
+    healthBonus: 2,
     Icon: Moon,
     complete: false,
   },
@@ -149,7 +163,12 @@ function resolveFirstName(user, userId) {
 }
 
 function resolveDisplayName(user, userId) {
-  return user?.full_name?.trim() || userId || user?.email?.trim() || "Usuário não identificado";
+  return (
+    user?.full_name?.trim() ||
+    userId ||
+    user?.email?.trim() ||
+    "Usuário não identificado"
+  );
 }
 
 function resolveUserInitial(displayName) {
@@ -166,7 +185,15 @@ function normalizePoints(value) {
   return Math.floor(points);
 }
 
-function MissionCard({ mission }) {
+function getLocalDateKey(date = new Date()) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+}
+
+function MissionCard({ mission, onComplete }) {
   const Icon = mission.Icon;
 
   return (
@@ -184,7 +211,9 @@ function MissionCard({ mission }) {
         <p>{mission.description}</p>
 
         <div
-          className={`mission-progress ${mission.complete ? "is-complete" : ""}`}
+          className={`mission-progress ${
+            mission.complete ? "is-complete" : ""
+          }`}
           aria-label={`Progresso ${mission.progress}`}
         >
           <span className="mission-progress__bar">
@@ -200,14 +229,32 @@ function MissionCard({ mission }) {
       >
         <GiChest size={24} />
       </span>
+
+      {onComplete && (
+        <button
+          type="button"
+          className="mission-card__button"
+          onClick={() => onComplete(mission)}
+          disabled={mission.complete}
+        >
+          {mission.complete ? "Concluída" : "Concluir"}
+        </button>
+      )}
     </article>
   );
 }
 
 function MissionsPage() {
-  const [authenticatedUser, setAuthenticatedUser] = useState(() => readAuthenticatedUser());
-  const [missionPoints, setMissionPoints] = useState(initialMissionStats.points);
+  const [authenticatedUser, setAuthenticatedUser] = useState(() =>
+    readAuthenticatedUser()
+  );
+  const [missionPoints, setMissionPoints] = useState(
+    initialMissionStats.points
+  );
   const [tokenMission, setTokenMission] = useState(null);
+  const [completedDailyMissions, setCompletedDailyMissions] = useState([]);
+  const [streakDays, setStreakDays] = useState(0);
+  const [weeklyCompleted, setWeeklyCompleted] = useState(0);
 
   const hasStartedCollection = useRef(false);
   const userId = resolveUserId(authenticatedUser);
@@ -220,6 +267,12 @@ function MissionsPage() {
   const missionStats = {
     ...initialMissionStats,
     points: missionPoints,
+    streakDays,
+    weeklyCompleted,
+    weeklyPercent: Math.min(
+      Math.round((weeklyCompleted / initialMissionStats.weeklyTotal) * 100),
+      100
+    ),
   };
 
   const weekDays = ["S", "T", "Q", "Q", "S", "S", "D"];
@@ -237,6 +290,44 @@ function MissionsPage() {
     complete: tokenMission?.status === "concluida",
   };
 
+  const renderedDailyMissions = dailyMissions.map((mission) => {
+    const isComplete = completedDailyMissions.includes(mission.id);
+
+    return {
+      ...mission,
+      complete: isComplete,
+      progress: isComplete ? "1/1" : "0/1",
+      percent: isComplete ? 100 : 0,
+    };
+  });
+
+  async function handleCompleteDailyMission(mission) {
+    if (!userId || mission.complete) {
+      return;
+    }
+
+    try {
+      const response = await completeDailyMission(userId, {
+        mission_id: mission.id,
+        title: mission.title,
+        points: mission.points,
+        health_bonus: mission.healthBonus,
+        date: getLocalDateKey(),
+      });
+
+      setMissionPoints(normalizePoints(response?.points));
+      setCompletedDailyMissions(
+        response?.mundo?.missoes_concluidas_hoje || []
+      );
+      setStreakDays(response?.mundo?.streak_dias || 0);
+      setWeeklyCompleted(
+        response?.mundo?.missoes_concluidas_hoje?.length || 0
+      );
+    } catch (error) {
+      alert(error.message);
+    }
+  }
+
   useEffect(() => {
     document.title = "Care Plus | Missões";
   }, []);
@@ -251,6 +342,9 @@ function MissionsPage() {
         hasStartedCollection.current = false;
         setMissionPoints(0);
         setTokenMission(null);
+        setCompletedDailyMissions([]);
+        setStreakDays(0);
+        setWeeklyCompleted(0);
       }
 
       setAuthenticatedUser(nextAuthenticatedUser);
@@ -279,16 +373,26 @@ function MissionsPage() {
       try {
         const pointsResponse = await getUserPoints(userId);
         const missionResponse = await getUserMission(userId);
+        const mundoResponse = await getUserMundo(userId);
 
         if (!shouldIgnoreResult) {
+          const mundo = mundoResponse?.mundo || {};
+          const completedToday = mundo.missoes_concluidas_hoje || [];
+
           setMissionPoints(normalizePoints(pointsResponse?.points));
           setTokenMission(missionResponse?.mission);
+          setCompletedDailyMissions(completedToday);
+          setStreakDays(mundo.streak_dias || 0);
+          setWeeklyCompleted(completedToday.length);
         }
       } catch (error) {
         console.error("Erro ao carregar dados da missão:", error);
 
         if (!shouldIgnoreResult) {
           setMissionPoints(0);
+          setCompletedDailyMissions([]);
+          setStreakDays(0);
+          setWeeklyCompleted(0);
         }
       }
     }
@@ -477,7 +581,7 @@ function MissionsPage() {
               <div className="missions-section__header">
                 <div>
                   <h2 id="daily-missions-title">Missões do dia</h2>
-                  <span>Atualiza em 05h 12m</span>
+                  <span>Atualiza diariamente</span>
                 </div>
                 <a href="#">Ver todas</a>
               </div>
@@ -485,8 +589,12 @@ function MissionsPage() {
               <div className="missions-grid is-daily">
                 <MissionCard mission={tokenMissionCard} />
 
-                {dailyMissions.map((mission) => (
-                  <MissionCard key={mission.title} mission={mission} />
+                {renderedDailyMissions.map((mission) => (
+                  <MissionCard
+                    key={mission.id}
+                    mission={mission}
+                    onComplete={handleCompleteDailyMission}
+                  />
                 ))}
               </div>
             </section>
@@ -550,8 +658,7 @@ function MissionsPage() {
               </span>
               <strong>{missionStats.points}</strong>
               <p>
-                Complete sua primeira missão para começar a conquistar
-                recompensas.
+                Complete missões para ganhar pontos e evoluir seu Mundo Ideal.
               </p>
             </section>
 
@@ -566,7 +673,7 @@ function MissionsPage() {
               <strong className="missions-streak">
                 {missionStats.streakDays} dias
               </strong>
-              <p>Complete sua primeira missão para iniciar uma sequência.</p>
+              <p>Complete missões diariamente para manter sua sequência.</p>
               <div className="missions-week">
                 {weekDays.map((day, index) => {
                   const isComplete = index < missionStats.streakDays;

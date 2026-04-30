@@ -931,3 +931,22 @@
     border-radius: 8px 8px 0 0;
   }
 }
+.mission-card__button {
+  border: 0;
+  border-radius: 999px;
+  background: #0f766e;
+  color: #ffffff;
+  font-weight: 700;
+  padding: 0.65rem 1rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.mission-card__button:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.mission-card__button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}

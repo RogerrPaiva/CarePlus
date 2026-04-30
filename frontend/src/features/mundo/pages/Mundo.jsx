@@ -19,6 +19,7 @@ import {
 import { GiChest } from "react-icons/gi";
 import CarePlus from "../../../assets/branding/CarePlus.svg";
 import { readAuthenticatedUser } from "../../auth/authStorage";
+import { getUserMundo, updateUserMundo } from "../../../lib/api";
 import EscolhaMundo from "./EscolhaMundo";
 import QuizMundo from "./QuizMundo";
 import ResultadoMundo from "./ResultadoMundo";
@@ -77,81 +78,19 @@ function getYesterdayDateKey() {
   return getLocalDateKey(yesterday);
 }
 
-function getStreakStorageKey(userIdentifier) {
-  return `careplus-mundo-streak-${userIdentifier || "visitante"}`;
-}
-
-function getMundoProgressStorageKey(userIdentifier) {
-  return `careplus-mundo-progress-${userIdentifier || "visitante"}`;
-}
-
-function carregarStreakUsuario(userIdentifier) {
-  const storageKey = getStreakStorageKey(userIdentifier);
-  const dadosSalvos = localStorage.getItem(storageKey);
-
-  if (!dadosSalvos) {
-    return 0;
-  }
-
-  try {
-    const dados = JSON.parse(dadosSalvos);
-
-    return dados.dias || 0;
-  } catch {
-    return 0;
-  }
-}
-
-function registrarAtividadeStreak(userIdentifier) {
-  const storageKey = getStreakStorageKey(userIdentifier);
+function calcularNovoStreak(streakAtual, ultimaAtividade) {
   const hoje = getLocalDateKey();
   const ontem = getYesterdayDateKey();
 
-  const dadosSalvos = localStorage.getItem(storageKey);
-
-  if (!dadosSalvos) {
-    const novoStreak = {
-      dias: 1,
-      ultimaAtividade: hoje,
-    };
-
-    localStorage.setItem(storageKey, JSON.stringify(novoStreak));
-    return novoStreak.dias;
+  if (ultimaAtividade === hoje) {
+    return streakAtual || 1;
   }
 
-  try {
-    const streakAtual = JSON.parse(dadosSalvos);
-
-    if (streakAtual.ultimaAtividade === hoje) {
-      return streakAtual.dias || 1;
-    }
-
-    if (streakAtual.ultimaAtividade === ontem) {
-      const novoStreak = {
-        dias: (streakAtual.dias || 0) + 1,
-        ultimaAtividade: hoje,
-      };
-
-      localStorage.setItem(storageKey, JSON.stringify(novoStreak));
-      return novoStreak.dias;
-    }
-
-    const streakReiniciado = {
-      dias: 1,
-      ultimaAtividade: hoje,
-    };
-
-    localStorage.setItem(storageKey, JSON.stringify(streakReiniciado));
-    return streakReiniciado.dias;
-  } catch {
-    const streakReiniciado = {
-      dias: 1,
-      ultimaAtividade: hoje,
-    };
-
-    localStorage.setItem(storageKey, JSON.stringify(streakReiniciado));
-    return streakReiniciado.dias;
+  if (ultimaAtividade === ontem) {
+    return (streakAtual || 0) + 1;
   }
+
+  return 1;
 }
 
 function Mundo() {
@@ -160,13 +99,15 @@ function Mundo() {
   const [quizFinalizado, setQuizFinalizado] = useState(false);
   const [perguntaAtual, setPerguntaAtual] = useState(0);
   const [mundoEscolhido, setMundoEscolhido] = useState(null);
+  const [mundoSalvoNome, setMundoSalvoNome] = useState(null);
   const [abaResultado, setAbaResultado] = useState("mundo");
   const [streakDias, setStreakDias] = useState(0);
+  const [ultimaAtividadeMundo, setUltimaAtividadeMundo] = useState(null);
   const [bonusSaude, setBonusSaude] = useState(0);
-  const [missoesMundoConcluidasHoje, setMissoesMundoConcluidasHoje] = useState([]);
+  const [missoesMundoConcluidasHoje, setMissoesMundoConcluidasHoje] =
+    useState([]);
 
   const userId = resolveUserId(authenticatedUser);
-  const userIdentifier = userId || authenticatedUser?.email || "visitante";
   const firstName = resolveFirstName(authenticatedUser, userId);
   const displayName = resolveDisplayName(authenticatedUser, userId);
   const userInitial = resolveUserInitial(displayName);
@@ -383,73 +324,119 @@ function Mundo() {
     return porcentagens;
   };
 
-  const carregarProgressoMundo = () => {
-    const storageKey = getMundoProgressStorageKey(userIdentifier);
-    const dadosSalvos = localStorage.getItem(storageKey);
+  const porcentagemBase = calcularPorcentagemGeral();
 
-    if (!dadosSalvos) {
+  const carregarProgressoMundo = async () => {
+    if (!userId) {
       setBonusSaude(0);
+      setStreakDias(0);
+      setUltimaAtividadeMundo(null);
+      setMundoSalvoNome(null);
       setMissoesMundoConcluidasHoje([]);
       return;
     }
 
     try {
-      const dados = JSON.parse(dadosSalvos);
+      const response = await getUserMundo(userId);
+      const mundo = response?.mundo || {};
       const hoje = getLocalDateKey();
 
-      setBonusSaude(dados.bonusSaude || 0);
+      setBonusSaude(mundo.bonus_saude || 0);
+      setStreakDias(mundo.streak_dias || 0);
+      setUltimaAtividadeMundo(mundo.ultima_atividade || null);
+      setMundoSalvoNome(mundo.mundo_escolhido || null);
 
-      if (dados.data === hoje) {
-        setMissoesMundoConcluidasHoje(dados.missoesMundoConcluidasHoje || []);
+      if (mundo.data_missoes === hoje) {
+        setMissoesMundoConcluidasHoje(
+          mundo.missoes_concluidas_hoje || []
+        );
       } else {
         setMissoesMundoConcluidasHoje([]);
 
-        const dadosAtualizados = {
-          ...dados,
-          data: hoje,
-          missoesMundoConcluidasHoje: [],
-        };
-
-        localStorage.setItem(storageKey, JSON.stringify(dadosAtualizados));
+        await updateUserMundo(userId, {
+          data_missoes: hoje,
+          missoes_concluidas_hoje: [],
+        });
       }
-    } catch {
+    } catch (error) {
+      console.error("Erro ao carregar progresso do mundo:", error);
       setBonusSaude(0);
+      setStreakDias(0);
+      setUltimaAtividadeMundo(null);
       setMissoesMundoConcluidasHoje([]);
     }
   };
 
-  const salvarProgressoMundo = (novoBonus, novasMissoesConcluidasHoje) => {
-    const storageKey = getMundoProgressStorageKey(userIdentifier);
+  const salvarProgressoMundo = async (
+    novoBonus,
+    novasMissoesConcluidasHoje,
+    novoStreak,
+    novaUltimaAtividade
+  ) => {
+    if (!userId) {
+      return;
+    }
 
-    const dados = {
-      bonusSaude: novoBonus,
-      data: getLocalDateKey(),
-      missoesMundoConcluidasHoje: novasMissoesConcluidasHoje,
-    };
-
-    localStorage.setItem(storageKey, JSON.stringify(dados));
+    try {
+      await updateUserMundo(userId, {
+        bonus_saude: novoBonus,
+        data_missoes: getLocalDateKey(),
+        missoes_concluidas_hoje: novasMissoesConcluidasHoje,
+        streak_dias: novoStreak,
+        ultima_atividade: novaUltimaAtividade,
+        porcentagem_base: porcentagemBase,
+        quiz_finalizado: quizFinalizado,
+        mundo_escolhido: mundoEscolhido?.nome || mundoSalvoNome || null,
+      });
+    } catch (error) {
+      console.error("Erro ao salvar progresso do mundo:", error);
+    }
   };
 
-  const concluirMissaoMundo = (missao) => {
+  const concluirMissaoMundo = async (missao) => {
     const missaoId = missao.categoria;
 
     if (missoesMundoConcluidasHoje.includes(missaoId)) {
       return;
     }
 
+    const hoje = getLocalDateKey();
     const aumentoSaude = missao.aumentoSaude || 1;
     const novoBonus = Math.min(bonusSaude + aumentoSaude, MAX_BONUS_SAUDE);
     const novasMissoesConcluidasHoje = [
       ...missoesMundoConcluidasHoje,
       missaoId,
     ];
+    const novoStreak = calcularNovoStreak(streakDias, ultimaAtividadeMundo);
 
     setBonusSaude(novoBonus);
     setMissoesMundoConcluidasHoje(novasMissoesConcluidasHoje);
-    salvarProgressoMundo(novoBonus, novasMissoesConcluidasHoje);
+    setStreakDias(novoStreak);
+    setUltimaAtividadeMundo(hoje);
 
-    const streakAtualizado = registrarAtividadeStreak(userIdentifier);
-    setStreakDias(streakAtualizado);
+    await salvarProgressoMundo(
+      novoBonus,
+      novasMissoesConcluidasHoje,
+      novoStreak,
+      hoje
+    );
+  };
+
+  const selecionarMundo = async (mundo) => {
+    setMundoEscolhido(mundo);
+    setMundoSalvoNome(mundo?.nome || null);
+
+    if (!userId) {
+      return;
+    }
+
+    try {
+      await updateUserMundo(userId, {
+        mundo_escolhido: mundo?.nome || null,
+      });
+    } catch (error) {
+      console.error("Erro ao salvar mundo escolhido:", error);
+    }
   };
 
   const definirEstadoMundo = (porcentagem) => {
@@ -479,34 +466,65 @@ function Mundo() {
     };
   };
 
-  const finalizarQuiz = () => {
-    if (Object.keys(respostas).length === perguntas.length) {
-      setQuizFinalizado(true);
-      setAbaResultado("mundo");
-    } else {
+  const finalizarQuiz = async () => {
+    if (Object.keys(respostas).length !== perguntas.length) {
       alert("Responda todas as perguntas antes de finalizar.");
+      return;
+    }
+
+    const porcentagemCalculada = calcularPorcentagemGeral();
+
+    setQuizFinalizado(true);
+    setAbaResultado("mundo");
+
+    if (!userId) {
+      return;
+    }
+
+    try {
+      await updateUserMundo(userId, {
+        quiz_finalizado: true,
+        porcentagem_base: porcentagemCalculada,
+        mundo_escolhido: mundoEscolhido?.nome || mundoSalvoNome || null,
+      });
+    } catch (error) {
+      console.error("Erro ao salvar resultado do quiz:", error);
     }
   };
 
-  const refazerQuiz = () => {
+  const refazerQuiz = async () => {
     setRespostas({});
     setQuizFinalizado(false);
     setPerguntaAtual(0);
     setMundoEscolhido(null);
+    setMundoSalvoNome(null);
     setAbaResultado("mundo");
+
+    if (!userId) {
+      return;
+    }
+
+    try {
+      await updateUserMundo(userId, {
+        quiz_finalizado: false,
+        porcentagem_base: 0,
+        mundo_escolhido: null,
+      });
+    } catch (error) {
+      console.error("Erro ao reiniciar quiz do mundo:", error);
+    }
   };
 
   useEffect(() => {
     document.title = "Care Plus | Mundo Ideal";
-
-    setStreakDias(carregarStreakUsuario(userIdentifier));
     carregarProgressoMundo();
-  }, [userIdentifier]);
+  }, [userId]);
 
-  const porcentagemBase = calcularPorcentagemGeral();
   const porcentagemGeral = Math.min(porcentagemBase + bonusSaude, 100);
   const porcentagensCategorias = calcularPorcentagensPorCategoria();
   const estadoMundo = definirEstadoMundo(porcentagemGeral);
+  const nomeMundoExibido =
+    mundoEscolhido?.nome || mundoSalvoNome || "Não escolhido";
 
   return (
     <main className="mundo-page mundo-dashboard-page">
@@ -562,9 +580,7 @@ function Mundo() {
           <Medal size={34} aria-hidden="true" />
           <div>
             <span>Seu mundo</span>
-            <strong>
-              {mundoEscolhido ? mundoEscolhido.nome : "Não escolhido"}
-            </strong>
+            <strong>{nomeMundoExibido}</strong>
           </div>
           <ChevronRight size={18} aria-hidden="true" />
         </div>
@@ -693,7 +709,7 @@ function Mundo() {
         <div className="mundo-dashboard-grid">
           <section className="mundo-dashboard-main">
             {!mundoEscolhido && (
-              <EscolhaMundo setMundoEscolhido={setMundoEscolhido} />
+              <EscolhaMundo setMundoEscolhido={selecionarMundo} />
             )}
 
             {mundoEscolhido && !quizFinalizado && (
