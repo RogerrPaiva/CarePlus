@@ -3,7 +3,7 @@ import { Crown, Heart, Star } from "lucide-react";
 export const comparisonRows = [
   "Frequencia de acompanhamento",
   "Lembretes inteligentes",
-  "Conteudos personalizados",
+  "Conteudos para sua rotina",
   "Suporte ampliado",
   "Relatorios de progresso",
   "Beneficios exclusivos",
@@ -13,7 +13,7 @@ export const plans = [
   {
     key: "essencial",
     title: "Essencial",
-    description: "Acompanhamento basico, lembretes e visao da rotina.",
+    description: "Para organizar a rotina de cuidado com lembretes e acompanhamento mensal.",
     price: "R$29",
     cycle: "/mes",
     icon: Heart,
@@ -22,7 +22,7 @@ export const plans = [
   {
     key: "equilibrio",
     title: "Equilibrio",
-    description: "Metas personalizadas, acompanhamento mais frequente e conteudos de bem-estar.",
+    description: "Para evoluir com metas personalizadas, suporte semanal e conteudos de bem-estar.",
     price: "R$59",
     cycle: "/mes",
     icon: Star,
@@ -32,7 +32,7 @@ export const plans = [
   {
     key: "integral",
     title: "Integral",
-    description: "Experiencia completa, acompanhamento ampliado e beneficios extras.",
+    description: "Para quem quer acompanhamento completo, relatorios avancados e beneficios extras.",
     price: "R$89",
     cycle: "/mes",
     icon: Crown,

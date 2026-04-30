@@ -9,10 +9,10 @@ import { comparisonRows, getPlanByKey, getRecommendedPlan, plans } from "../plan
 import "../styles/PlansPage.css";
 
 const planSteps = [
-  { number: 1, title: "Permissoes e ajustes iniciais", status: "Concluido" },
+  { number: 1, title: "Acesso e ajustes iniciais", status: "Concluido" },
   { number: 2, title: "Preferencias de cuidado", status: "Concluido" },
-  { number: 3, title: "Confirmacao final", status: "Concluido" },
-  { number: 4, title: "Planos", status: "Escolha seu plano" },
+  { number: 3, title: "Revisao das respostas", status: "Concluido" },
+  { number: 4, title: "Plano de cuidado", status: "Defina sua experiencia" },
 ];
 
 function buildPlansFlowContext(navigationState, storedContext) {
@@ -125,8 +125,8 @@ function PlansPage() {
 
                 <div className="plans-hero-panel__body">
                   <div className="plans-hero-panel__copy">
-                    <h1 id="plans-title">Seu cuidado continua daqui.</h1>
-                    <p>Escolha o formato de acompanhamento que melhor combina com a sua rotina e seus objetivos.</p>
+                    <h1 id="plans-title">Seu cuidado comeca aqui.</h1>
+                    <p>Escolha o acompanhamento que combina com sua rotina, metas e momento de vida.</p>
                   </div>
 
                   <div className="plans-journey" aria-label="Etapas do fluxo">
@@ -152,7 +152,7 @@ function PlansPage() {
                 <header className="plans-topbar">
                   <span className="plans-step-pill">
                     <Sparkles size={14} aria-hidden="true" />
-                    <span>Ultima etapa</span>
+                    <span>Ultimo passo</span>
                   </span>
 
                   <button type="button" className="plans-back-button" onClick={handleBackToReview}>
@@ -164,8 +164,8 @@ function PlansPage() {
                 <div className="plans-content-panel__inner">
                   <section className="plans-main-section" aria-labelledby="plans-section-title">
                     <div className="plans-main-section__header">
-                      <h2 id="plans-section-title">Escolha seu plano</h2>
-                      <p>Selecione a opcao que mais combina com sua rotina. Voce pode trocar depois sem fidelidade.</p>
+                      <h2 id="plans-section-title">Escolha seu plano de cuidado</h2>
+                      <p>Selecione uma opcao para comecar agora. Voce pode trocar de plano depois, sem fidelidade.</p>
                     </div>
 
                     <div className="plans-matrix" role="table" aria-label="Comparativo dos planos do Care Plus">
@@ -247,17 +247,17 @@ function PlansPage() {
                       </span>
                       <div>
                         <strong>{selectedPlan.title} selecionado para sua jornada.</strong>
-                        <p>Sem fidelidade. Cancele quando quiser.</p>
+                        <p>Sem fidelidade, com liberdade para ajustar quando precisar.</p>
                       </div>
                     </div>
 
                     <div className="plans-footer-actions">
                       <button type="button" className="plans-secondary-button" onClick={handleSelectRecommendedPlan}>
-                        Continuar com plano recomendado
+                        Usar recomendacao do Care Plus
                       </button>
 
                       <button type="button" className="plans-primary-button" onClick={handleFinishPlans}>
-                        <span>{`Escolher ${selectedPlan.title}`}</span>
+                        <span>{`Confirmar ${selectedPlan.title}`}</span>
                         <ArrowRight size={18} aria-hidden="true" />
                       </button>
                     </div>
