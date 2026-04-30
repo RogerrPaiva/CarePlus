@@ -148,7 +148,6 @@
 }
 
 .two-columns {
-  display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px 20px;
 }
@@ -281,6 +280,10 @@
       visibility 0.25s ease;
   }
 
+  .nav-item.dropdown .custom-dropdown.two-columns {
+    display: grid;
+  }
+
   .nav-item.dropdown:hover .custom-dropdown {
     opacity: 1;
     visibility: visible;
@@ -348,6 +351,10 @@
 
   .two-columns {
     grid-template-columns: 1fr;
+  }
+
+  .custom-dropdown.two-columns.show {
+    display: grid;
   }
 
   .actions-area {
