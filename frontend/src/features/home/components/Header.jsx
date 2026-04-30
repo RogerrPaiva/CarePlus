@@ -64,7 +64,7 @@ function Header() {
 
       <div className="main-navbar border-bottom-green">
         <div className="container-fluid custom-container">
-          <nav className="navbar navbar-expand-lg bg-white p-0">
+          <nav className="navbar navbar-expand-xl bg-white p-0">
             <Link to="/" className="navbar-brand me-4">
               <img src={CarePlus} alt="CarePlus" className="logo-img" />
             </Link>
@@ -82,7 +82,7 @@ function Header() {
             </button>
 
             <div className="collapse navbar-collapse" id="mainNavbar">
-              <ul className="navbar-nav mx-auto mb-2 mb-lg-0 gap-lg-4">
+              <ul className="navbar-nav main-nav-list mx-auto mb-2 mb-xl-0">
                 <li className="nav-item dropdown">
                   <a
                     className="nav-link custom-nav-link d-flex align-items-center gap-2"
@@ -148,7 +148,7 @@ function Header() {
                     to="/missoes"
                     className="nav-link custom-nav-link d-flex align-items-center gap-2"
                   >
-                    Missões
+                    Missoes
                   </Link>
                 </li>
 
@@ -191,7 +191,7 @@ function Header() {
               </ul>
 
               <div className="d-flex align-items-center gap-3 actions-area">
-                <div className="divider-vertical d-none d-md-block"></div>
+                <div className="divider-vertical d-none d-xl-block"></div>
 
                 <button className="search-btn d-flex align-items-center gap-2">
                   <span className="d-none d-sm-inline">Buscar</span>
