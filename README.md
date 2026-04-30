@@ -132,3 +132,280 @@ Backend recebe evento
 Usuário ganha pontos
         ↓
 Mundo Ideal evolui
+```
+
+---
+
+## Manual de execução do projeto
+
+Este projeto possui duas partes principais:
+
+- **Frontend:** aplicação web desenvolvida com React e Vite.
+- **Backend:** API desenvolvida com Python e FastAPI.
+
+Para executar o CarePlus corretamente, é necessário iniciar primeiro o backend e depois o frontend.
+
+---
+
+## Pré-requisitos
+
+Antes de executar o projeto, é necessário ter instalado na máquina:
+
+- Git
+- Node.js
+- npm
+- Python 3
+- pip
+
+---
+
+## Como clonar o repositório
+
+Abra o terminal e execute:
+
+```bash
+git clone https://github.com/RogerrPaiva/CarePlus.git
+```
+
+Depois, acesse a pasta do projeto:
+
+```bash
+cd CarePlus
+```
+
+---
+
+## Executando o backend
+
+Acesse a pasta do backend:
+
+```bash
+cd backend
+```
+
+Crie um ambiente virtual Python:
+
+```bash
+python -m venv venv
+```
+
+Ative o ambiente virtual.
+
+No Windows:
+
+```bash
+venv\Scripts\activate
+```
+
+No Mac/Linux:
+
+```bash
+source venv/bin/activate
+```
+
+Instale as dependências do backend:
+
+```bash
+pip install -r requirements.txt
+```
+
+Caso ocorra erro na instalação pelo `requirements.txt`, instale manualmente:
+
+```bash
+pip install fastapi uvicorn
+```
+
+Execute a API:
+
+```bash
+python -m uvicorn main:app --reload
+```
+
+Se tudo estiver funcionando, a API ficará disponível em:
+
+```text
+http://localhost:8000
+```
+
+A documentação automática da API pode ser acessada em:
+
+```text
+http://localhost:8000/docs
+```
+
+Para testar se a API está ativa, acesse:
+
+```text
+http://localhost:8000
+```
+
+Resposta esperada:
+
+```json
+{
+  "status": "API CarePlus funcionando"
+}
+```
+
+---
+
+## Executando o frontend
+
+Com outro terminal aberto, volte para a raiz do projeto e acesse a pasta do frontend:
+
+```bash
+cd frontend
+```
+
+Instale as dependências do projeto:
+
+```bash
+npm install
+```
+
+Execute o frontend:
+
+```bash
+npm run dev
+```
+
+O Vite irá iniciar a aplicação. Normalmente ela ficará disponível em:
+
+```text
+http://localhost:5173
+```
+
+---
+
+## Configuração da conexão entre frontend e backend
+
+Por padrão, o frontend já está configurado para se comunicar com a API em:
+
+```text
+http://localhost:8000
+```
+
+Caso seja necessário alterar o endereço da API, crie um arquivo `.env` dentro da pasta `frontend` com o seguinte conteúdo:
+
+```env
+VITE_API_BASE_URL=http://localhost:8000
+```
+
+Depois disso, reinicie o servidor do frontend:
+
+```bash
+npm run dev
+```
+
+---
+
+## Ordem correta para rodar o projeto
+
+Para evitar erros de conexão, execute nesta ordem:
+
+1. Inicie o backend na pasta `backend`.
+2. Inicie o frontend na pasta `frontend`.
+3. Acesse o site pelo navegador em:
+
+```text
+http://localhost:5173
+```
+
+---
+
+## Fluxo básico de uso
+
+Com o projeto rodando, o usuário pode:
+
+1. Criar uma conta.
+2. Fazer login.
+3. Escolher um plano no onboarding.
+4. Selecionar o Mundo Ideal de Saúde.
+5. Responder ao quiz de hábitos.
+6. Acessar a página de missões.
+7. Concluir missões diárias.
+8. Ganhar pontos.
+9. Aumentar o streak.
+10. Evoluir o Mundo Ideal.
+
+---
+
+## Testando a missão IoT / Token CarePlus
+
+A missão do Token CarePlus pode ser simulada usando a própria aplicação ou ferramentas como Postman/Insomnia.
+
+### 1. Iniciar coleta do token
+
+Endpoint:
+
+```http
+POST http://localhost:8000/missions/start-collection
+```
+
+Exemplo de corpo da requisição:
+
+```json
+{
+  "user_id": "ID_DO_USUARIO",
+  "device_id": "careplus-token-001"
+}
+```
+
+Essa requisição simula o usuário iniciando a missão no site.
+
+---
+
+### 2. Confirmar coleta pelo totem/ESP32
+
+Endpoint:
+
+```http
+POST http://localhost:8000/iot/token-collected
+```
+
+Exemplo de corpo da requisição:
+
+```json
+{
+  "device_id": "careplus-token-001",
+  "event": "token_collected",
+  "points": 50
+}
+```
+
+Essa requisição simula o ESP32 ou totem confirmando que o usuário coletou o token.
+
+Após isso, o backend adiciona pontos ao usuário e atualiza o progresso do Mundo Ideal.
+
+---
+
+## Observações importantes
+
+Este projeto é um MVP acadêmico. Algumas informações são simuladas durante a execução da API, principalmente pontos, missões, progresso do mundo e eventos IoT.
+
+Por isso, ao reiniciar o backend, parte dos dados temporários pode ser perdida.
+
+O objetivo principal é demonstrar o funcionamento da jornada gamificada de cuidado contínuo, integrando:
+
+- Interface web
+- Cadastro e login
+- Onboarding
+- Missões diárias
+- Pontuação
+- Streak
+- Mundo Ideal de Saúde
+- Simulação IoT com Token CarePlus
+
+---
+
+## Tecnologias utilizadas
+
+- React
+- Vite
+- JavaScript
+- CSS
+- Bootstrap
+- Python
+- FastAPI
+- Uvicorn
+- IoT simulado com ESP32 / Token CarePlus
