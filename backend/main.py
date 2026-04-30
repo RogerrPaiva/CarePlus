@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -58,6 +60,25 @@ class IoTTokenCollectedRequest(BaseModel):
     points: int = 50
 
 
+class MundoProgressRequest(BaseModel):
+    mundo_escolhido: str | None = None
+    quiz_finalizado: bool | None = None
+    porcentagem_base: int | None = None
+    bonus_saude: int | None = None
+    streak_dias: int | None = None
+    ultima_atividade: str | None = None
+    data_missoes: str | None = None
+    missoes_concluidas_hoje: list[str] | None = None
+
+
+class CompleteDailyMissionRequest(BaseModel):
+    mission_id: str
+    title: str
+    points: int = 10
+    health_bonus: int = 1
+    date: str
+
+
 # =========================
 # DADOS TEMPORÁRIOS
 # Sem banco de dados por enquanto
@@ -68,6 +89,60 @@ usuarios_pontos = {}
 usuarios_missoes = {}
 
 coletas_pendentes = {}
+
+usuarios_mundos = {}
+
+usuarios_missoes_diarias = {}
+
+
+# =========================
+# FUNÇÕES AUXILIARES
+# =========================
+
+def get_today_key():
+    return datetime.now().strftime("%Y-%m-%d")
+
+
+def criar_mundo_padrao():
+    return {
+        "mundo_escolhido": None,
+        "quiz_finalizado": False,
+        "porcentagem_base": 0,
+        "bonus_saude": 0,
+        "streak_dias": 0,
+        "ultima_atividade": None,
+        "data_missoes": None,
+        "missoes_concluidas_hoje": [],
+    }
+
+
+def garantir_mundo_usuario(user_id: str):
+    if user_id not in usuarios_mundos:
+        usuarios_mundos[user_id] = criar_mundo_padrao()
+
+    return usuarios_mundos[user_id]
+
+
+def garantir_pontos_usuario(user_id: str):
+    if user_id not in usuarios_pontos:
+        usuarios_pontos[user_id] = 0
+
+    return usuarios_pontos[user_id]
+
+
+def registrar_atividade_no_mundo(user_id: str, data: str, health_bonus: int):
+    mundo = garantir_mundo_usuario(user_id)
+
+    mundo["data_missoes"] = data
+
+    bonus_atual = int(mundo.get("bonus_saude", 0))
+    mundo["bonus_saude"] = min(bonus_atual + max(health_bonus, 0), 20)
+
+    if mundo.get("ultima_atividade") != data:
+        mundo["streak_dias"] = int(mundo.get("streak_dias", 0)) + 1
+        mundo["ultima_atividade"] = data
+
+    return mundo
 
 
 # =========================
@@ -140,14 +215,14 @@ def complete_user_onboarding(user_id: str, payload: CompleteOnboardingRequest):
     except StorageError as error:
         raise HTTPException(status_code=400, detail=str(error))
 
+
 # =========================
 # PONTOS E MISSÕES CAREPLUS
 # =========================
 
 @app.get("/users/{user_id}/points")
 def get_user_points(user_id: str):
-    if user_id not in usuarios_pontos:
-        usuarios_pontos[user_id] = 0
+    garantir_pontos_usuario(user_id)
 
     return {
         "user_id": user_id,
@@ -190,8 +265,8 @@ def start_collection(payload: StartCollectionRequest):
         "device_id": device_id,
     }
 
-    if user_id not in usuarios_pontos:
-        usuarios_pontos[user_id] = 0
+    garantir_pontos_usuario(user_id)
+    garantir_mundo_usuario(user_id)
 
     return {
         "message": "Coleta iniciada. Aguardando confirmação do totem.",
@@ -214,8 +289,8 @@ def token_collected(payload: IoTTokenCollectedRequest):
 
     user_id = coletas_pendentes[device_id]["user_id"]
 
-    if user_id not in usuarios_pontos:
-        usuarios_pontos[user_id] = 0
+    garantir_pontos_usuario(user_id)
+    garantir_mundo_usuario(user_id)
 
     usuarios_pontos[user_id] += payload.points
 
@@ -227,6 +302,24 @@ def token_collected(payload: IoTTokenCollectedRequest):
         "device_id": device_id,
     }
 
+    hoje = get_today_key()
+    mundo = registrar_atividade_no_mundo(
+        user_id=user_id,
+        data=hoje,
+        health_bonus=3,
+    )
+
+    if mundo.get("data_missoes") != hoje:
+        mundo["data_missoes"] = hoje
+        mundo["missoes_concluidas_hoje"] = []
+
+    missoes_concluidas = mundo.get("missoes_concluidas_hoje", [])
+
+    if "token_careplus" not in missoes_concluidas:
+        missoes_concluidas.append("token_careplus")
+
+    mundo["missoes_concluidas_hoje"] = missoes_concluidas
+
     del coletas_pendentes[device_id]
 
     return {
@@ -236,6 +329,7 @@ def token_collected(payload: IoTTokenCollectedRequest):
         "points_added": payload.points,
         "total_points": usuarios_pontos[user_id],
         "mission": usuarios_missoes[user_id],
+        "mundo": mundo,
     }
 
 
@@ -258,6 +352,13 @@ def reset_user_mission(user_id: str):
         "device_id": None,
     }
 
+    usuarios_mundos[user_id] = criar_mundo_padrao()
+
+    usuarios_missoes_diarias[user_id] = {
+        "date": get_today_key(),
+        "completed": [],
+    }
+
     devices_to_remove = []
 
     for device_id, collection in coletas_pendentes.items():
@@ -272,5 +373,95 @@ def reset_user_mission(user_id: str):
         "user_id": user_id,
         "points": usuarios_pontos[user_id],
         "mission": usuarios_missoes[user_id],
+        "mundo": usuarios_mundos[user_id],
         "pending_collections": coletas_pendentes,
+    }
+
+
+# =========================
+# MUNDO IDEAL
+# =========================
+
+@app.get("/users/{user_id}/mundo")
+def get_user_mundo(user_id: str):
+    mundo = garantir_mundo_usuario(user_id)
+
+    return {
+        "user_id": user_id,
+        "mundo": mundo,
+    }
+
+
+@app.patch("/users/{user_id}/mundo")
+def update_user_mundo(user_id: str, payload: MundoProgressRequest):
+    mundo = garantir_mundo_usuario(user_id)
+
+    dados_recebidos = payload.model_dump(exclude_none=True)
+
+    mundo.update(dados_recebidos)
+
+    return {
+        "message": "Progresso do mundo atualizado com sucesso",
+        "user_id": user_id,
+        "mundo": mundo,
+    }
+
+
+# =========================
+# MISSÕES DIÁRIAS
+# =========================
+
+@app.post("/users/{user_id}/missions/daily")
+def complete_daily_mission(user_id: str, payload: CompleteDailyMissionRequest):
+    garantir_pontos_usuario(user_id)
+    mundo = garantir_mundo_usuario(user_id)
+
+    if user_id not in usuarios_missoes_diarias:
+        usuarios_missoes_diarias[user_id] = {
+            "date": payload.date,
+            "completed": [],
+        }
+
+    if usuarios_missoes_diarias[user_id]["date"] != payload.date:
+        usuarios_missoes_diarias[user_id] = {
+            "date": payload.date,
+            "completed": [],
+        }
+
+        mundo["data_missoes"] = payload.date
+        mundo["missoes_concluidas_hoje"] = []
+
+    missoes_concluidas = usuarios_missoes_diarias[user_id]["completed"]
+
+    if payload.mission_id in missoes_concluidas:
+        raise HTTPException(
+            status_code=409,
+            detail="Esta missão já foi concluída hoje."
+        )
+
+    missoes_concluidas.append(payload.mission_id)
+
+    usuarios_pontos[user_id] += max(payload.points, 0)
+
+    mundo["data_missoes"] = payload.date
+    mundo["missoes_concluidas_hoje"] = missoes_concluidas
+
+    mundo = registrar_atividade_no_mundo(
+        user_id=user_id,
+        data=payload.date,
+        health_bonus=payload.health_bonus,
+    )
+
+    return {
+        "message": "Missão diária concluída com sucesso",
+        "user_id": user_id,
+        "points": usuarios_pontos[user_id],
+        "mission_completed": {
+            "id": payload.mission_id,
+            "title": payload.title,
+            "points": payload.points,
+            "health_bonus": payload.health_bonus,
+        },
+        "mundo": mundo,
+        "daily_missions": usuarios_missoes_diarias[user_id],
     }
