@@ -104,6 +104,7 @@ function Mundo() {
   const [streakDias, setStreakDias] = useState(0);
   const [ultimaAtividadeMundo, setUltimaAtividadeMundo] = useState(null);
   const [bonusSaude, setBonusSaude] = useState(0);
+  const [porcentagemBaseSalva, setPorcentagemBaseSalva] = useState(0);
   const [missoesMundoConcluidasHoje, setMissoesMundoConcluidasHoje] =
     useState([]);
 
@@ -332,6 +333,8 @@ function Mundo() {
       setStreakDias(0);
       setUltimaAtividadeMundo(null);
       setMundoSalvoNome(null);
+      setPorcentagemBaseSalva(0);
+      setQuizFinalizado(false);
       setMissoesMundoConcluidasHoje([]);
       return;
     }
@@ -345,6 +348,20 @@ function Mundo() {
       setStreakDias(mundo.streak_dias || 0);
       setUltimaAtividadeMundo(mundo.ultima_atividade || null);
       setMundoSalvoNome(mundo.mundo_escolhido || null);
+      setPorcentagemBaseSalva(mundo.porcentagem_base || 0);
+      setQuizFinalizado(Boolean(mundo.quiz_finalizado));
+
+      if (mundo.mundo_escolhido) {
+        setMundoEscolhido((mundoAtual) => {
+          if (mundoAtual) {
+            return mundoAtual;
+          }
+
+          return {
+            nome: mundo.mundo_escolhido,
+          };
+        });
+      }
 
       if (mundo.data_missoes === hoje) {
         setMissoesMundoConcluidasHoje(
@@ -363,6 +380,9 @@ function Mundo() {
       setBonusSaude(0);
       setStreakDias(0);
       setUltimaAtividadeMundo(null);
+      setMundoSalvoNome(null);
+      setPorcentagemBaseSalva(0);
+      setQuizFinalizado(false);
       setMissoesMundoConcluidasHoje([]);
     }
   };
@@ -384,7 +404,10 @@ function Mundo() {
         missoes_concluidas_hoje: novasMissoesConcluidasHoje,
         streak_dias: novoStreak,
         ultima_atividade: novaUltimaAtividade,
-        porcentagem_base: porcentagemBase,
+        porcentagem_base:
+          Object.keys(respostas).length > 0
+            ? porcentagemBase
+            : porcentagemBaseSalva,
         quiz_finalizado: quizFinalizado,
         mundo_escolhido: mundoEscolhido?.nome || mundoSalvoNome || null,
       });
@@ -474,6 +497,7 @@ function Mundo() {
 
     const porcentagemCalculada = calcularPorcentagemGeral();
 
+    setPorcentagemBaseSalva(porcentagemCalculada);
     setQuizFinalizado(true);
     setAbaResultado("mundo");
 
@@ -498,6 +522,7 @@ function Mundo() {
     setPerguntaAtual(0);
     setMundoEscolhido(null);
     setMundoSalvoNome(null);
+    setPorcentagemBaseSalva(0);
     setAbaResultado("mundo");
 
     if (!userId) {
@@ -520,7 +545,10 @@ function Mundo() {
     carregarProgressoMundo();
   }, [userId]);
 
-  const porcentagemGeral = Math.min(porcentagemBase + bonusSaude, 100);
+  const porcentagemBaseAtual =
+    Object.keys(respostas).length > 0 ? porcentagemBase : porcentagemBaseSalva;
+
+  const porcentagemGeral = Math.min(porcentagemBaseAtual + bonusSaude, 100);
   const porcentagensCategorias = calcularPorcentagensPorCategoria();
   const estadoMundo = definirEstadoMundo(porcentagemGeral);
   const nomeMundoExibido =
